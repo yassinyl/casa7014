@@ -39,12 +39,12 @@ x-casaos:
   category: WEB
   author: yassinyl
   developer: LinkStackOrg
-  icon: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/linkstack/icon.png
+  icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/linkstack/icon.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/linkstack/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/linkstack/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/linkstack/screenshot-3.png
-  thumbnail: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/linkstack/thumbnail.png
+    - https://github.com/yassinyl/yl-casa-store/blob/main/Apps/linkstack/screenshot-1.png
+    - https://github.com/yassinyl/yl-casa-store/blob/main/Apps/linkstack/screenshot-2.png
+    - https://github.com/yassinyl/yl-casa-store/blob/main/Apps/linkstack/screenshot-3.png
+  thumbnail: 
   description:
     en_us: A simple to set up docker variant of LinkStack. LinkStack is a highly customizable link sharing platform with an intuitive, easy to use user interface.
     zh_cn: ''

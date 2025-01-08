@@ -16,7 +16,7 @@ services:
       - WLAN_CONFIGURATION=WLANConfiguration3
     image: philippehmeier/fritzbox-wlan-password-rotator:latest
     labels:
-      icon: https://icon.casaos.io/main/all/fb-pw-rotator.png
+      icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/icon.png
     ports:
       - target: 5000
         published: "5001"
@@ -31,7 +31,7 @@ services:
         - arm64
       author: yassinyl
       developer: philippehmeier
-      category: Network
+      category: yassinyl
       description: >
         A simple tool that automatically updates the guest WLAN password of a FRITZ!Box 
         after a defined interval and displays the updated credentials and QR code on 
@@ -44,15 +44,15 @@ services:
         - Ensure the device has proper network access and communication with the router for the password rotation process to work smoothly.
       icon_url: https://icon.casaos.io/main/all/fb-pw-rotator.png
       screenshot_urls:
-        - "URL_TO_SCREENSHOT_1"
-        - "URL_TO_SCREENSHOT_2"
+        - "https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png"
+        - "https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/screenshot-2.png"
     network_mode: bridge
     privileged: false
 x-casaos:
   author: yassinyl
   developer: philippehmeier
   hostname: 192.168.178.8
-  icon: https://icon.casaos.io/main/all/fb-pw-rotator.png
+  icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/icon.png
   port_map: "5001"
   scheme: http
   store_app_id: fritzbox-wlan-password-rotator

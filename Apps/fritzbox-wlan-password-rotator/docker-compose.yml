@@ -31,7 +31,7 @@ services:
         - arm64
       author: Cp0204
       developer: philippehmeier
-      category: Network Tools
+      category: Network
       description: >
         A simple tool that automatically updates the guest WLAN password of a FRITZ!Box 
         after a defined interval and displays the updated credentials and QR code on 

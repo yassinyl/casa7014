@@ -1,4 +1,4 @@
-name: fritzbox-wlan-password-rotator
+8name: fritzbox-wlan-password-rotator
 services:
   fb-pw-rotator:
     cpu_shares: 90
@@ -29,7 +29,7 @@ services:
         - amd64
         - arm
         - arm64
-      author: Cp0204
+      author: yassinyl
       developer: philippehmeier
       category: Network
       description: >

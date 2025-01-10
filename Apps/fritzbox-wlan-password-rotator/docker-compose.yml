@@ -1,11 +1,10 @@
-8name: fritzbox-wlan-password-rotator
+name: fritzbox-wlan-password-rotator
 services:
   fb-pw-rotator:
-    cpu_shares: 90
     deploy:
       resources:
-        limits:
-          memory: 8M
+        reservations:
+          memory: 64M
     environment:
       - CRONTAB_EXPRESSION=0 3 * * *
       - FB_ADDRESS=192.168.178.1
@@ -27,11 +26,13 @@ services:
     x-casaos:
       architectures:
         - amd64
+        - "386"
         - arm
         - arm64
+        - ppc64le
       author: yassinyl
-      developer: philippehmeier
-      category: yassinyl
+      developer: phipzzz
+      category: Network
       description: >
         A simple tool that automatically updates the guest WLAN password of a FRITZ!Box 
         after a defined interval and displays the updated credentials and QR code on 

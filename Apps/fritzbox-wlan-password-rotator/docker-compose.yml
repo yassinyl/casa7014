@@ -22,7 +22,7 @@ services:
       - WLAN_CONFIGURATION=WLANConfiguration3
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/app/data
+        source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data
         target: /app/data
     x-casaos:
       ports:
@@ -47,21 +47,17 @@ x-casaos:
   description:
     en_us: |
       A tool that automatically updates the guest WLAN password of a FRITZ!Box after a defined interval and displays the updated credentials and QR code on a central webpage in your home network.
-    ar_sa: |
-      أداة لتحديث كلمة مرور شبكة WLAN الخاصة بجهاز FRITZ!Box تلقائيًا بعد فترة محددة وعرض بيانات الاعتماد المحدثة ورمز الاستجابة السريعة على صفحة ويب مركزية في شبكتك المنزلية.
   icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/icon.png
   screenshot_link:
     - https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
     - https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/screenshot-2.png
   tagline:
     en_us: "Automatically rotate WLAN passwords for FRITZ!Box"
-    ar_sa: "تدوير تلقائي لكلمات مرور WLAN لجهاز FRITZ!Box"
   tips:
-    - Ensure your FRITZ!Box supports remote password changes.
-    - Adjust the CRON expression to fit your desired schedule.
+    tip_1: "Ensure your FRITZ!Box supports remote password changes."
+    tip_2: "Adjust the CRON expression to fit your desired schedule."
   title:
     en_us: FritzBox WLAN Password Rotator
-    ar_sa: مغير كلمات مرور شبكة FRITZ!Box
   store_app_id: fritzbox-wlan-password-rotator
   port_map: "5001"
   scheme: http

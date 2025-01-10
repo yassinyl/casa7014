@@ -14,7 +14,7 @@ services:
       - TZ=Africa/Tunis
       - WEB_PASSWORD=password
       - WLAN_CONFIGURATION=WLANConfiguration3
-    image: philippehmeier/fritzbox-wlan-password-rotator:latest
+    image: phipzzz/fritzbox-wlan-password-rotator:latest
     labels:
       icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/icon.png
     ports:
@@ -50,7 +50,7 @@ services:
     privileged: false
 x-casaos:
   author: yassinyl
-  developer: philippehmeier
+  developer: phipzzz
   hostname: 192.168.178.8
   icon: https://github.com/yassinyl/yl-casa-store/blob/main/Apps/fritzbox-wlan-password-rotator/icon.png
   port_map: "5001"

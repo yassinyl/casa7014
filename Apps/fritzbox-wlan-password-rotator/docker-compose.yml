@@ -20,6 +20,7 @@ services:
       - TZ=Africa/Tunis
       - WEB_PASSWORD=password
       - WLAN_CONFIGURATION=WLANConfiguration3
+      - WEB_PAGE_TITLE=WLAN QR-Code
       - WEB_PUBLIC_ENABLED=true
     volumes:
       - type: bind

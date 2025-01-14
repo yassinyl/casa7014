@@ -20,6 +20,7 @@ services:
       - TZ=Africa/Tunis
       - WEB_PASSWORD=password
       - WLAN_CONFIGURATION=WLANConfiguration3
+      - WEB_PUBLIC_ENABLED=true
     volumes:
       - type: bind
         source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data

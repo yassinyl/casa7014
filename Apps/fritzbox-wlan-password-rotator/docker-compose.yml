@@ -19,9 +19,9 @@ services:
       - FB_USER=
       - TZ=Africa/Tunis
       - WEB_PASSWORD=password
-      - WLAN_CONFIGURATION=WLANConfiguration3
-      - WEB_PAGE_TITLE=WLAN QR-Code
       - WEB_PUBLIC_ENABLED=true
+      - WEB_PAGE_TITLE=WLAN QR-Code
+      - WLAN_CONFIGURATION=WLANConfiguration3
     volumes:
       - type: bind
         source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data

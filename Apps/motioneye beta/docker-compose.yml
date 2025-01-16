@@ -47,7 +47,7 @@ x-casaos:
     - arm
     - arm64
   main: motioneye
-  author: MotionEye Project
+  author: yassinyl
   developer: MotionEye Project
   category: Utilities
   description:

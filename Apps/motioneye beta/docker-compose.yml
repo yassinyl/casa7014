@@ -49,7 +49,7 @@ x-casaos:
   main: motioneye
   author: MotionEye Project
   developer: MotionEye Project
-  category: Security
+  category: Utilities
   description:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.

@@ -1,0 +1,69 @@
+name: motioneye
+services:
+  motioneye:
+    image: motioneye-project/motioneye:edge
+    deploy:
+      resources:
+        reservations:
+          memory: 64M
+    network_mode: bridge
+    ports:
+      - target: 8765
+        published: "8765"
+        protocol: tcp
+      - target: 8081
+        published: "8081"
+        protocol: tcp
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tunis
+    volumes:
+      - type: bind
+        source: /DATA/AppData/motioneye/etc_motioneye
+        target: /etc/motioneye
+      - type: bind
+        source: /DATA/AppData/motioneye/var_lib_motioneye
+        target: /var/lib/motioneye
+    x-casaos:
+      ports:
+        - container: "8765"
+          description:
+            en_us: "Web interface port"
+        - container: "8081"
+          description:
+            en_us: "Streaming port"
+      volumes:
+        - container: /etc/motioneye
+          description:
+            en_us: "Configuration files directory"
+        - container: /var/lib/motioneye
+          description:
+            en_us: "Persistent data directory"
+
+x-casaos:
+  architectures:
+    - "386"
+    - amd64
+    - arm
+    - arm64
+  main: motioneye
+  author: MotionEye Project
+  developer: MotionEye Project
+  category: Security
+  description:
+    en_us: |
+      MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
+  icon: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
+  screenshot_link:
+    - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot1.png
+    - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot2.png
+  tagline:
+    en_us: "Video surveillance for your cameras"
+  tips:
+    tip_1: "Ensure your cameras are connected and accessible."
+    tip_2: "Use the web interface for configuration."
+  title:
+    en_us: MotionEye
+  store_app_id: motioneye
+  port_map: "8765"
+  scheme: http

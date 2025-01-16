@@ -1,4 +1,4 @@
-name: motioneye
+name: motioneye beta
 services:
   motioneye:
     image: motioneye-project/motioneye:edge
@@ -64,6 +64,6 @@ x-casaos:
     tip_2: "Use the web interface for configuration."
   title:
     en_us: MotionEye
-  store_app_id: motioneye
+  store_app_id: motioneye beta
   port_map: "8765"
   scheme: http

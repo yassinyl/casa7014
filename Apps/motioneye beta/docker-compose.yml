@@ -1,4 +1,4 @@
-name: motioneye beta
+name: motioneye-beta
 services:
   motioneye:
     image: motioneye-project/motioneye:edge
@@ -32,7 +32,7 @@ x-casaos:
     - amd64
     - arm
     - arm64
-  main: motioneye beta
+  main: motioneye-beta
   author: yassinyl
   developer: MotionEye Project
   category: Utilities
@@ -50,7 +50,7 @@ x-casaos:
     tip_2: "Use the web interface for configuration."
   title:
     en_us: MotionEye Beta
-  store_app_id: motioneye beta
+  store_app_id: motioneye-beta
   port_map: "8765"
   scheme: http
   envs:

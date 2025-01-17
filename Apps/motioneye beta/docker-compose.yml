@@ -49,7 +49,7 @@ x-casaos:
     tip_1: "Ensure your cameras are connected and accessible."
     tip_2: "Use the web interface for configuration."
   title:
-    en_us: MotionEye
+    en_us: MotionEye Beta
   store_app_id: motioneye beta
   port_map: "8765"
   scheme: http

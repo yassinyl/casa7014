@@ -4,52 +4,33 @@ services:
     environment:
       PGID: $PGID
       PUID: $PUID
-      TZ: $TZ
+      TZ: 'Africa/Tunis'  # تم تعديل التوقيت
+      CRONTAB_EXPRESSION: '0 3 * * *'
+      FB_ADDRESS: '192.168.178.1'
+      FB_PASSWORD: ''
+      FB_USER: ''
+      WEB_PASSWORD: 'password'
+      WEB_PUBLIC_ENABLED: 'true'
+      WEB_PAGE_TITLE: 'WLAN QR-Code'
+      WLAN_CONFIGURATION: 'WLANConfiguration3'
+      WEB_WELCOME_MESSAGE_CONTENT: 'welcome'
     image: phipzzz/fritzbox-wlan-password-rotator:latest
     deploy:
       resources:
         reservations:
-          memory: "64M"
+          memory: '64M'
     network_mode: bridge
     ports:
       - target: 5000
-        published: "5001"
+        published: '5001'
         protocol: tcp
     restart: unless-stopped
-    environment:
-      - CRONTAB_EXPRESSION=0 3 * * *
-      - FB_ADDRESS=192.168.178.1
-      - FB_PASSWORD=
-      - FB_USER=
-      - TZ=Africa/Tunis
-      - WEB_PASSWORD=password
-      - WEB_PUBLIC_ENABLED=true
-      - WEB_PAGE_TITLE=WLAN QR-Code
-      - WLAN_CONFIGURATION=WLANConfiguration3
-      - WEB_WELCOME_MESSAGE_CONTENT=welcome
     volumes:
       - type: bind
         source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data
         target: /app/data
-    x-casaos:
-      envs:
-        - container: TZ
-          description:
-            en_us: TimeZone
-            zh_cn: 时区
-      ports:
-        - container: "5000"
-          description:
-            en_us: Web interface for password rotation
-        - container: "5001"
-          description:
-            en_us: Web interface port
-          protocol: tcp
-      volumes:
-        - container: /app/data
-          description:
-            en_us: Data directory for storing temporary files
     container_name: fritzbox-wlan-password-rotator
+
 x-casaos:
   architectures:
     - "386"
@@ -81,3 +62,8 @@ x-casaos:
   store_app_id: fritzbox-wlan-password-rotator
   port_map: "5001"
   scheme: http
+  envs:
+    - container: TZ
+      description:
+        en_us: TimeZone
+        zh_cn: 时区

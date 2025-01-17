@@ -8,52 +8,42 @@ services:
           memory: "64M"
     network_mode: bridge
     ports:
-      - target: 8765
-        published: "8765"
-        protocol: tcp
-      - target: 8081
-        published: "8081"
-        protocol: tcp
+      - "8765:8765"
+      - "8081:8081"
     restart: unless-stopped
     environment:
       - TZ=Africa/Tunis
     volumes:
-      - type: bind
-        source: /DATA/AppData/motioneye/etc_motioneye
-        target: /etc/motioneye
-      - type: bind
-        source: /DATA/AppData/motioneye/var_lib_motioneye
-        target: /var/lib/motioneye
+      - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
+      - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
     container_name: motioneyebeta
 
 x-casaos:
   architectures:
-    - "386"
     - amd64
     - arm
     - arm64
-  main: motioneye-beta
   author: yassinyl
-  developer: MotionEye Project
   category: Utilities
   description:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
+  developer: MotionEye Project
   icon: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
   screenshot_link:
     - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot1.png
     - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot2.png
+  thumbnail: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
+  main: motioneye-beta
   tagline:
     en_us: "Video surveillance for your cameras"
-  tips:
-    tip_1: "Ensure your cameras are connected and accessible."
-    tip_2: "Use the web interface for configuration."
   title:
     en_us: MotionEye Beta
-  store_app_id: motioneye-beta
-  port_map: "8765"
   scheme: http
-  envs:
-    - container: TZ
-      description:
-        en_us: TimeZone
+  hostname: ""
+  port_map: "8765"
+  index: "/#!/surveillance"
+  tips:
+    before_install:
+      en_us: |
+        MotionEye requires a webcam or IP camera to be connected to function properly. After installation, you can configure and manage your cameras through the web interface at `http://<your_server_ip>:8765`.

@@ -24,7 +24,7 @@ services:
       - type: bind
         source: /DATA/AppData/motioneye/var_lib_motioneye
         target: /var/lib/motioneye
-    container_name: motioneye
+    container_name: motioneye beta
 
 x-casaos:
   architectures:
@@ -32,7 +32,7 @@ x-casaos:
     - amd64
     - arm
     - arm64
-  main: motioneye
+  main: motioneye beta
   author: yassinyl
   developer: MotionEye Project
   category: Utilities

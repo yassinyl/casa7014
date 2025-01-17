@@ -3,18 +3,9 @@
     "appid": "linkstack"
   },
   {
-    "appid": "adguard-home"
+    "appid": "motioneye beta"
   },
   {
-    "appid": "jellyfin"
-  },
-  {
-    "appid": "photoprism"
-  },
-  {
-    "appid": "bazarr"
-  },
-  {
-    "appid": "lidarr"
+    "appid": "fritzbox-wlan-password-rotator"
   }
 ]

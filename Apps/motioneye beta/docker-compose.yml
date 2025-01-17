@@ -5,7 +5,7 @@ services:
     deploy:
       resources:
         reservations:
-          memory: 64M
+          memory: "64M"
     network_mode: bridge
     ports:
       - target: 8765
@@ -16,7 +16,7 @@ services:
         protocol: tcp
     restart: unless-stopped
     environment:
-      - TZ=Asia/Tunis
+      - TZ=Africa/Tunis
     volumes:
       - type: bind
         source: /DATA/AppData/motioneye/etc_motioneye
@@ -24,21 +24,7 @@ services:
       - type: bind
         source: /DATA/AppData/motioneye/var_lib_motioneye
         target: /var/lib/motioneye
-    x-casaos:
-      ports:
-        - container: "8765"
-          description:
-            en_us: "Web interface port"
-        - container: "8081"
-          description:
-            en_us: "Streaming port"
-      volumes:
-        - container: /etc/motioneye
-          description:
-            en_us: "Configuration files directory"
-        - container: /var/lib/motioneye
-          description:
-            en_us: "Persistent data directory"
+    container_name: motioneye
 
 x-casaos:
   architectures:
@@ -67,3 +53,7 @@ x-casaos:
   store_app_id: motioneye beta
   port_map: "8765"
   scheme: http
+  envs:
+    - container: TZ
+      description:
+        en_us: TimeZone

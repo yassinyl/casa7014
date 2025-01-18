@@ -29,10 +29,13 @@ x-casaos:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
   developer: MotionEye Project
-  icon: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
+  icon: https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/icon.png
   screenshot_link:
-    - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot1.png
-    - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot2.png
+    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-1.png
+    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-2.png
+    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-3.png
+    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-4.png
+    
   thumbnail: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
   main: motioneye
   tagline:

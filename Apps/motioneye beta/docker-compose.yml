@@ -1,4 +1,4 @@
-name: motioneye-beta
+name: motioneye beta
 services:
   motioneye:
     image: ghcr.io/motioneye-project/motioneye:edge
@@ -16,7 +16,7 @@ services:
     volumes:
       - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
       - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
-    container_name: motioneyebeta
+    container_name: motioneye
 
 x-casaos:
   architectures:
@@ -34,7 +34,7 @@ x-casaos:
     - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot1.png
     - https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/screenshots/screenshot2.png
   thumbnail: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
-  main: motioneye-beta
+  main: motioneye
   tagline:
     en_us: "Video surveillance for your cameras"
   title:
@@ -42,7 +42,7 @@ x-casaos:
   scheme: http
   hostname: ""
   port_map: "8765"
-  index: "/#!/surveillance"
+  index: "/"
   tips:
     before_install:
       en_us: |

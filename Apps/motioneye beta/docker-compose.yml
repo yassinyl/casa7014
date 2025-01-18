@@ -36,7 +36,7 @@ x-casaos:
     - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-3.png
     - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-4.png
     
-  thumbnail: https://raw.githubusercontent.com/motioneye-project/motioneye/master/resources/motioneye-logo.png
+  thumbnail: https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/icon.png
   main: motioneye
   tagline:
     en_us: "Video surveillance for your cameras"

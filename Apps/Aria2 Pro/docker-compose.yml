@@ -75,7 +75,7 @@ x-casaos:
     - amd64
     - arm
     - arm64
-  author: Cp0204
+  author: yassinyl
   category: Downloader
   description:
     en_us: Aria2 is currently the most powerful and versatile download tool. It supports various downloading protocols such as BT, magnet, HTTP, and FTP, and is commonly used as a server for offline downloading. [DOC](https://p3terx.com/archives/docker-aria2-pro.html)

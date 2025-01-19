@@ -1,4 +1,4 @@
-name: aria2-pro
+name: aria2pro
 services:
   ariang:
     container_name: aria2-ariang

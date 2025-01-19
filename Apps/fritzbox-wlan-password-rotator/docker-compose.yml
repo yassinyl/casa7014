@@ -19,7 +19,7 @@ services:
       PW_CHARSET_DIGITS: 'True'
       PW_CHARSET_PUNCTUATION: 'False'
       WEB_CUSTOM_BACKGROUND: 'True'
-    image: phipzzz/fritzbox-wlan-password-rotator:latest
+    image: phipzzz/fritzbox-wlan-password-rotator:1.2.0
     deploy:
       resources:
         reservations:

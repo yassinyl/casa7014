@@ -4,7 +4,7 @@ services:
     hostname: linkstack
     image: linkstackorg/linkstack:latest
     environment:
-      TZ: 'Africa/Tunis'  # تم تعديل التوقيت
+      TZ: 'Africa/Tunis'
       SERVER_ADMIN: 'admin@example.com'
       HTTP_SERVER_NAME: 'example.com'
       HTTPS_SERVER_NAME: 'example.com'

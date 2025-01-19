@@ -35,7 +35,7 @@ services:
         source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data
         target: /app/data
       - type: bind
-        source: /DATA/AppData/FritzBox WLAN Password Rotator/background
+        source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data/background
         target: /app/static/src/img
     container_name: fritzbox-wlan-password-rotator
 

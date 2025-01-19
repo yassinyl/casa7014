@@ -1,4 +1,4 @@
-name: motioneye beta
+name: motioneyebeta
 services:
   motioneye:
     image: ghcr.io/motioneye-project/motioneye:edge

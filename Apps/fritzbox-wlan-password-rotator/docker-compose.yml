@@ -36,7 +36,7 @@ services:
         target: /app/data
       - type: bind
         source: /DATA/AppData/FritzBox WLAN Password Rotator/background
-        target: /app/static/src/img/background
+        target: /app/static/src/img
     container_name: fritzbox-wlan-password-rotator
 
 x-casaos:

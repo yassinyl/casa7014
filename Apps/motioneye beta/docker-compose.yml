@@ -24,7 +24,7 @@ x-casaos:
     - arm
     - arm64
   author: yassinyl
-  category: Utilities
+  category: Yassinyl
   description:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.

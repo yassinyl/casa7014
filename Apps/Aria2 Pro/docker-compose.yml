@@ -81,7 +81,7 @@ x-casaos:
     en_us: Aria2 is currently the most powerful and versatile download tool. It supports various downloading protocols such as BT, magnet, HTTP, and FTP, and is commonly used as a server for offline downloading. [DOC](https://p3terx.com/archives/docker-aria2-pro.html)
     zh_cn: Aria2 是目前最强大的全能型下载工具，它支持 BT、磁力、HTTP、FTP 等下载协议，常用做离线下载的服务端。[文档](https://p3terx.com/archives/docker-aria2-pro.html)
   developer: P3TERX
-  icon: https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/Aria2%20Pro/icon.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png
   screenshot_link:
     - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/Aria2%20Pro/screenshot-1.png
     - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/Aria2%20Pro/screenshot-2.png

@@ -29,14 +29,14 @@ x-casaos:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
   developer: MotionEye Project
-  icon: https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/icon.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/icon.png
   screenshot_link:
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-1.png
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-2.png
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-3.png
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/screenshot-4.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-4.png
     
-  thumbnail: https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/motioneye beta/icon.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/icon.png
   main: motioneye
   tagline:
     en_us: "Video surveillance for your cameras"

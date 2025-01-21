@@ -57,10 +57,10 @@ x-casaos:
       Un outil qui met automatiquement à jour le mot de passe du WLAN invité d'un FRITZ!Box après un intervalle défini et affiche les informations d'identification et le code QR mis à jour sur une page Web centrale dans votre réseau domestique.
     de_de: |
       Ein Tool, das das Gäste-WLAN-Passwort eines FRITZ!Box nach einem festgelegten Intervall automatisch aktualisiert und die aktualisierten Anmeldeinformationen und den QR-Code auf einer zentralen Webseite in Ihrem Heimnetzwerk anzeigt.
-  icon: https://raw.githubusercontent.com/yassinyl/yl-casa-store/refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   screenshot_link:
-    - https://raw.githubusercontent.com/yassinyl/yl-casa-store/refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
-    - https://raw.githubusercontent.com/yassinyl/yl-casa-store/refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-2.png
   tagline:
     en_us: "Automatically rotate WLAN passwords for FRITZ!Box"
     fr_fr: "Rotation automatique des mots de passe WLAN pour FRITZ!Box"

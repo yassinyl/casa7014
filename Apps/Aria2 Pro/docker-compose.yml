@@ -83,9 +83,9 @@ x-casaos:
   developer: P3TERX
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png
   screenshot_link:
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/Aria2%20Pro/screenshot-1.png
-    - https://raw.githubusercontent.com/yassinyl/casa7014/refs/heads/main/Apps/Aria2%20Pro/screenshot-2.png
-  thumbnail: https://cdn.jsdelivr.net/gh/Cp0204/CasaOS-AppStore-Play@main/Apps/aria2-pro/thumbnail.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/screenshot-2.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/thumbnail.png
   main: aria2-pro
   tagline:
     en_us: A better Aria2 Docker container

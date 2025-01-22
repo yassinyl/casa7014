@@ -1,8 +1,8 @@
-name: Aria-2
+name: Aria2
 services:
   aria2:
     image: johngong/aria2:latest
-    container_name: Aria_2
+    container_name: Aria2
     deploy:
       resources:
         reservations:

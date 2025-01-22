@@ -1,8 +1,8 @@
-name: aria2
+name: Aria-2
 services:
   aria2:
     image: johngong/aria2:latest
-    container_name: aria2
+    container_name: Aria_2
     deploy:
       resources:
         reservations:
@@ -40,7 +40,7 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-2.png
   thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/aria2/thumbnail.png
-  main: aria2
+  main: Aria2
   tagline:
     en_us: The lightweight multi-protocol & multi-source command-line download utility
   tips:

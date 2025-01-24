@@ -49,7 +49,7 @@ x-casaos:
   main: fb-pw-rotator
   author: yassinyl
   developer: phipzzz
-  category: Yassinyl
+  category: Casa7014
   description:
     en_us: |
       A tool that automatically updates the guest WLAN password of a FRITZ!Box after a defined interval and displays the updated credentials and QR code on a central webpage in your home network.

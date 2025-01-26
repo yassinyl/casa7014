@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: ghcr.io/motioneye-project/motioneye:edge
+    image: johnonchain/motioneye:0.43.1b2
     deploy:
       resources:
         reservations:

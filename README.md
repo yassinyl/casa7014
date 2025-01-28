@@ -2,7 +2,7 @@
 
 **Official URL for AppStore**  
    - [Download from yassinletaief.tn](https://yassinletaief.tn/casa7014/casa7014.zip)  
-   - [Download from store.yassin.us.to](https://store.yassin.us.to/casa7014.zip)  
+   - [Download from store.yassin.us.to](https://store.yassin.us.to/casa7014/casa7014.zip)  
 
 ---
 
@@ -18,7 +18,7 @@
      ```  
      **OR**  
      ```
-     https://store.yassin.us.to/casa7014.zip
+     https://store.yassin.us.to/casa7014/casa7014.zip
      ```  
    - Click **Add** to save the source.  
 

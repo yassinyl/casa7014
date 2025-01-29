@@ -1,9 +1,12 @@
 name: fritzbox-wlan-password-rotator
 services:
-  fb-pw-rotator:
+  app:
+    image: phipzzz/fritzbox-wlan-password-rotator:1.2.0
+    restart: unless-stopped
+    network_mode: bridge
     environment:
-      PGID: $PGID
       PUID: $PUID
+      PGID: $PGID
       TZ: 'Africa/Tunis'
       CRONTAB_EXPRESSION: '0 3 * * *'
       FB_ADDRESS: '192.168.178.1'
@@ -19,25 +22,17 @@ services:
       PW_CHARSET_DIGITS: 'True'
       PW_CHARSET_PUNCTUATION: 'False'
       WEB_CUSTOM_BACKGROUND: 'True'
-    image: phipzzz/fritzbox-wlan-password-rotator:1.2.0
-    deploy:
-      resources:
-        reservations:
-          memory: '64M'
-    network_mode: bridge
     ports:
       - target: 5000
-        published: '5001'
+        published: 5001
         protocol: tcp
-    restart: unless-stopped
     volumes:
       - type: bind
-        source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data
+        source: /DATA/AppData/fritzbox-wlan-password-rotator/config
         target: /app/data
       - type: bind
-        source: /DATA/AppData/FritzBox WLAN Password Rotator/app/data/background
+        source: /DATA/AppData/fritzbox-wlan-password-rotator/background
         target: /app/static/src/img
-    container_name: fritzbox-wlan-password-rotator
 
 x-casaos:
   architectures:
@@ -46,34 +41,20 @@ x-casaos:
     - arm
     - arm64
     - ppc64le
-  main: fb-pw-rotator
+  main: app
   author: yassinyl
   developer: phipzzz
   category: Casa7014
   description:
     en_us: |
       A tool that automatically updates the guest WLAN password of a FRITZ!Box after a defined interval and displays the updated credentials and QR code on a central webpage in your home network.
-    fr_fr: |
-      Un outil qui met automatiquement à jour le mot de passe du WLAN invité d'un FRITZ!Box après un intervalle défini et affiche les informations d'identification et le code QR mis à jour sur une page Web centrale dans votre réseau domestique.
-    de_de: |
-      Ein Tool, das das Gäste-WLAN-Passwort eines FRITZ!Box nach einem festgelegten Intervall automatisch aktualisiert und die aktualisierten Anmeldeinformationen und den QR-Code auf einer zentralen Webseite in Ihrem Heimnetzwerk anzeigt.
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-2.png
   tagline:
     en_us: "Automatically rotate WLAN passwords for FRITZ!Box"
-    fr_fr: "Rotation automatique des mots de passe WLAN pour FRITZ!Box"
-    de_de: "Automatische Rotation der WLAN-Passwörter für FRITZ!Box"
-  tips:
-    tip_1: "Ensure your FRITZ!Box supports remote password changes."
-    tip_2: "Adjust the CRON expression to fit your desired schedule."
   title:
     en_us: FritzBox WLAN Password Rotator
   store_app_id: fritzbox-wlan-password-rotator
   port_map: "5001"
-  scheme: http
-  envs:
-    - container: TZ
-      description:
-        en_us: TimeZone

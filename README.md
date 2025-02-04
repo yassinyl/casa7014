@@ -13,10 +13,7 @@
      ```
      https://yassinletaief.tn/casa7014/casa7014.zip
      ```  
-     **OR**  
-     ```
-     https://store.yassin.us.to/casa7014/casa7014.zip
-     ```  
+     
    - Click **Add** to save the source.  
 
 2. **Refresh the App Store:**  

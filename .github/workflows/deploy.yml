@@ -19,4 +19,4 @@ jobs:
       - name: Upload ZIP via FTP
         run: |
           sudo apt-get install -y lftp
-          lftp -e "set ftp:ssl-allow no; put casa7014.zip -o /public_html/casa7014/casa7014.zip; bye" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}
+          lftp -e "set ftp:ssl-allow no; put casa7014.zip -o casa7014.zip; bye" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}

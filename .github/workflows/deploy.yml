@@ -17,10 +17,6 @@ jobs:
         run: zip -r casa7014.zip . -x ".git/*"
 
       - name: Upload ZIP via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "./casa7014.zip"
-          server-dir: "/public_html/casa7014/"
+        run: |
+          sudo apt-get install -y lftp
+          lftp -e "set ftp:ssl-allow no; put casa7014.zip -o /public_html/casa7014/casa7014.zip; bye" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}

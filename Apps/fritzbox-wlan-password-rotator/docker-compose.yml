@@ -1,7 +1,7 @@
 name: fritzbox-wlan-password-rotator
 services:
   app:
-    image: phipzzz/fritzbox-wlan-password-rotator:1.2.0
+    image: phipzzz/fritzbox-wlan-password-rotator:1.3.0
     restart: unless-stopped
     network_mode: bridge
     environment:

@@ -19,7 +19,7 @@ services:
       - ARIA2_RPC_LISTEN_PORT=6800
       - ARIA2_LISTEN_PORT=6881
       - ARIA2_TRACKERS_UPDATE_AUTO=true
-      - ARIA2_TRACKERS_LIST_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt⁠
+      - ARIA2_TRACKERS_LIST_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
       - UID=1000
       - GID=1000
       - UMASK=022

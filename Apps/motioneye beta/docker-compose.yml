@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: johnonchain/motioneye:0.43.1b2
+    image: kuntho/motioneye:0.43.1b3
     deploy:
       resources:
         reservations:

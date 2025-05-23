@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: kuntho/motioneye:0.43.1b3
+    image: kuntho/motioneye:0.43.1b3_armv7
     deploy:
       resources:
         reservations:

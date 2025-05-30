@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: ghcr.io/motioneye-project/motioneye:edge
+    image: johnonchain/motioneye:0.43.1b2
     deploy:
       resources:
         reservations:
@@ -24,7 +24,7 @@ x-casaos:
     - arm
     - arm64
   author: yassinyl
-  category: Yassinyl
+  category: Casa7014
   description:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
@@ -42,6 +42,7 @@ x-casaos:
     en_us: "Video surveillance for your cameras"
   title:
     en_us: MotionEye Beta
+  store_app_id: MotionEye Beta
   scheme: http
   hostname: ""
   port_map: "8765"

@@ -1,9 +1,12 @@
 [
   {
+    "appid": "yassinyl-portainer-business-edition"
+  },
+  {
     "appid": "linkstack"
   },
   {
-    "appid": "motioneye beta"
+    "appid": "Motioneye Beta"
   },
   {
     "appid": "fritzbox-wlan-password-rotator"

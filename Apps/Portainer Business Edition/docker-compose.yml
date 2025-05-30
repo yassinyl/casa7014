@@ -48,7 +48,7 @@ x-casaos:
     - arm
     - arm64
   author: yassinyl
-  category: Yassinyl
+  category: Casa7014
   description:
     en_us: Portainer is a lightweight management UI which allows you to easily manage your Docker environments. It is designed to be easy to use and offers full control over your Docker hosts and containers.
     zh_cn: Portainer 是一个轻量级的管理界面，可让您轻松管理 Docker 环境。它被设计为易于使用，并提供对 Docker 主机和容器的完全控制。
@@ -70,6 +70,7 @@ x-casaos:
   main: portainer
   title:
     en_us: Portainer ( Business Edition )
+  store_app_id: yassinyl-portainer-business-edition
   index: /
   port_map: "9000"
   scheme: http

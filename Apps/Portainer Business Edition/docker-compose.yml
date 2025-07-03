@@ -1,7 +1,7 @@
 name: yassinyl-portainer-business-edition
 services:
   portainer:
-    image: portainer/portainer-ee:2.31.2
+    image: portainer/portainer-ee:2.31.3
     deploy:
       resources:
         reservations:

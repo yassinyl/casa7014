@@ -2,43 +2,35 @@ name: Update README App List
 
 on:
   push:
-      paths:
-            - "Apps/**/docker-compose.yml"
+    paths:
+      - "Apps/**/docker-compose.yml"
 
-            jobs:
-              update-readme:
-                  runs-on: ubuntu-latest
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
 
-                      steps:
-                            - name: Checkout repository
-                                    uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-                                          - name: Install yq
-                                                  run: sudo snap install yq
+      - name: Generate app list and update README
+        run: |
+          list="| Icon | Application | Description |\n|------|-------------|-------------|"
 
-                                                        - name: Generate app list and update README
-                                                                run: |
-                                                                          app_lines="| Icon | Application | Description |\n|------|-------------|-------------|"
+          for file in Apps/*/docker-compose.yml; do
+            icon=$(grep 'icon:' "$file" | sed 's/.*icon: //')
+            name=$(grep 'title:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
+            desc=$(grep 'description:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
+            [ -n "$icon" ] && [ -n "$name" ] && list+="\n| <img src=\"$icon\" width=\"50\" height=\"auto\"> | **$name** | $desc |"
+          done
 
-                                                                                    for compose in Apps/**/docker-compose.yml; do
-                                                                                                app_dir=$(dirname "$compose")
-                                                                                                            icon=$(yq '.x-casaos.icon' "$compose")
-                                                                                                                        name=$(yq '.x-casaos.title.en_us' "$compose")
-                                                                                                                                    desc=$(yq '.x-casaos.description.en_us' "$compose")
-                                                                                                                                                icon_url=${icon// /%20}
-                                                                                                                                                            app_lines+="\n| <img src=\"$icon_url\" width=\"50\" height=\"auto\"> | **$name** | $desc |"
-                                                                                                                                                                      done
+          awk '/<!-- apps:start -->/{print; print list; f=1; next} /<!-- apps:end -->/{f=0} !f' list="$list" README.md > README.tmp
+          mv README.tmp README.md
 
-                                                                                                                                                                                awk '/<!-- apps:start -->/{print; exit}' README.md > README.tmp
-                                                                                                                                                                                          echo -e "$app_lines" >> README.tmp
-                                                                                                                                                                                                    awk '/<!-- apps:end -->/{found=1} found' README.md >> README.tmp
-
-                                                                                                                                                                                                              mv README.tmp README.md
-
-                                                                                                                                                                                                                    - name: Commit and push if changed
-                                                                                                                                                                                                                            run: |
-                                                                                                                                                                                                                                      git config user.name "github-actions"
-                                                                                                                                                                                                                                                git config user.email "github-actions@github.com"
-                                                                                                                                                                                                                                                          git add README.md
-                                                                                                                                                                                                                                                                    git diff --quiet && git diff --staged --quiet || git commit -m "📝 auto: update app list in README"
-                                                                                                                                                                                                                                                                              git push
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "📝 auto: update app list in README"
+          git push

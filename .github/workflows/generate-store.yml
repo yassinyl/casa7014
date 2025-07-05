@@ -1,0 +1,55 @@
+name: Generate store.json from docker-compose
+
+on:
+  push:
+    paths:
+      - "Apps/**/docker-compose.yml"
+
+jobs:
+  generate-store:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install yq
+        run: sudo snap install yq
+
+      - name: Convert docker-compose to store.json
+        run: |
+          find Apps -name "docker-compose.yml" | while read compose; do
+            app_dir=$(dirname "$compose")
+            app_name=$(basename "$app_dir")
+
+            image=$(yq '.services[].image' "$compose")
+            description=$(yq '.x-casaos.description.en_us' "$compose")
+            tagline=$(yq '.x-casaos.tagline.en_us' "$compose")
+            developer=$(yq '.x-casaos.developer' "$compose")
+            author=$(yq '.x-casaos.author' "$compose")
+            category=$(yq '.x-casaos.category' "$compose")
+            icon=$(yq '.x-casaos.icon' "$compose")
+            main=$(yq '.x-casaos.main' "$compose")
+
+            mkdir -p "$app_dir/output"
+
+            cat > "$app_dir/output/store.json" <<EOF
+{
+  "name": "$app_name",
+  "main": "$main",
+  "image": "$image",
+  "description": "$description",
+  "tagline": "$tagline",
+  "developer": "$developer",
+  "author": "$author",
+  "category": "$category",
+  "icon": "$icon"
+}
+EOF
+          done
+
+      - name: Upload all store.json files
+        uses: actions/upload-artifact@v4
+        with:
+          name: store-json-artifacts
+          path: "Apps/**/output/store.json"

@@ -20,8 +20,8 @@ jobs:
 
           for file in Apps/*/docker-compose.yml; do
             icon=$(grep 'icon:' "$file" | sed 's/.*icon: //')
-            name=$(grep 'title:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
-            desc=$(grep 'description:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
+            name=$(grep -A1 'title:' "$file" | grep 'en_us' | sed 's/.*en_us: //')
+            desc=$(grep -A1 'description:' "$file" | grep 'en_us' | sed 's/.*en_us: //')
             if [ -n "$icon" ] && [ -n "$name" ]; then
               list+="\n| <img src=\"$icon\" width=\"50\" height=\"auto\"> | **$name** | $desc |"
             fi

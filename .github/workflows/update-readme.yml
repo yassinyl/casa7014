@@ -15,17 +15,23 @@ jobs:
 
       - name: Generate app list and update README
         run: |
-          list="| Icon | Application | Description |\n|------|-------------|-------------|"
+          list="| Icon | Application | Description |"
+          list+="\n|----------------------------------|------------------------------|-------------------------------------------------------------------------------------------------|"
 
           for file in Apps/*/docker-compose.yml; do
             icon=$(grep 'icon:' "$file" | sed 's/.*icon: //')
             name=$(grep 'title:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
             desc=$(grep 'description:' -A1 "$file" | grep 'en_us' | sed 's/.*en_us: //')
-            [ -n "$icon" ] && [ -n "$name" ] && list+="\n| <img src=\"$icon\" width=\"50\" height=\"auto\"> | **$name** | $desc |"
+            if [ -n "$icon" ] && [ -n "$name" ]; then
+              list+="\n| <img src=\"$icon\" width=\"50\" height=\"auto\"> | **$name** | $desc |"
+            fi
           done
 
-          awk '/<!-- apps:start -->/{print; print list; f=1; next} /<!-- apps:end -->/{f=0} !f' list="$list" README.md > README.tmp
-          mv README.tmp README.md
+          awk -v list="$list" '
+            /<!-- apps:start -->/ { print; print list; in_block=1; next }
+            /<!-- apps:end -->/ { in_block=0 }
+            !in_block
+          ' README.md > README.tmp && mv README.tmp README.md
 
       - name: Commit and push if changed
         run: |

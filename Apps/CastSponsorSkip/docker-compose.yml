@@ -1,0 +1,55 @@
+name: yassinyl-castsponsorskip
+services:
+  castsponsorskip:
+    image: ghcr.io/gabe565/castsponsorskip:latest
+    container_name: castsponsorskip
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=${TZ}
+      - CSS_DISCOVER_INTERVAL=5m
+      - CSS_PAUSED_INTERVAL=1m
+      - CSS_PLAYING_INTERVAL=500ms
+      - CSS_CATEGORIES=sponsor
+      - CSS_YOUTUBE_API_KEY=${CSS_YOUTUBE_API_KEY}
+      - CSS_MUTE_ADS=true
+      - CSS_DEVICES=${CSS_DEVICES}
+      - CSS_SKIP_SPONSORS=true
+    volumes:
+      - /DATA/AppData/castsponsorskip/config:/config
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  author: yassinyl
+  category: Casa7014
+  description:
+    en_us: Skips sponsored segments in Cast Web Player using SponsorBlock.
+  developer: gabe565
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/icon.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/screenshot-2.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/thumbnail.png
+  main: castsponsorskip
+  tagline:
+    en_us: Skip podcast sponsors automatically.
+  title:
+    en_us: CastSponsorSkip
+  tips:
+    before_install:
+      en_us: |
+        This service will automatically skip sponsored segments when casting to supported devices, using SponsorBlock's database.
+
+        | Environment             | Default   | Description                               |
+        |------------------------|-----------|-------------------------------------------|
+        | CSS_YOUTUBE_API_KEY    | (required)| YouTube API key for video fallback lookup |
+        | CSS_DISCOVER_INTERVAL  | 5m        | Device discovery polling interval         |
+        | CSS_PAUSED_INTERVAL    | 1m        | Polling while media is paused             |
+        | CSS_PLAYING_INTERVAL   | 500ms     | Polling while media is playing            |
+        | CSS_CATEGORIES         | sponsor   | Categories to skip                        |
+        | CSS_MUTE_ADS           | true      | Mute ads instead of skipping              |
+        | CSS_DEVICES            |           | Optional manual IPs of devices            |
+        | CSS_SKIP_SPONSORS      | true      | Toggle sponsor skipping                   |

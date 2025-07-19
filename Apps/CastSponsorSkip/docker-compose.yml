@@ -8,13 +8,20 @@ services:
     environment:
       - TZ=${TZ}
       - CSS_DISCOVER_INTERVAL=5m
+      - CSS_DISCOVER_TIMEOUT=30s
       - CSS_PAUSED_INTERVAL=1m
       - CSS_PLAYING_INTERVAL=500ms
-      - CSS_CATEGORIES=sponsor
-      - CSS_YOUTUBE_API_KEY=${CSS_YOUTUBE_API_KEY}
+      - CSS_CATEGORIES=sponsor,selfpromo,exclusive_access,interaction,poi_highlight,intro,outro,preview,filler,chapter,music_offtopic
+      - CSS_ACTION_TYPES=skip,mute,full,poi,chapter
       - CSS_MUTE_ADS=true
-      - CSS_DEVICES=${CSS_DEVICES}
+      - CSS_SKIP_DELAY=0s
       - CSS_SKIP_SPONSORS=true
+      - CSS_DEVICES=${CSS_DEVICES}
+      - CSS_LANGUAGE_PREFERENCE=all
+      - CSS_LOG_LEVEL=info
+      - CSS_YOUTUBE_API_KEY=${CSS_YOUTUBE_API_KEY}
+      - CSS_ENABLE_METRICS=true
+      - CSS_METRICS_PORT=9790
     volumes:
       - /DATA/AppData/castsponsorskip/config:/config
 
@@ -43,13 +50,20 @@ x-casaos:
       en_us: |
         This service will automatically skip sponsored segments when casting to supported devices, using SponsorBlock's database.
 
-        | Environment             | Default   | Description                               |
-        |------------------------|-----------|-------------------------------------------|
-        | CSS_YOUTUBE_API_KEY    | (required)| YouTube API key for video fallback lookup |
-        | CSS_DISCOVER_INTERVAL  | 5m        | Device discovery polling interval         |
-        | CSS_PAUSED_INTERVAL    | 1m        | Polling while media is paused             |
-        | CSS_PLAYING_INTERVAL   | 500ms     | Polling while media is playing            |
-        | CSS_CATEGORIES         | sponsor   | Categories to skip                        |
-        | CSS_MUTE_ADS           | true      | Mute ads instead of skipping              |
-        | CSS_DEVICES            |           | Optional manual IPs of devices            |
-        | CSS_SKIP_SPONSORS      | true      | Toggle sponsor skipping                   |
+        | Environment               | Default   | Description                                 |
+        |--------------------------|-----------|---------------------------------------------|
+        | CSS_YOUTUBE_API_KEY      | (required)| YouTube API key for fallback video lookup   |
+        | CSS_DISCOVER_INTERVAL    | 5m        | Device discovery polling interval           |
+        | CSS_DISCOVER_TIMEOUT     | 30s       | Max discovery time per cycle                |
+        | CSS_PAUSED_INTERVAL      | 1m        | Poll interval while media is paused         |
+        | CSS_PLAYING_INTERVAL     | 500ms     | Poll interval while media is playing        |
+        | CSS_CATEGORIES           | sponsor   | Categories to skip                          |
+        | CSS_ACTION_TYPES         | skip      | What action to take on each category        |
+        | CSS_SKIP_DELAY           | 0s        | Delay before skipping                       |
+        | CSS_SKIP_SPONSORS        | true      | Toggle sponsor skipping                     |
+        | CSS_DEVICES              |           | Manual list of target IPs (optional)        |
+        | CSS_MUTE_ADS             | true      | Mute instead of skipping                    |
+        | CSS_LANGUAGE_PREFERENCE  | all       | Target videos of all languages              |
+        | CSS_LOG_LEVEL            | info      | Log verbosity (debug/info/warn/error)       |
+        | CSS_ENABLE_METRICS       | true      | Enable Prometheus metrics endpoint          |
+        | CSS_METRICS_PORT         | 9790      | Metrics HTTP port                           |

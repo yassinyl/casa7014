@@ -2,21 +2,23 @@ name: motioneyebeta
 services:
   motioneye:
     image: dontobi/motioneye.rpi:v1.4
+    container_name: motioneye
+    network_mode: bridge
+    restart: unless-stopped
     deploy:
       resources:
         reservations:
           memory: "64M"
-    network_mode: bridge
     ports:
       - "8765:8765"
       - "8081:8081"
-    restart: unless-stopped
     environment:
       - TZ=Africa/Tunis
+      - UID=1000
+      - GID=1000
     volumes:
       - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
       - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
-    container_name: motioneye
 
 x-casaos:
   architectures:
@@ -24,19 +26,18 @@ x-casaos:
     - arm
     - arm64
   author: yassinyl
+  developer: dontobi
   category: Casa7014
   description:
     en_us: |
       MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.
-  developer: dontobi
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/icon.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-1.png
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-2.png
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-3.png
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/screenshot-4.png
-    
-  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye beta/icon.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-4.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
   main: motioneye
   tagline:
     en_us: "Video surveillance for your cameras"
@@ -50,4 +51,6 @@ x-casaos:
   tips:
     before_install:
       en_us: |
-        MotionEye requires a webcam or IP camera to be connected to function properly. After installation, you can configure and manage your cameras through the web interface at `http://<your_server_ip>:8765`.
+        MotionEye requires a webcam or IP camera to be connected to function properly. 
+        After installation, access the web interface at: 
+        http://<your_server_ip>:8765

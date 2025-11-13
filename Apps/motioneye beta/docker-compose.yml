@@ -19,6 +19,10 @@ services:
     volumes:
       - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
       - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
+    devices:
+      - /dev/video0:/dev/video0
+      - /dev/video1:/dev/video1
+      - /dev/media4:/dev/media4
 
 x-casaos:
   architectures:
@@ -26,7 +30,7 @@ x-casaos:
     - arm
     - arm64
   author: yassinyl
-  developer: dontobi
+  developer: ccrisan
   category: Casa7014
   description:
     en_us: |

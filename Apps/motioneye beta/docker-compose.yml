@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: dontobi/motioneye.rpi:v1.4
+    image: ghcr.io/motioneye-project/motioneye:edge
     container_name: motioneye
     network_mode: bridge
     restart: unless-stopped

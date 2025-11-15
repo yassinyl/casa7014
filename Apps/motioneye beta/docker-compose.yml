@@ -11,7 +11,7 @@ services:
           memory: "64M"
     ports:
       - "8765:8765"
-      - "8081:8081"
+      - "9081:9081"
     environment:
       - TZ=Africa/Tunis
       - UID=1000

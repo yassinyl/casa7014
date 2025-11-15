@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: ghcr.io/motioneye-project/motioneye:edge
+    image: kuntho/motioneye:latest
     container_name: motioneye
     network_mode: bridge
     restart: unless-stopped
@@ -22,7 +22,6 @@ services:
     devices:
       - /dev/video0:/dev/video0
       - /dev/video1:/dev/video1
-      - /dev/media4:/dev/media4
 
 x-casaos:
   architectures:

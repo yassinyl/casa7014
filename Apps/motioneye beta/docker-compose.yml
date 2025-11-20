@@ -1,7 +1,7 @@
 name: motioneyebeta
 services:
   motioneye:
-    image: kuntho/motioneye:latest
+    image: ghcr.io/motioneye-project/motioneye:edge
     container_name: motioneye
     network_mode: bridge
     restart: unless-stopped
@@ -14,8 +14,8 @@ services:
       - "9081:9081"
     environment:
       - TZ=Africa/Tunis
-      - UID=1000
-      - GID=1000
+      - PUID=1000
+      - PGID=1000
     volumes:
       - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
       - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye

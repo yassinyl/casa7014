@@ -45,7 +45,7 @@ x-casaos:
   tagline:
     en_us: "Video surveillance for your cameras"
   title:
-    en_us: MotionEye Beta
+    en_us: MotionEye
   store_app_id: MotionEye
   scheme: http
   hostname: ""

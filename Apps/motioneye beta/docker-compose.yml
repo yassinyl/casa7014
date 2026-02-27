@@ -1,8 +1,8 @@
-name: motioney
+name: motioney-yassinyl
 services:
   motioneye:
     image: ghcr.io/motioneye-project/motioneye:0.43.1
-    container_name: motioneye
+    container_name: motioneye-yassinyl
     network_mode: bridge
     restart: unless-stopped
     deploy:

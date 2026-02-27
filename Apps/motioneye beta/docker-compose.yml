@@ -1,8 +1,8 @@
-name: motioney-yassinyl
+name: motioneye
 services:
   motioneye:
     image: ghcr.io/motioneye-project/motioneye:0.43.1
-    container_name: motioneye-yassinyl
+    container_name: motioneye
     network_mode: bridge
     restart: unless-stopped
     deploy:
@@ -19,9 +19,11 @@ services:
     volumes:
       - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
       - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
-    devices:
-      - /dev/video0:/dev/video0
-      - /dev/video1:/dev/video1
+    # Devices are commented out to prevent installation failure if no camera is connected.
+    # Users can add them later in CasaOS settings.
+    # devices:
+    #   - /dev/video0:/dev/video0
+    #   - /dev/video1:/dev/video1
 
 x-casaos:
   architectures:
@@ -46,7 +48,6 @@ x-casaos:
     en_us: "Video surveillance for your cameras"
   title:
     en_us: MotionEye
-  store_app_id: MotionEye
   scheme: http
   hostname: ""
   port_map: "8765"
@@ -55,5 +56,6 @@ x-casaos:
     before_install:
       en_us: |
         MotionEye requires a webcam or IP camera to be connected to function properly. 
+        If you use USB cameras, you can add their paths (like /dev/video0) in the settings after installation.
         After installation, access the web interface at: 
         http://<your_server_ip>:8765

@@ -1,15 +1,36 @@
 version: 2
 updates:
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/Apps/Aria2 Pro"
     schedule:
-      interval: "daily"
+      interval: "weekly"
 
-    open-pull-requests-limit: 3
+  - package-ecosystem: "docker"
+    directory: "/Apps/Aria2"
+    schedule:
+      interval: "weekly"
 
-    commit-message:
-      prefix: "🐳 docker"
+  - package-ecosystem: "docker"
+    directory: "/Apps/CastSponsorSkip"
+    schedule:
+      interval: "weekly"
 
-    labels:
-      - "dependencies"
-      - "docker"
+  - package-ecosystem: "docker"
+    directory: "/Apps/Portainer-Business-Edition"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/Apps/fritzbox-wlan-password-rotator"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/Apps/linkstack"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/Apps/motioneye beta"
+    schedule:
+      interval: "weekly"

@@ -17,7 +17,7 @@ services:
       PUID: $PUID
       RPC_PORT: "6800"
       RPC_SECRET: "TOKEN"
-    image: p3terx/aria2-pro:latest
+    image: p3terx/aria2-pro:202209060423
     container_name: aria2-pro
     deploy:
       resources:

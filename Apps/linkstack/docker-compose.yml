@@ -2,9 +2,7 @@ name: yassinyl-linkstack
 services:
   linkstack:
     hostname: linkstack
-    image: linkstackorg/linkstack:latest
-    environment:
-      TZ: 'Africa/Tunis'
+    image: linkstackorg/linkstack:V4 'Africa/Tunis'
       SERVER_ADMIN: 'admin@example.com'
       HTTP_SERVER_NAME: 'example.com'
       HTTPS_SERVER_NAME: 'example.com'

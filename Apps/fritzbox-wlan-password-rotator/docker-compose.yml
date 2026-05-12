@@ -1,13 +1,7 @@
 name: fritzbox-wlan-password-rotator
 services:
   app:
-    image: phipzzz/fritzbox-wlan-password-rotator:1.4.1
-    restart: unless-stopped
-    network_mode: bridge
-    environment:
-      PUID: $PUID
-      PGID: $PGID
-      TZ: 'Africa/Tunis'
+    image: phipzzz/fritzbox-wlan-password-rotator:1.4.1 'Africa/Tunis'
       CRONTAB_EXPRESSION: '0 3 * * *'
       FB_ADDRESS: '192.168.178.1'
       FB_PASSWORD: ''

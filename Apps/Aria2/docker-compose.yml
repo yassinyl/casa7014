@@ -1,16 +1,7 @@
 name: yassinyl-aria-2
 services:
   aria2:
-    image: johngong/aria2:latest
-    container_name: aria2
-    deploy:
-      resources:
-        reservations:
-          memory: 64M
-    restart: unless-stopped
-    network_mode: bridge
-    ports:
-      - "6881:6881"
+    image: johngong/aria2:1.36.0 "6881:6881"
       - "6881:6881/udp"
       - "6800:6800"
       - "6880:8080"

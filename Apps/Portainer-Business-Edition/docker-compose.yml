@@ -1,7 +1,7 @@
 name: yassinyl-portainer-business-edition
 services:
   portainer:
-    image: portainer/portainer-ee:2.41.0
+    image: portainer/portainer-ee:2.41.1-windowsltsc2025-amd64
     deploy:
       resources:
         reservations:

@@ -29,14 +29,27 @@
 ## 📝 List of Applications  
 
 <!-- apps:start -->
-| Icon                             | Application                  | Description                                                                                     |
+| Icon | Application | Description |
 |----------------------------------|------------------------------|-------------------------------------------------------------------------------------------------|
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="50" height="auto"> | **Aria2**                    | Advanced download manager supporting direct downloads and BitTorrent.                         |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png" width="50" height="auto"> | **Aria2 Pro**                | Advanced download manager supporting direct downloads and BitTorrent.                         |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="50" height="auto"> | **Portainer (Business Edition)** | Simple Docker container management tool with a user-friendly interface.                      |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="50" height="auto"> | **Linkstack**                | Modern tool to organize and manage links efficiently.                                          |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="50" height="auto"> | **MotionEye Beta**           | Video surveillance system with an intuitive interface for managing cameras.                   |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="50" height="auto"> | **FritzBox WLAN Password Rotator** | Automatically rotates the FritzBox Wi-Fi password to enhance network security.              |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png" width="50" height="auto"> | **Aria2 Pro** | RPC secret key setting, which is the password required to be filled in
+RPC port setting
+BT listening port (TCP), DHT listening port (UDP) setting
+RPC communication port mapping.
+BT listening port (TCP) mapping, which is the port defined in the
+DHT listening port (UDP) mapping, which is the port defined in the
+Aria2 is currently the most powerful and versatile download tool. It |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="50" height="auto"> | **Aria2** | Aria2 is a lightweight multi-protocol & multi-source command-line download utility. It supports HTTP/HTTPS, FTP, SFTP, BitTorrent, and Metalink. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/icon.png" width="50" height="auto"> | **CastSponsorSkip** | Skips sponsored segments in Cast Web Player using SponsorBlock. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="50" height="auto"> | **Portainer ( Business Edition )** | Portainer Web UI Port
+Portainer Web UI Port (https)
+Portainer data directory
+Portainer is a lightweight management UI which allows you to easily manage your Docker environments. It is designed to be easy to use and offers full control over your Docker hosts and containers. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="50" height="auto"> | **FritzBox WLAN Password Rotator** | | |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="50" height="auto"> | **LinkStack** | |
+TimeZone
+PHP memory limit
+Maximum file upload size |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="50" height="auto"> | **MotionEye** | | |
 <!-- apps:end -->
 
 ---

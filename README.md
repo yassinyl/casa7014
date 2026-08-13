@@ -45,7 +45,7 @@ Portainer Web UI Port (https)
 Portainer data directory
 Portainer is a lightweight management UI which allows you to easily |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="50" height="auto"> | **FritzBox WLAN Password Rotator** | > |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="50" height="auto"> | **LinkStack** | |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="50" height="auto"> | **LinkStack** | >
 TimeZone
 PHP memory limit
 Maximum file upload size |

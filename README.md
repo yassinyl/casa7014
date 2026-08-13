@@ -43,7 +43,7 @@ Aria2 is currently the most powerful and versatile download tool. It |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="50" height="auto"> | **Portainer ( Business Edition )** | Portainer Web UI Port
 Portainer Web UI Port (https)
 Portainer data directory
-Portainer is a lightweight management UI which allows you to easily manage your Docker environments. It is designed to be easy to use and offers full control over your Docker hosts and containers. |
+Portainer is a lightweight management UI which allows you to easily |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="50" height="auto"> | **FritzBox WLAN Password Rotator** | | |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="50" height="auto"> | **LinkStack** | |
 TimeZone

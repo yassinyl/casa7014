@@ -49,7 +49,7 @@ Portainer is a lightweight management UI which allows you to easily |
 TimeZone
 PHP memory limit
 Maximum file upload size |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="50" height="auto"> | **MotionEye** | | |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="50" height="auto"> | **MotionEye** | > |
 <!-- apps:end -->
 
 ---

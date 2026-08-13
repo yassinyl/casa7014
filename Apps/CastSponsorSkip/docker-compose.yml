@@ -1,4 +1,3 @@
-name: yassinyl-castsponsorskip
 services:
   castsponsorskip:
     image: ghcr.io/gabe565/castsponsorskip:latest
@@ -24,7 +23,6 @@ services:
       - CSS_METRICS_PORT=9790
     volumes:
       - /DATA/AppData/castsponsorskip/config:/config
-
 x-casaos:
   architectures:
     - amd64

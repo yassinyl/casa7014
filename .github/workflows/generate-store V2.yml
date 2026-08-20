@@ -1,0 +1,435 @@
+name: Migrate and Build Casa7014 V2
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-build-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq python3 python3-yaml
+
+          YQ_VERSION="v4.44.3"
+          YQ_SHA256="a2c097180dd884a8d50c956ee16a9cec070f30a7947cf4ebf87d5f36213e9ed7"
+
+          wget -qO /tmp/yq \
+            "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+
+          echo "${YQ_SHA256}  /tmp/yq" | sha256sum -c -
+
+          sudo install -m 0755 /tmp/yq /usr/local/bin/yq
+
+      # -------------------------------------------------
+      # Create migration workspace
+      # -------------------------------------------------
+
+      - name: Prepare migration workspace
+        run: |
+          rm -rf .migration
+          mkdir -p .migration
+
+          cp -a Apps .migration/
+          cp store-config.json .migration/ 2>/dev/null || true
+          cp category-list.json .migration/ 2>/dev/null || true
+          cp recommend-list.json .migration/ 2>/dev/null || true
+
+      # -------------------------------------------------
+      # Create v2 store config
+      # -------------------------------------------------
+
+      - name: Generate supported-languages.json
+        working-directory: .migration
+        run: |
+          cat > supported-languages.json <<'EOF'
+          [
+            "en_US"
+          ]
+          EOF
+
+      - name: Normalize store-config.json
+        working-directory: .migration
+        run: |
+          if [ ! -f store-config.json ]; then
+            cat > store-config.json <<'EOF'
+          {
+            "version": 2,
+            "store_id": "casa7014-yl",
+            "name": {
+              "en_US": "Casa7014 Apps"
+            },
+            "description": {
+              "en_US": "Casa7014 Apps"
+            },
+            "maintainer": "yassinyl",
+            "url": "https://github.com/yassinyl/casa7014"
+          }
+          EOF
+          else
+            jq '
+              .version = 2 |
+              .store_id = "casa7014-yl" |
+              .name.en_US = (.name.en_US // "Casa7014 Apps") |
+              .maintainer = (.maintainer // "yassinyl") |
+              .url = (.url // "https://github.com/yassinyl/casa7014")
+            ' store-config.json > store-config.tmp
+
+            mv store-config.tmp store-config.json
+          fi
+
+      # -------------------------------------------------
+      # Automatic App migration
+      # -------------------------------------------------
+
+      - name: Migrate all Apps to v2
+        working-directory: .migration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 <<'PY'
+          import os
+          import re
+          import yaml
+
+          APPS = "Apps"
+
+          ALLOWED_CATEGORIES = {
+              "Media",
+              "Productivity",
+              "Home",
+              "Networking",
+              "AI",
+              "Finance",
+              "Social",
+              "Developer",
+              "Others",
+          }
+
+          CATEGORY_MAP = {
+              "Casa7014": "Others",
+              "Utilities": "Productivity",
+              "Utility": "Productivity",
+              "Tools": "Productivity",
+              "Tool": "Productivity",
+              "Network": "Networking",
+              "Networking": "Networking",
+              "Media": "Media",
+              "Developer": "Developer",
+              "Development": "Developer",
+              "AI": "AI",
+              "Home": "Home",
+              "Finance": "Finance",
+              "Social": "Social",
+          }
+
+          def normalize_locale(value):
+              if not isinstance(value, dict):
+                  return value
+
+              result = {}
+
+              for key, val in value.items():
+                  if key.lower() == "en_us":
+                      result["en_US"] = val
+                  elif key.lower() == "zh_cn":
+                      result["zh_CN"] = val
+                  else:
+                      result[key] = val
+
+              return result
+
+          def normalize_all_locales(obj):
+              if isinstance(obj, dict):
+                  return {
+                      k: normalize_all_locales(v)
+                      for k, v in obj.items()
+                  }
+
+              if isinstance(obj, list):
+                  return [normalize_all_locales(v) for v in obj]
+
+              return obj
+
+          def valid_id(value):
+              if not isinstance(value, str):
+                  return False
+
+              if "." not in value:
+                  return False
+
+              return bool(
+                  re.fullmatch(
+                      r"[A-Za-z0-9._-]+",
+                      value
+                  )
+              )
+
+          def make_id(app_name):
+              slug = re.sub(
+                  r"[^A-Za-z0-9]+",
+                  "-",
+                  app_name
+              ).strip("-").lower()
+
+              return f"com.casa7014.{slug}"
+
+          for app_name in sorted(os.listdir(APPS)):
+              app_dir = os.path.join(APPS, app_name)
+
+              if not os.path.isdir(app_dir):
+                  continue
+
+              compose = os.path.join(
+                  app_dir,
+                  "docker-compose.yml"
+              )
+
+              if not os.path.isfile(compose):
+                  continue
+
+              print(f"Migrating: {app_name}")
+
+              with open(compose, "r", encoding="utf-8") as f:
+                  data = yaml.safe_load(f)
+
+              if not isinstance(data, dict):
+                  raise RuntimeError(
+                      f"{compose}: invalid YAML"
+                  )
+
+              xc = data.setdefault("x-casaos", {})
+
+              # -----------------------------
+              # ID
+              # -----------------------------
+
+              current_id = xc.get("id")
+
+              if not valid_id(current_id):
+                  xc["id"] = make_id(app_name)
+
+              # -----------------------------
+              # Locales
+              # -----------------------------
+
+              xc = normalize_all_locales(xc)
+
+              # -----------------------------
+              # Main service
+              # -----------------------------
+
+              services = data.get("services", {})
+
+              if not xc.get("main"):
+                  if len(services) == 1:
+                      xc["main"] = next(iter(services))
+
+              # -----------------------------
+              # Index
+              # -----------------------------
+
+              if "index" not in xc:
+                  xc["index"] = "/"
+
+              # -----------------------------
+              # Port map
+              # -----------------------------
+
+              if "port_map" in xc:
+                  xc["port_map"] = str(xc["port_map"])
+              else:
+                  xc["port_map"] = ""
+
+              # -----------------------------
+              # Category
+              # -----------------------------
+
+              category = xc.get("category")
+
+              if category not in ALLOWED_CATEGORIES:
+                  xc["category"] = CATEGORY_MAP.get(
+                      category,
+                      "Others"
+                  )
+
+              # -----------------------------
+              # Architectures
+              # -----------------------------
+
+              if not xc.get("architectures"):
+                  xc["architectures"] = [
+                      "amd64",
+                      "arm64"
+                  ]
+
+              # -----------------------------
+              # Version
+              # -----------------------------
+
+              if not xc.get("version"):
+                  xc["version"] = "1.0.0"
+
+              # -----------------------------
+              # Title
+              # -----------------------------
+
+              if not xc.get("title"):
+                  xc["title"] = {
+                      "en_US": app_name
+                  }
+
+              # -----------------------------
+              # Tagline
+              # -----------------------------
+
+              if not xc.get("tagline"):
+                  xc["tagline"] = {
+                      "en_US": app_name
+                  }
+
+              # -----------------------------
+              # Description
+              # -----------------------------
+
+              if not xc.get("description"):
+                  xc["description"] = {
+                      "en_US": app_name
+                  }
+
+              data["x-casaos"] = xc
+
+              # -----------------------------
+              # Compose project name
+              # -----------------------------
+
+              if not data.get("name"):
+                  data["name"] = app_name.lower().replace(
+                      " ",
+                      "-"
+                  )
+
+              with open(
+                  compose,
+                  "w",
+                  encoding="utf-8"
+              ) as f:
+                  yaml.safe_dump(
+                      data,
+                      f,
+                      sort_keys=False,
+                      allow_unicode=True
+                  )
+
+          PY
+
+      # -------------------------------------------------
+      # Validate migrated source
+      # -------------------------------------------------
+
+      - name: Validate migrated Apps
+        working-directory: .migration
+        run: |
+          set -e
+
+          find Apps \
+            -name docker-compose.yml \
+            -print0 |
+          while IFS= read -r -d '' compose; do
+            echo "Checking $compose"
+
+            python3 - "$compose" <<'PY'
+          import sys
+          import yaml
+
+          path = sys.argv[1]
+
+          with open(path, encoding="utf-8") as f:
+              data = yaml.safe_load(f)
+
+          xc = data.get("x-casaos", {})
+
+          required = [
+              "id",
+              "main",
+              "index",
+              "port_map",
+              "icon",
+              "title",
+              "category",
+              "version",
+          ]
+
+          missing = [
+              x for x in required
+              if not xc.get(x)
+          ]
+
+          if missing:
+              raise SystemExit(
+                  f"{path}: missing {', '.join(missing)}"
+              )
+
+          print("OK")
+          PY
+          done
+
+      # -------------------------------------------------
+      # Build V2
+      # -------------------------------------------------
+
+      - name: Build CasaOS V2
+        uses: IceWhaleTech/build-appstore-action@787271faebb0ef2101eb0f85d5485ff7208140db
+        with:
+          source: .migration
+          output: dist
+          base-url: https://yassinletaief.tn/casa7014
+          report-json: out/build-v2-report.json
+
+      # -------------------------------------------------
+      # Legacy V1
+      # -------------------------------------------------
+
+      - name: Build legacy V1 ZIP
+        working-directory: .migration
+        run: |
+          mkdir -p ../dist/store
+
+          zip -r ../dist/store/main.zip \
+            Apps \
+            store-config.json \
+            supported-languages.json \
+            category-list.json \
+            recommend-list.json \
+            -x "*/output/*"
+
+      # -------------------------------------------------
+      # GitHub Pages
+      # -------------------------------------------------
+
+      - name: Disable Jekyll
+        run: |
+          touch dist/.nojekyll
+
+      - name: Publish V2 Store
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true

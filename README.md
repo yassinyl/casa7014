@@ -39,7 +39,6 @@ BT listening port (TCP) mapping, which is the port defined in the
 DHT listening port (UDP) mapping, which is the port defined in the
 Aria2 is currently the most powerful and versatile download tool. It |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="50" height="auto"> | **Aria2** | Aria2 is a lightweight multi-protocol & multi-source command-line |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/CastSponsorSkip/icon.png" width="50" height="auto"> | **CastSponsorSkip** | Skips sponsored segments in Cast Web Player using SponsorBlock. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="50" height="auto"> | **Portainer ( Business Edition )** | Portainer Web UI Port
 Portainer Web UI Port (https)
 Portainer data directory

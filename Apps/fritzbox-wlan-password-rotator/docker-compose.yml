@@ -9,52 +9,58 @@ services:
       TZ: Africa/Tunis
       CRONTAB_EXPRESSION: 0 3 * * *
       FB_ADDRESS: 192.168.178.1
-      FB_PASSWORD: ""
-      FB_USER: ""
+      FB_PASSWORD: ''
+      FB_USER: ''
       WEB_PASSWORD: password
-      WEB_PUBLIC_ENABLED: "true"
+      WEB_PUBLIC_ENABLED: 'true'
       WEB_PAGE_TITLE: WLAN QR-Code
       WLAN_CONFIGURATION: WLANConfiguration3
       WEB_WELCOME_MESSAGE_CONTENT: welcome
-      PW_CHARSET_ASCII_UPPERCASE: "True"
-      PW_CHARSET_ASCII_LOWERCASE: "True"
-      PW_CHARSET_DIGITS: "True"
-      PW_CHARSET_PUNCTUATION: "False"
-      WEB_CUSTOM_BACKGROUND: "True"
+      PW_CHARSET_ASCII_UPPERCASE: 'True'
+      PW_CHARSET_ASCII_LOWERCASE: 'True'
+      PW_CHARSET_DIGITS: 'True'
+      PW_CHARSET_PUNCTUATION: 'False'
+      WEB_CUSTOM_BACKGROUND: 'True'
     ports:
-      - target: 5000
-        published: 5001
-        protocol: tcp
+    - target: 5000
+      published: 5001
+      protocol: tcp
     volumes:
-      - type: bind
-        source: /DATA/AppData/fritzbox-wlan-password-rotator/config
-        target: /app/data
-      - type: bind
-        source: /DATA/AppData/fritzbox-wlan-password-rotator/background
-        target: /app/static/src/img
+    - type: bind
+      source: /DATA/AppData/fritzbox-wlan-password-rotator/config
+      target: /app/data
+    - type: bind
+      source: /DATA/AppData/fritzbox-wlan-password-rotator/background
+      target: /app/static/src/img
 x-casaos:
   architectures:
-    - "386"
-    - amd64
-    - arm
-    - arm64
-    - ppc64le
+  - '386'
+  - amd64
+  - arm
+  - arm64
+  - ppc64le
   main: app
   author: yassinyl
   developer: phipzzz
-  category: Casa7014
+  category: Others
   description:
-    en_us: >
-      A tool that automatically updates the guest WLAN password of a FRITZ!Box
-      after a defined interval and displays the updated credentials and QR code
-      on a central webpage in your home network.
+    en_US: 'A tool that automatically updates the guest WLAN password of a FRITZ!Box
+      after a defined interval and displays the updated credentials and QR code on
+      a central webpage in your home network.
+
+      '
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   screenshot_link:
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
+  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
   tagline:
-    en_us: Automatically rotate WLAN passwords for FRITZ!Box
+    en_US: Automatically rotate WLAN passwords for FRITZ!Box
   title:
-    en_us: FritzBox WLAN Password Rotator
+    en_US: FritzBox WLAN Password Rotator
   store_app_id: fritzbox-wlan-password-rotator
-  port_map: "5001"
+  port_map: '5001'
+  id: com.casa7014.fritzbox-wlan-password-rotator
+  index: /
+  scheme: http
+  version: 1.0.0
+name: fritzbox-wlan-password-rotator

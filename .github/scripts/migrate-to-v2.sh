@@ -10,11 +10,6 @@ echo "=============================================="
 echo "Casa7014 V1 -> V2 migration"
 echo "=============================================="
 
-if [[ ! -d "$APPS_DIR" ]]; then
-    echo "ERROR: Apps directory not found."
-    exit 1
-fi
-
 
 # ==============================================================
 # STORE CONFIG
@@ -26,17 +21,14 @@ echo "Preparing store-config.json..."
 
 if [[ -f "$ROOT/store-config.json" ]]; then
 
-    yq -o=json '.' "$ROOT/store-config.json" \
-      > "$ROOT/store-config.tmp.json"
+    python3 - "$ROOT/store-config.json" <<'PY'
 
-    python3 - "$ROOT/store-config.tmp.json" "$ROOT/store-config.json" <<'PY'
 import json
 import sys
 
-src = sys.argv[1]
-dst = sys.argv[2]
+path = sys.argv[1]
 
-with open(src, encoding="utf-8") as f:
+with open(path, encoding="utf-8") as f:
     data = json.load(f)
 
 data["version"] = 2
@@ -79,11 +71,11 @@ elif not isinstance(description, dict):
 
 elif not description.get("en_US"):
     first = next(
-        iter(description.values()),
+        iter(data["description"].values()),
         "Casa7014 AppStore"
     )
 
-    description["en_US"] = str(first)
+    data["description"]["en_US"] = str(first)
 
 
 if not isinstance(data.get("maintainer"), str):
@@ -92,17 +84,19 @@ if not isinstance(data.get("maintainer"), str):
 if not isinstance(data.get("url"), str):
     data["url"] = "https://github.com/yassinyl/casa7014"
 
-with open(dst, "w", encoding="utf-8") as f:
+
+with open(path, "w", encoding="utf-8") as f:
+
     json.dump(
         data,
         f,
         indent=2,
         ensure_ascii=False
     )
-    f.write("\n")
-PY
 
-    rm -f "$ROOT/store-config.tmp.json"
+    f.write("\n")
+
+PY
 
 else
 
@@ -136,585 +130,936 @@ EOF
 
 
 # ==============================================================
-# CATEGORY NORMALIZATION
-# ==============================================================
-
-normalize_category() {
-
-    local category="$1"
-
-    case "$category" in
-
-        Media)
-            echo "Media"
-            ;;
-
-        Productivity|Utility|Utilities|Tools|Tool)
-            echo "Productivity"
-            ;;
-
-        Home)
-            echo "Home"
-            ;;
-
-        Network|Networking)
-            echo "Networking"
-            ;;
-
-        AI)
-            echo "AI"
-            ;;
-
-        Finance)
-            echo "Finance"
-            ;;
-
-        Social)
-            echo "Social"
-            ;;
-
-        Development|Developer)
-            echo "Developer"
-            ;;
-
-        *)
-            echo "Others"
-            ;;
-
-    esac
-}
-
-
-# ==============================================================
-# ID GENERATION
-# ==============================================================
-
-make_id() {
-
-    local app="$1"
-
-    local slug
-
-    slug="$(
-        printf '%s' "$app" |
-        tr '[:upper:]' '[:lower:]' |
-        sed -E 's/[^a-z0-9]+/-/g' |
-        sed -E 's/^-+//;s/-+$//'
-    )"
-
-    echo "com.casa7014.${slug}"
-}
-
-
-# ==============================================================
 # PROCESS APPS
 # ==============================================================
 
-FAILED=0
-COUNT=0
+python3 - "$APPS_DIR" <<'PY'
+
+import os
+import re
+import sys
+import yaml
 
 
-for compose in "$APPS_DIR"/*/docker-compose.yml; do
-
-    [[ -f "$compose" ]] || continue
-
-    app_dir="$(dirname "$compose")"
-    app="$(basename "$app_dir")"
-
-    COUNT=$((COUNT + 1))
-
-    echo
-    echo "=============================================="
-    echo "Migrating: $app"
-    echo "=============================================="
+APPS_DIR = sys.argv[1]
 
 
-    # ==========================================================
-    # VALIDATE YAML
-    # ==========================================================
+# ==============================================================
+# CATEGORY
+# ==============================================================
 
-    if ! yq eval '.' "$compose" >/dev/null 2>&1; then
+CATEGORY_MAP = {
 
-        echo "ERROR: malformed YAML"
+    "Media": "Media",
 
-        FAILED=1
+    "Productivity": "Productivity",
+    "Utility": "Productivity",
+    "Utilities": "Productivity",
+    "Tools": "Productivity",
+    "Tool": "Productivity",
+
+    "Home": "Home",
+
+    "Network": "Networking",
+    "Networking": "Networking",
+
+    "AI": "AI",
+
+    "Finance": "Finance",
+
+    "Social": "Social",
+
+    "Development": "Developer",
+    "Developer": "Developer",
+
+}
+
+
+ALLOWED_CATEGORIES = {
+
+    "Media",
+    "Productivity",
+    "Home",
+    "Networking",
+    "AI",
+    "Finance",
+    "Social",
+    "Developer",
+    "Others",
+
+}
+
+
+# ==============================================================
+# HELPERS
+# ==============================================================
+
+def make_id(app_name):
+
+    slug = re.sub(
+        r"[^a-zA-Z0-9]+",
+        "-",
+        app_name
+    ).strip("-").lower()
+
+    return f"com.casa7014.{slug}"
+
+
+def normalize_locale_keys(value):
+
+    if isinstance(value, dict):
+
+        result = {}
+
+        for key, val in value.items():
+
+            if key.lower() == "en_us":
+                key = "en_US"
+
+            elif key.lower() == "zh_cn":
+                key = "zh_CN"
+
+            result[key] = normalize_locale_keys(val)
+
+        return result
+
+
+    if isinstance(value, list):
+
+        return [
+            normalize_locale_keys(v)
+            for v in value
+        ]
+
+
+    return value
+
+
+def get_existing_port(xc):
+
+    value = xc.get("port_map")
+
+    if value is None:
+        return None
+
+    value = str(value).strip()
+
+    if value.isdigit():
+        return value
+
+    return None
+
+
+def get_ports_from_compose(data):
+
+    services = data.get("services", {})
+
+    if not isinstance(services, dict):
+        return []
+
+
+    ports_found = []
+
+
+    for service_name, service in services.items():
+
+        if not isinstance(service, dict):
+            continue
+
+
+        ports = service.get("ports", [])
+
+        if not isinstance(ports, list):
+            continue
+
+
+        for port in ports:
+
+            if isinstance(port, int):
+
+                ports_found.append(str(port))
+                continue
+
+
+            if not isinstance(port, str):
+                continue
+
+
+            value = port.strip()
+
+
+            # Ignore UDP
+            if "/udp" in value.lower():
+                continue
+
+
+            value = re.sub(
+                r"/tcp$",
+                "",
+                value,
+                flags=re.IGNORECASE
+            )
+
+
+            # Docker long syntax is handled below
+            if isinstance(port, dict):
+                continue
+
+
+            parts = value.split(":")
+
+
+            # Examples:
+            #
+            # 8080:80
+            # 127.0.0.1:8080:80
+            # 8080
+            #
+            if len(parts) >= 2:
+
+                published = parts[-2]
+
+                if published.isdigit():
+                    ports_found.append(
+                        published
+                    )
+
+
+            elif len(parts) == 1:
+
+                if parts[0].isdigit():
+
+                    ports_found.append(
+                        parts[0]
+                    )
+
+
+    return ports_found
+
+
+def get_ports_from_environment(data):
+
+    services = data.get(
+        "services",
+        {}
+    )
+
+    candidates = []
+
+
+    for service in services.values():
+
+        if not isinstance(service, dict):
+            continue
+
+
+        env = service.get(
+            "environment",
+            []
+        )
+
+
+        if isinstance(env, dict):
+
+            items = env.items()
+
+
+        elif isinstance(env, list):
+
+            items = []
+
+            for item in env:
+
+                if not isinstance(item, str):
+                    continue
+
+                if "=" not in item:
+                    continue
+
+                key, value = item.split(
+                    "=",
+                    1
+                )
+
+                items.append(
+                    (key, value)
+                )
+
+
+        else:
+
+            continue
+
+
+        for key, value in items:
+
+            if not isinstance(value, str):
+                continue
+
+
+            value = value.strip()
+
+
+            if not value.isdigit():
+                continue
+
+
+            if key.upper().endswith("_PORT"):
+
+                candidates.append(
+                    (
+                        key.upper(),
+                        value
+                    )
+                )
+
+
+    preferred = [
+
+        "HTTP_PORT",
+        "WEB_PORT",
+        "SERVER_PORT",
+        "PORT",
+        "METRICS_PORT",
+        "CSS_METRICS_PORT",
+
+    ]
+
+
+    for wanted in preferred:
+
+        for key, value in candidates:
+
+            if key == wanted:
+                return value
+
+
+    if candidates:
+
+        return candidates[0][1]
+
+
+    return None
+
+
+def get_icon(app_dir, app_name, existing):
+
+    if existing:
+        return existing
+
+
+    for icon_name in [
+
+        "icon.svg",
+        "icon.png",
+        "icon.jpg",
+        "icon.jpeg",
+
+    ]:
+
+        icon_path = os.path.join(
+            app_dir,
+            icon_name
+        )
+
+
+        if os.path.isfile(icon_path):
+
+            return (
+                "https://cdn.jsdelivr.net/gh/"
+                "yassinyl/casa7014@main/"
+                f"Apps/{app_name}/{icon_name}"
+            )
+
+
+    return None
+
+
+def get_localized(value, default):
+
+    if value is None:
+        return {
+            "en_US": default
+        }
+
+
+    if isinstance(value, str):
+
+        return {
+            "en_US": value
+        }
+
+
+    if isinstance(value, dict):
+
+        if not value.get("en_US"):
+
+            first = next(
+                iter(value.values()),
+                default
+            )
+
+            value["en_US"] = str(first)
+
+
+        return value
+
+
+    return {
+        "en_US": default
+    }
+
+
+# ==============================================================
+# PROCESS
+# ==============================================================
+
+errors = []
+
+count = 0
+
+
+for app_name in sorted(os.listdir(APPS_DIR)):
+
+    app_dir = os.path.join(
+        APPS_DIR,
+        app_name
+    )
+
+
+    if not os.path.isdir(app_dir):
         continue
 
-    fi
+
+    compose_path = os.path.join(
+        app_dir,
+        "docker-compose.yml"
+    )
+
+
+    if not os.path.isfile(compose_path):
+        continue
+
+
+    count += 1
+
+
+    print()
+    print("=" * 70)
+    print(f"Migrating: {app_name}")
+    print("=" * 70)
 
 
     # ==========================================================
-    # CREATE TOP LEVEL NAME
+    # LOAD YAML
     # ==========================================================
 
-    current_name="$(
-        yq eval '.name // ""' "$compose"
-    )"
+    try:
 
-    if [[ -z "$current_name" || "$current_name" == "null" ]]; then
+        with open(
+            compose_path,
+            encoding="utf-8"
+        ) as f:
 
-        compose_name="$(
-            printf '%s' "$app" |
-            tr '[:upper:]' '[:lower:]' |
-            sed -E 's/[^a-z0-9_-]+/-/g' |
-            sed -E 's/^-+//;s/-+$//'
-        )"
+            data = yaml.safe_load(f)
 
-        yq -i \
-          ".name = \"$compose_name\"" \
-          "$compose"
+    except Exception as e:
 
-    fi
+        errors.append(
+            f"{app_name}: YAML error: {e}"
+        )
+
+        continue
 
 
-    # ==========================================================
-    # COLLECT LEGACY SERVICE-LEVEL X-CASAOS
-    # ==========================================================
+    if not isinstance(data, dict):
 
-    legacy_found=false
+        errors.append(
+            f"{app_name}: invalid YAML"
+        )
 
-    service_names="$(
-        yq eval '.services | keys | .[]' "$compose" 2>/dev/null || true
-    )"
+        continue
 
-    for service in $service_names; do
 
-        has_legacy="$(
-            yq eval \
-              ".services.\"$service\".\"x-casaos\" // null" \
-              "$compose"
-        )"
+    services = data.get(
+        "services",
+        {}
+    )
 
-        if [[ "$has_legacy" != "null" ]]; then
 
-            echo "Found legacy x-casaos under service: $service"
+    if not isinstance(services, dict) or not services:
 
-            if [[ "$legacy_found" == "false" ]]; then
+        errors.append(
+            f"{app_name}: no services"
+        )
 
-                yq eval \
-                  ".\"x-casaos\" = (.services.\"$service\".\"x-casaos\" // {})" \
-                  -i "$compose"
-
-                legacy_found=true
-
-            else
-
-                yq eval \
-                  ".\"x-casaos\" *= (.services.\"$service\".\"x-casaos\" // {})" \
-                  -i "$compose"
-
-            fi
-
-            # Remove legacy service-level block.
-            yq eval \
-              "del(.services.\"$service\".\"x-casaos\")" \
-              -i "$compose"
-
-        fi
-
-    done
+        continue
 
 
     # ==========================================================
-    # ENSURE TOP LEVEL X-CASAOS
+    # TOP LEVEL NAME
     # ==========================================================
 
-    yq eval \
-      '.["x-casaos"] = (.["x-casaos"] // {})' \
-      -i "$compose"
+    if not data.get("name"):
+
+        data["name"] = re.sub(
+            r"[^a-zA-Z0-9_-]+",
+            "-",
+            app_name
+        ).strip("-").lower()
+
+
+    # ==========================================================
+    # X-CASAOS
+    # ==========================================================
+
+    xc = data.get(
+        "x-casaos",
+        {}
+    )
+
+
+    if not isinstance(xc, dict):
+        xc = {}
+
+
+    # ==========================================================
+    # LEGACY SERVICE X-CASAOS
+    #
+    # Move it to top-level.
+    # ==========================================================
+
+    for service_name, service in services.items():
+
+        if not isinstance(service, dict):
+            continue
+
+
+        legacy = service.get(
+            "x-casaos"
+        )
+
+
+        if isinstance(legacy, dict):
+
+            print(
+                f"Found legacy x-casaos under service: "
+                f"{service_name}"
+            )
+
+
+            # Only fill missing fields.
+            for key, value in legacy.items():
+
+                if key not in xc:
+
+                    xc[key] = value
+
+
+            del service["x-casaos"]
 
 
     # ==========================================================
     # ID
     # ==========================================================
 
-    current_id="$(
-        yq eval '.["x-casaos"].id // ""' "$compose"
-    )"
+    current_id = xc.get("id")
 
-    if [[ -z "$current_id" || "$current_id" == "null" ]]; then
 
-        new_id="$(make_id "$app")"
+    if not isinstance(current_id, str) or not current_id.strip():
 
-        yq eval \
-          ".\"x-casaos\".id = \"$new_id\"" \
-          -i "$compose"
-
-    fi
+        xc["id"] = make_id(app_name)
 
 
     # ==========================================================
-    # MAIN SERVICE
+    # MAIN
     # ==========================================================
 
-    main="$(
-        yq eval '.["x-casaos"].main // ""' "$compose"
-    )"
+    main = xc.get("main")
 
-    if [[ -z "$main" || "$main" == "null" ]]; then
 
-        service_count="$(
-            yq eval '.services | length' "$compose"
-        )"
+    if not isinstance(main, str) or not main.strip():
 
-        if [[ "$service_count" == "1" ]]; then
+        if len(services) == 1:
 
-            main="$(
-                yq eval '.services | keys | .[0]' "$compose"
-            )"
+            xc["main"] = next(
+                iter(services)
+            )
 
-            yq eval \
-              ".\"x-casaos\".main = \"$main\"" \
-              -i "$compose"
+        else:
 
-        else
+            # Try to find a likely web/main service.
+            candidates = [
 
-            echo "WARNING: cannot automatically determine main service."
+                name
+                for name in services
+                if name.lower() in (
+                    "app",
+                    "server",
+                    "web",
+                    "frontend",
+                    "main"
+                )
+            ]
 
-        fi
 
-    fi
+            if candidates:
+
+                xc["main"] = candidates[0]
+
+            else:
+
+                errors.append(
+                    f"{app_name}: "
+                    "cannot automatically determine "
+                    "x-casaos.main"
+                )
+
+                continue
 
 
     # ==========================================================
     # INDEX
     # ==========================================================
 
-    if [[ "$(yq eval '.["x-casaos"].index // ""' "$compose")" == "" ]]; then
+    if not xc.get("index"):
 
-        yq eval \
-          '.["x-casaos"].index = "/"' \
-          -i "$compose"
-
-    fi
+        xc["index"] = "/"
 
 
     # ==========================================================
     # SCHEME
     # ==========================================================
 
-    if [[ "$(yq eval '.["x-casaos"].scheme // ""' "$compose")" == "" ]]; then
+    if not xc.get("scheme"):
 
-        yq eval \
-          '.["x-casaos"].scheme = "http"' \
-          -i "$compose"
-
-    fi
+        xc["scheme"] = "http"
 
 
     # ==========================================================
     # PORT MAP
     # ==========================================================
 
-    port="$(
-        yq eval '.["x-casaos"].port_map // ""' "$compose"
-    )"
+    port = get_existing_port(xc)
 
 
-    if [[ -z "$port" || "$port" == "null" ]]; then
+    if port is None:
 
-        port="$(
-            yq eval '
-              [
-                .services[]?.ports[]?
-                |
-                tostring
-                |
-                select(test("/udp$") | not)
-                |
-                sub("/tcp$"; "")
-                |
-                split(":")
-                |
-                if length >= 2 then .[-2]
-                else .[0]
-                end
-                |
-                select(test("^[0-9]+$"))
-              ][0] // ""
-            ' "$compose"
-        )"
-
-    fi
+        ports = get_ports_from_compose(
+            data
+        )
 
 
-    # CastSponsorSkip known port.
-    if [[ -z "$port" || "$port" == "null" ]]; then
+        if ports:
 
-        if [[ "${app,,}" == "castsponsorskip" ]]; then
-
-            port="9790"
-
-        fi
-
-    fi
+            # Prefer port from main service.
+            main_service = xc.get("main")
 
 
-    if [[ -n "$port" && "$port" != "null" ]]; then
+            main_ports = []
 
-        yq eval \
-          ".\"x-casaos\".port_map = \"$port\"" \
-          -i "$compose"
 
-    else
+            if main_service in services:
 
-        echo "WARNING: port_map could not be detected."
+                main_data = services[
+                    main_service
+                ]
 
-    fi
+
+                if isinstance(
+                    main_data,
+                    dict
+                ):
+
+                    main_ports = (
+                        main_data.get(
+                            "ports",
+                            []
+                        )
+                    )
+
+
+            if main_ports:
+
+                main_data_copy = {
+                    "services": {
+                        main_service: {
+                            "ports": main_ports
+                        }
+                    }
+                }
+
+
+                main_candidates = (
+                    get_ports_from_compose(
+                        main_data_copy
+                    )
+                )
+
+
+                if main_candidates:
+
+                    port = main_candidates[0]
+
+
+            if port is None:
+
+                port = ports[0]
+
+
+    # Environment fallback.
+    if port is None:
+
+        port = get_ports_from_environment(
+            data
+        )
+
+
+    # Known CastSponsorSkip.
+    if (
+        port is None
+        and app_name.lower() == "castsponsorskip"
+    ):
+
+        port = "9790"
+
+
+    if port is None:
+
+        errors.append(
+            f"{app_name}: "
+            "cannot determine x-casaos.port_map"
+        )
+
+        continue
+
+
+    xc["port_map"] = str(port)
 
 
     # ==========================================================
     # ICON
     # ==========================================================
 
-    icon="$(
-        yq eval '.["x-casaos"].icon // ""' "$compose"
-    )"
+    icon = get_icon(
+        app_dir,
+        app_name,
+        xc.get("icon")
+    )
 
 
-    if [[ -z "$icon" || "$icon" == "null" ]]; then
+    if icon:
 
-        for icon_file in \
-            icon.svg \
-            icon.png \
-            icon.jpg \
-            icon.jpeg
-        do
+        xc["icon"] = icon
 
-            if [[ -f "$app_dir/$icon_file" ]]; then
+    else:
 
-                icon_url="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/${app}/${icon_file}"
+        errors.append(
+            f"{app_name}: missing x-casaos.icon"
+        )
 
-                yq eval \
-                  ".\"x-casaos\".icon = \"$icon_url\"" \
-                  -i "$compose"
+        continue
 
-                break
 
-            fi
+    # ==========================================================
+    # LOCALES
+    # ==========================================================
 
-        done
-
-    fi
+    xc = normalize_locale_keys(
+        xc
+    )
 
 
     # ==========================================================
     # TITLE
     # ==========================================================
 
-    title="$(
-        yq eval '.["x-casaos"].title // null' "$compose"
-    )"
-
-    if [[ "$title" == "null" ]]; then
-
-        yq eval \
-          ".\"x-casaos\".title = {\"en_US\": \"$app\"}" \
-          -i "$compose"
-
-    elif [[ "$title" != *"en_US"* ]]; then
-
-        title_value="$(
-            yq eval '.["x-casaos"].title | to_entries | .[0].value // ""' "$compose"
-        )"
-
-        [[ -z "$title_value" ]] && title_value="$app"
-
-        yq eval \
-          ".\"x-casaos\".title.en_US = \"$title_value\"" \
-          -i "$compose"
-
-    fi
+    xc["title"] = get_localized(
+        xc.get("title"),
+        app_name
+    )
 
 
     # ==========================================================
     # TAGLINE
     # ==========================================================
 
-    tagline="$(
-        yq eval '.["x-casaos"].tagline // null' "$compose"
-    )"
-
-    if [[ "$tagline" == "null" ]]; then
-
-        yq eval \
-          ".\"x-casaos\".tagline = {\"en_US\": \"$app\"}" \
-          -i "$compose"
-
-    elif [[ "$tagline" != *"en_US"* ]]; then
-
-        tagline_value="$(
-            yq eval '.["x-casaos"].tagline | to_entries | .[0].value // ""' "$compose"
-        )"
-
-        [[ -z "$tagline_value" ]] && tagline_value="$app"
-
-        yq eval \
-          ".\"x-casaos\".tagline.en_US = \"$tagline_value\"" \
-          -i "$compose"
-
-    fi
+    xc["tagline"] = get_localized(
+        xc.get("tagline"),
+        app_name
+    )
 
 
     # ==========================================================
     # DESCRIPTION
     # ==========================================================
 
-    description="$(
-        yq eval '.["x-casaos"].description // null' "$compose"
-    )"
-
-    if [[ "$description" == "null" ]]; then
-
-        yq eval \
-          ".\"x-casaos\".description = {\"en_US\": \"$app\"}" \
-          -i "$compose"
-
-    elif [[ "$description" != *"en_US"* ]]; then
-
-        description_value="$(
-            yq eval '.["x-casaos"].description | to_entries | .[0].value // ""' "$compose"
-        )"
-
-        [[ -z "$description_value" ]] && description_value="$app"
-
-        yq eval \
-          ".\"x-casaos\".description.en_US = \"$description_value\"" \
-          -i "$compose"
-
-    fi
-
-
-    # ==========================================================
-    # NORMALIZE LOCALE KEY en_us -> en_US
-    # ==========================================================
-
-    yq eval \
-      '(.. | select(tag == "!!map") | with_entries(
-        if .key == "en_us"
-        then .key = "en_US"
-        else .
-        end
-      ))' \
-      -i "$compose"
+    xc["description"] = get_localized(
+        xc.get("description"),
+        app_name
+    )
 
 
     # ==========================================================
     # CATEGORY
     # ==========================================================
 
-    category="$(
-        yq eval '.["x-casaos"].category // ""' "$compose"
-    )"
+    category = xc.get(
+        "category"
+    )
 
-    if [[ -z "$category" || "$category" == "null" ]]; then
 
-        category="Others"
+    category = CATEGORY_MAP.get(
+        category,
+        "Others"
+    )
 
-    fi
 
-    category="$(normalize_category "$category")"
+    if category not in ALLOWED_CATEGORIES:
 
-    yq eval \
-      ".\"x-casaos\".category = \"$category\"" \
-      -i "$compose"
+        category = "Others"
+
+
+    xc["category"] = category
 
 
     # ==========================================================
     # ARCHITECTURES
     #
-    # IMPORTANT:
-    # Do not invent architectures.
-    #
-    # If old metadata has architectures, preserve them.
-    # If missing, default to amd64 + arm64.
-    #
-    # The official V2 builder performs image/platform validation.
+    # Preserve existing architecture metadata.
+    # The official IceWhale builder validates the image.
     # ==========================================================
 
-    architecture_count="$(
-        yq eval \
-          '.["x-casaos"].architectures // [] | length' \
-          "$compose"
-    )"
+    architectures = xc.get(
+        "architectures"
+    )
 
-    if [[ "$architecture_count" == "0" ]]; then
 
-        yq eval \
-          '.["x-casaos"].architectures = ["amd64", "arm64"]' \
-          -i "$compose"
+    if not isinstance(
+        architectures,
+        list
+    ) or not architectures:
 
-    fi
+        xc["architectures"] = [
+
+            "amd64",
+            "arm64"
+
+        ]
 
 
     # ==========================================================
     # VERSION
     # ==========================================================
 
-    version="$(
-        yq eval '.["x-casaos"].version // ""' "$compose"
-    )"
+    if not xc.get("version"):
 
-    if [[ -z "$version" || "$version" == "null" ]]; then
-
-        yq eval \
-          '.["x-casaos"].version = "1.0.0"' \
-          -i "$compose"
-
-    fi
+        xc["version"] = "1.0.0"
 
 
     # ==========================================================
-    # REMOVE LEGACY x-casaos FROM ALL SERVICES
+    # FINAL X-CASAOS
     # ==========================================================
 
-    service_names="$(
-        yq eval '.services | keys | .[]' "$compose" 2>/dev/null || true
-    )"
-
-    for service in $service_names; do
-
-        yq eval \
-          "del(.services.\"$service\".\"x-casaos\")" \
-          -i "$compose"
-
-    done
+    data["x-casaos"] = xc
 
 
     # ==========================================================
-    # FINAL CHECK
+    # REMOVE SERVICE LEVEL X-CASAOS
     # ==========================================================
 
-    final_id="$(
-        yq eval '.["x-casaos"].id // ""' "$compose"
-    )"
+    for service in services.values():
 
-    echo
-    echo "Result:"
-    echo "  App:            $app"
-    echo "  ID:             $final_id"
-    echo "  Main:           $(yq eval '.["x-casaos"].main // ""' "$compose")"
-    echo "  Port:           $(yq eval '.["x-casaos"].port_map // ""' "$compose")"
-    echo "  Category:       $(yq eval '.["x-casaos"].category // ""' "$compose")"
-    echo "  Architectures:  $(yq eval '.["x-casaos"].architectures // [] | join(",")' "$compose")"
+        if isinstance(service, dict):
 
-done
+            service.pop(
+                "x-casaos",
+                None
+            )
+
+
+    # ==========================================================
+    # SAVE
+    # ==========================================================
+
+    with open(
+        compose_path,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        yaml.safe_dump(
+            data,
+            f,
+            sort_keys=False,
+            allow_unicode=True
+        )
+
+
+    # ==========================================================
+    # OUTPUT
+    # ==========================================================
+
+    print(
+        f"ID:             {xc['id']}"
+    )
+
+    print(
+        f"MAIN:           {xc['main']}"
+    )
+
+    print(
+        f"PORT:           {xc['port_map']}"
+    )
+
+    print(
+        f"CATEGORY:       {xc['category']}"
+    )
+
+    print(
+        f"ARCHITECTURES:  {xc['architectures']}"
+    )
+
+    print(
+        f"VERSION:        {xc['version']}"
+    )
+
+    print(
+        "Migration: OK"
+    )
 
 
 # ==============================================================
 # RESULT
 # ==============================================================
 
-echo
-echo "=============================================="
-echo "Migration complete"
-echo "Apps processed: $COUNT"
-echo "=============================================="
+print()
+print("=" * 70)
+print(
+    f"Apps processed: {count}"
+)
+print("=" * 70)
 
 
-if [[ "$FAILED" -ne 0 ]]; then
-    echo "Migration completed with errors."
-    exit 1
-fi
+if errors:
 
-echo "Migration successful."
+    print()
+    print("MIGRATION ERRORS")
+    print("=" * 70)
+
+
+    for error in errors:
+
+        print(
+            f"ERROR: {error}"
+        )
+
+
+    raise SystemExit(1)
+
+
+print(
+    "ALL APPS MIGRATED SUCCESSFULLY"
+)
+
+PY

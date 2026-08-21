@@ -74,7 +74,7 @@ jobs:
           echo "All V2 scripts syntax OK."
 
       # ==========================================================
-      # MIGRATE APPS
+      # MIGRATE APPS TO V2
       # ==========================================================
 
       - name: Migrate Apps to V2
@@ -84,83 +84,465 @@ jobs:
           bash .github/scripts/migrate-to-v2.sh
 
       # ==========================================================
-      # NORMALIZE ARCHITECTURES
+      # DETECT REAL DOCKER IMAGE ARCHITECTURES
       # ==========================================================
 
-      - name: Normalize V2 architectures
+      - name: Normalize V2 architectures from Docker manifests
         shell: bash
         run: |
           set -euo pipefail
 
           echo "=============================================="
-          echo "Normalizing CasaOS V2 architectures"
+          echo "Detecting real Docker image architectures"
           echo "=============================================="
 
-          changed=0
+          python3 <<'PY'
+          import json
+          import os
+          import subprocess
+          import urllib.request
+          import urllib.parse
+          import yaml
 
-          for compose in Apps/*/docker-compose.yml; do
+          APPS_DIR = "Apps"
 
-            [ -f "$compose" ] || continue
+          PLATFORM_MAP = {
+              "linux/amd64": "amd64",
+              "linux/arm64": "arm64",
+              "linux/arm/v7": "arm",
+              "linux/arm/v6": "arm",
+              "linux/386": "386",
+              "linux/ppc64le": "ppc64le",
+              "linux/s390x": "s390x",
+          }
 
-            app="$(basename "$(dirname "$compose")")"
 
-            architectures="$(yq eval '.x-casaos.architectures // [] | .[]' "$compose" 2>/dev/null || true)"
+          def normalize_image(image):
 
-            if [ -z "$architectures" ]; then
-              continue
-            fi
+              image = image.strip()
 
-            echo
-            echo "Checking: $app"
-            echo "Before:"
-            echo "$architectures"
+              if image.startswith("docker.io/"):
+                  image = image[len("docker.io/"):]
 
-            # ------------------------------------------------------
-            # Remove legacy/unsupported 386 architecture.
-            # CasaOS V2 builder validates Docker image manifests
-            # and 386 is not available for this store image.
-            # ------------------------------------------------------
+              if "/" not in image.split("@")[0]:
+                  image = "library/" + image
 
-            if echo "$architectures" | grep -qx "386"; then
+              return image
 
-              echo "Removing unsupported architecture: 386"
 
-              yq -i '
-                .x-casaos.architectures =
-                (
-                  .x-casaos.architectures
-                  | map(select(. != "386"))
-                )
-              ' "$compose"
+          def split_image(image):
 
-              changed=1
+              image = normalize_image(image)
 
-            fi
+              if "@" in image:
+                  repository, reference = image.split("@", 1)
+                  return repository, reference
 
-            # ------------------------------------------------------
-            # Remove duplicate architectures
-            # ------------------------------------------------------
+              last = image.rsplit("/", 1)[-1]
 
-            yq -i '
-              .x-casaos.architectures =
-              (
-                .x-casaos.architectures
-                | unique
+              if ":" in last:
+                  repository, tag = image.rsplit(":", 1)
+                  return repository, tag
+
+              return image, "latest"
+
+
+          def registry_manifest(image):
+
+              repository, reference = split_image(image)
+
+              print(
+                  f"Inspecting Docker image: "
+                  f"{repository}:{reference}"
               )
-            ' "$compose"
 
-            echo "After:"
-            yq eval '.x-casaos.architectures' "$compose"
+              token_query = urllib.parse.urlencode({
+                  "service": "registry.docker.io",
+                  "scope": f"repository:{repository}:pull"
+              })
 
-          done
+              token_url = (
+                  "https://auth.docker.io/token?"
+                  + token_query
+              )
 
-          echo
+              token_request = urllib.request.Request(
+                  token_url
+              )
 
-          if [ "$changed" -eq 1 ]; then
-            echo "Architecture normalization changed one or more apps."
-          else
-            echo "No architecture changes were necessary."
-          fi
+              with urllib.request.urlopen(
+                  token_request,
+                  timeout=30
+              ) as response:
+
+                  token_data = json.load(response)
+
+              token = token_data["token"]
+
+              manifest_url = (
+                  f"https://registry-1.docker.io/v2/"
+                  f"{repository}/manifests/{reference}"
+              )
+
+              headers = {
+                  "Authorization": f"Bearer {token}",
+                  "Accept": ",".join([
+                      "application/vnd.oci.image.index.v1+json",
+                      "application/vnd.docker.distribution.manifest.list.v2+json",
+                      "application/vnd.oci.image.manifest.v1+json",
+                      "application/vnd.docker.distribution.manifest.v2+json",
+                  ])
+              }
+
+              request = urllib.request.Request(
+                  manifest_url,
+                  headers=headers
+              )
+
+              with urllib.request.urlopen(
+                  request,
+                  timeout=30
+              ) as response:
+
+                  return json.load(response)
+
+
+          def get_platforms(manifest):
+
+              if not isinstance(manifest, dict):
+                  return []
+
+              manifests = manifest.get("manifests")
+
+              if not isinstance(manifests, list):
+
+                  # Single-platform image.
+                  return []
+
+              platforms = []
+
+              for item in manifests:
+
+                  platform = item.get(
+                      "platform",
+                      {}
+                  )
+
+                  os_name = platform.get("os")
+                  architecture = platform.get("architecture")
+                  variant = platform.get("variant")
+
+                  if os_name != "linux":
+                      continue
+
+                  if not architecture:
+                      continue
+
+                  value = f"linux/{architecture}"
+
+                  if variant:
+                      value += f"/{variant}"
+
+                  platforms.append(value)
+
+              return platforms
+
+
+          def get_single_platform_from_manifest(manifest):
+
+              if not isinstance(manifest, dict):
+                  return []
+
+              config = manifest.get("config")
+
+              # Registry API normally returns a single manifest
+              # without a platform field. We cannot reliably infer
+              # it from the manifest itself without downloading the
+              # config blob, so leave it untouched.
+              if isinstance(config, dict):
+                  return []
+
+              return []
+
+
+          def get_main_image(data):
+
+              services = data.get(
+                  "services",
+                  {}
+              )
+
+              if not isinstance(services, dict):
+                  return None, None
+
+              xc = data.get(
+                  "x-casaos",
+                  {}
+              )
+
+              if not isinstance(xc, dict):
+                  xc = {}
+
+              main = xc.get("main")
+
+              if main and main in services:
+
+                  service = services[main]
+
+                  if isinstance(service, dict):
+
+                      image = service.get("image")
+
+                      if isinstance(image, str):
+                          return main, image
+
+              # Fallback: first service containing image.
+              for service_name, service in services.items():
+
+                  if not isinstance(service, dict):
+                      continue
+
+                  image = service.get("image")
+
+                  if isinstance(image, str):
+                      return service_name, image
+
+              return None, None
+
+
+          changed = 0
+
+          for app_name in sorted(
+              os.listdir(APPS_DIR)
+          ):
+
+              app_dir = os.path.join(
+                  APPS_DIR,
+                  app_name
+              )
+
+              if not os.path.isdir(app_dir):
+                  continue
+
+              compose_path = os.path.join(
+                  app_dir,
+                  "docker-compose.yml"
+              )
+
+              if not os.path.isfile(compose_path):
+                  continue
+
+              print()
+              print("=" * 70)
+              print(f"App: {app_name}")
+              print("=" * 70)
+
+              try:
+
+                  with open(
+                      compose_path,
+                      encoding="utf-8"
+                  ) as f:
+
+                      data = yaml.safe_load(f)
+
+              except Exception as exc:
+
+                  print(
+                      f"WARNING: cannot read YAML: {exc}"
+                  )
+
+                  continue
+
+              if not isinstance(data, dict):
+                  continue
+
+              xc = data.get(
+                  "x-casaos",
+                  {}
+              )
+
+              if not isinstance(xc, dict):
+                  continue
+
+              service_name, image = get_main_image(
+                  data
+              )
+
+              if not image:
+
+                  print(
+                      "WARNING: no Docker image found."
+                  )
+
+                  continue
+
+              print(
+                  f"Main service: {service_name}"
+              )
+
+              print(
+                  f"Image: {image}"
+              )
+
+              try:
+
+                  manifest = registry_manifest(
+                      image
+                  )
+
+              except Exception as exc:
+
+                  print(
+                      f"WARNING: unable to inspect "
+                      f"Docker manifest: {exc}"
+                  )
+
+                  print(
+                      "Keeping existing architectures."
+                  )
+
+                  continue
+
+              platforms = get_platforms(
+                  manifest
+              )
+
+              # --------------------------------------------------
+              # Single-platform manifests
+              #
+              # Do not guess architecture here.
+              # --------------------------------------------------
+
+              if not platforms:
+
+                  print(
+                      "WARNING: image does not expose a "
+                      "multi-platform manifest."
+                  )
+
+                  print(
+                      "Keeping existing architectures."
+                  )
+
+                  continue
+
+              print()
+              print("Docker platforms:")
+
+              for platform in platforms:
+
+                  print(
+                      f"  - {platform}"
+                  )
+
+              detected = []
+
+              for platform in platforms:
+
+                  architecture = PLATFORM_MAP.get(
+                      platform
+                  )
+
+                  if (
+                      architecture
+                      and architecture not in detected
+                  ):
+
+                      detected.append(
+                          architecture
+                      )
+
+              if not detected:
+
+                  print(
+                      "WARNING: no supported CasaOS "
+                      "architectures detected."
+                  )
+
+                  continue
+
+              current = xc.get(
+                  "architectures",
+                  []
+              )
+
+              if not isinstance(
+                  current,
+                  list
+              ):
+
+                  current = []
+
+              current = [
+                  str(value)
+                  for value in current
+                  if value
+              ]
+
+              print()
+              print(
+                  "Current architectures:"
+              )
+
+              print(
+                  "  " + ", ".join(current)
+              )
+
+              print()
+              print(
+                  "Detected architectures:"
+              )
+
+              print(
+                  "  " + ", ".join(detected)
+              )
+
+              if current != detected:
+
+                  xc["architectures"] = detected
+
+                  data["x-casaos"] = xc
+
+                  with open(
+                      compose_path,
+                      "w",
+                      encoding="utf-8"
+                  ) as f:
+
+                      yaml.safe_dump(
+                          data,
+                          f,
+                          sort_keys=False,
+                          allow_unicode=True
+                      )
+
+                  changed += 1
+
+                  print()
+                  print(
+                      "Architecture metadata updated."
+                  )
+
+              else:
+
+                  print()
+                  print(
+                      "Architecture metadata already correct."
+                  )
+
+
+          print()
+          print("=" * 70)
+          print(
+              f"Architecture normalization complete."
+          )
+          print(
+              f"Apps changed: {changed}"
+          )
+          print("=" * 70)
+
+          PY
 
       # ==========================================================
       # LINT V2
@@ -272,6 +654,8 @@ jobs:
           echo "=============================================="
           echo "Casa7014 V2 BUILD FAILED"
           echo "=============================================="
+          echo
+          echo "Check the Build V2 output above."
           echo
           exit 1
 

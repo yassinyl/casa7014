@@ -1,0 +1,115 @@
+name: dispatcharr
+
+services:
+  dispatcharr:
+    image: ghcr.io/dispatcharr/dispatcharr:latest
+    restart: unless-stopped
+    container_name: dispatcharr
+
+    ports:
+      - target: 9191
+        published: "9191"
+        protocol: tcp
+
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+
+    environment:
+      DISPATCHARR_ENV: aio
+      REDIS_HOST: localhost
+      CELERY_BROKER_URL: redis://localhost:6379/0
+      DISPATCHARR_LOG_LEVEL: info
+
+      # ========================================================
+      # OPTIONAL FIRST-TIME SETUP FROM PUBLIC IP
+      # ========================================================
+      #
+      # DISPATCHARR_SETUP_ALLOWED_IP: "203.0.113.50"
+
+      # ========================================================
+      # OPTIONAL REVERSE PROXY TRUST
+      # ========================================================
+      #
+      # DISPATCHARR_TRUSTED_PROXIES: "172.18.0.0/16"
+      #
+      # Or:
+      #
+      # DISPATCHARR_TRUSTED_PROXIES: "none"
+
+      # ========================================================
+      # OPTIONAL LEGACY CPU SUPPORT
+      # ========================================================
+      #
+      # USE_LEGACY_NUMPY: "true"
+
+      # ========================================================
+      # OPTIONAL PROCESS PRIORITY
+      # ========================================================
+      #
+      # UWSGI_NICE_LEVEL: "-5"
+      # CELERY_NICE_LEVEL: "5"
+
+    # ==========================================================
+    # OPTIONAL HIGH PRIORITY STREAMING
+    # ==========================================================
+    #
+    # cap_add:
+    #   - SYS_NICE
+
+    # ==========================================================
+    # OPTIONAL HARDWARE ACCELERATION - INTEL / AMD
+    # ==========================================================
+    #
+    # Uncomment ONLY if the host has /dev/dri:
+    #
+    # devices:
+    #   - /dev/dri:/dev/dri
+
+    # ==========================================================
+    # OPTIONAL NVIDIA GPU
+    # ==========================================================
+    #
+    # Requires NVIDIA Container Toolkit.
+    #
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities:
+    #             - gpu
+
+x-casaos:
+  id: com.casa7014.dispatcharr
+
+  main: dispatcharr
+
+  index: /
+
+  port_map: "9191"
+
+  scheme: http
+
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/icon.png
+
+  title:
+    en_US: Dispatcharr
+
+  tagline:
+    en_US: IPTV Stream Management and DVR
+
+  description:
+    en_US: Dispatcharr is an IPTV stream management platform for managing channels, streams, EPG data, and DVR functionality.
+
+  author: yassinyl
+
+  developer: Dispatcharr
+
+  category: Media
+
+  architectures:
+    - amd64
+    - arm64
+
+  version: "0.29.0"

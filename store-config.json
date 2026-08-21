@@ -1,8 +1,12 @@
 {
   "version": 2,
   "store_id": "zima7014",
-  "name": "Zima7014 AppStore",
-  "description": "casa714",
+  "name": {
+    "en_US": "Zima7014 AppStore"
+  },
+  "description": {
+    "en_US": "casa714"
+  },
   "maintainer": "yassinyl",
   "url": "https://github.com/yassinyl/casa7014"
 }

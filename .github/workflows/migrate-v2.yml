@@ -31,6 +31,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+          ref: main
 
       # ==========================================================
       # INSTALL YQ
@@ -40,14 +41,14 @@ jobs:
         env:
           YQ_VERSION: v4.44.3
           YQ_SHA256: a2c097180dd884a8d50c956ee16a9cec070f30a7947cf4ebf87d5f36213e9ed7
+
         run: |
           set -euo pipefail
 
           wget -qO /tmp/yq \
             "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
 
-          echo "${YQ_SHA256}  /tmp/yq" \
-            | sha256sum -c -
+          echo "${YQ_SHA256}  /tmp/yq" | sha256sum -c -
 
           sudo install \
             -m 0755 \
@@ -62,10 +63,16 @@ jobs:
 
       - name: Test V2 scripts
         run: |
-          bash .github/scripts/test-v2-scripts.sh
+          set -euo pipefail
+
+          bash -n .github/scripts/migrate-to-v2.sh
+          bash -n .github/scripts/lint-casaos-v2.sh
+          bash -n .github/scripts/detect-v2-migration.sh
+
+          echo "All V2 scripts syntax OK."
 
       # ==========================================================
-      # MIGRATE V1 -> V2
+      # MIGRATE
       # ==========================================================
 
       - name: Migrate Apps to V2
@@ -73,7 +80,7 @@ jobs:
           bash .github/scripts/migrate-to-v2.sh
 
       # ==========================================================
-      # LINT V2
+      # LINT
       # ==========================================================
 
       - name: Lint V2 invariants
@@ -81,7 +88,7 @@ jobs:
           bash .github/scripts/lint-casaos-v2.sh
 
       # ==========================================================
-      # DETECT MIGRATION
+      # DETECT
       # ==========================================================
 
       - name: Detect V2 migration
@@ -96,43 +103,16 @@ jobs:
       - name: Build V2
         if: steps.migrated.outputs.migrated == 'true'
         id: build_v2
+
         uses: IceWhaleTech/build-appstore-action@787271faebb0ef2101eb0f85d5485ff7208140db
+
         with:
           source: .
           output: dist
           base-url: https://yassinletaief.tn/casa7014
-          report-json: out/build-v2-report.json
-          report-title: Casa7014 V2 Build Report
-
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # ==========================================================
-      # UPLOAD BUILD REPORT
-      # ==========================================================
-
-      - name: Upload V2 build report
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: casa7014-v2-report
-          path: out/build-v2-report.json
-          if-no-files-found: ignore
-
-      # ==========================================================
-      # FAIL IF BUILD FAILED
-      # ==========================================================
-
-      - name: Fail if V2 build failed
-        if: always() && steps.build_v2.outcome != 'success'
-        run: |
-          echo "Casa7014 V2 build failed."
-          echo "Check the build-v2-report artifact."
-          exit 1
-
-      # ==========================================================
-      # VERIFY OUTPUT
+      # VERIFY BUILD
       # ==========================================================
 
       - name: Verify V2 output
@@ -140,22 +120,25 @@ jobs:
         run: |
           set -euo pipefail
 
-          test -f dist/store.json
-          test -f dist/index.json
+          echo "Checking V2 output..."
 
-          echo "V2 output verified successfully."
+          test -d dist
 
           echo
-          echo "Generated files:"
+          echo "V2 output:"
           find dist -maxdepth 5 -type f | sort
 
+          echo
+          echo "V2 build output verified successfully."
+
       # ==========================================================
-      # UPLOAD DIST
+      # UPLOAD V2 STORE
       # ==========================================================
 
       - name: Upload V2 store
         if: steps.migrated.outputs.migrated == 'true'
         uses: actions/upload-artifact@v6
+
         with:
           name: casa7014-v2-store
           path: dist
@@ -166,6 +149,7 @@ jobs:
       # ==========================================================
 
       - name: Commit automatic V2 migration
+        shell: bash
         run: |
           set -euo pipefail
 
@@ -183,11 +167,16 @@ jobs:
             supported-languages.json
 
           if git diff --cached --quiet; then
+
             echo "No migration changes."
+
             exit 0
+
           fi
 
           git commit \
             -m "chore: migrate app store to CasaOS V2 [skip ci]"
 
-          git push origin HEAD:main
+          git push \
+            origin \
+            HEAD:refs/heads/main

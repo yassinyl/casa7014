@@ -84,6 +84,85 @@ jobs:
           bash .github/scripts/migrate-to-v2.sh
 
       # ==========================================================
+      # NORMALIZE ARCHITECTURES
+      # ==========================================================
+
+      - name: Normalize V2 architectures
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "=============================================="
+          echo "Normalizing CasaOS V2 architectures"
+          echo "=============================================="
+
+          changed=0
+
+          for compose in Apps/*/docker-compose.yml; do
+
+            [ -f "$compose" ] || continue
+
+            app="$(basename "$(dirname "$compose")")"
+
+            architectures="$(yq eval '.x-casaos.architectures // [] | .[]' "$compose" 2>/dev/null || true)"
+
+            if [ -z "$architectures" ]; then
+              continue
+            fi
+
+            echo
+            echo "Checking: $app"
+            echo "Before:"
+            echo "$architectures"
+
+            # ------------------------------------------------------
+            # Remove legacy/unsupported 386 architecture.
+            # CasaOS V2 builder validates Docker image manifests
+            # and 386 is not available for this store image.
+            # ------------------------------------------------------
+
+            if echo "$architectures" | grep -qx "386"; then
+
+              echo "Removing unsupported architecture: 386"
+
+              yq -i '
+                .x-casaos.architectures =
+                (
+                  .x-casaos.architectures
+                  | map(select(. != "386"))
+                )
+              ' "$compose"
+
+              changed=1
+
+            fi
+
+            # ------------------------------------------------------
+            # Remove duplicate architectures
+            # ------------------------------------------------------
+
+            yq -i '
+              .x-casaos.architectures =
+              (
+                .x-casaos.architectures
+                | unique
+              )
+            ' "$compose"
+
+            echo "After:"
+            yq eval '.x-casaos.architectures' "$compose"
+
+          done
+
+          echo
+
+          if [ "$changed" -eq 1 ]; then
+            echo "Architecture normalization changed one or more apps."
+          else
+            echo "No architecture changes were necessary."
+          fi
+
+      # ==========================================================
       # LINT V2
       # ==========================================================
 
@@ -140,10 +219,6 @@ jobs:
           pwd
 
           echo
-          echo "Repository files:"
-          find . -maxdepth 3 -type f | sort | head -300
-
-          echo
           echo "=============================================="
           echo "DIST CONTENT"
           echo "=============================================="
@@ -197,8 +272,6 @@ jobs:
           echo "=============================================="
           echo "Casa7014 V2 BUILD FAILED"
           echo "=============================================="
-          echo
-          echo "Check the 'Show V2 build result' step above."
           echo
           exit 1
 
@@ -287,10 +360,8 @@ jobs:
         run: |
           echo
           echo "=============================================="
-          echo "Casa7014 V2 STORE DEPLOYED SUCCESSFULLY"
+          echo "CASA7014 V2 STORE DEPLOYED SUCCESSFULLY"
           echo "=============================================="
           echo
           echo "Store URL:"
           echo "https://yassinyl.github.io/casa7014"
-          echo
-          echo "GitHub Pages deployment completed."

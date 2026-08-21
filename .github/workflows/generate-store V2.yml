@@ -40,10 +40,11 @@ jobs:
           sudo apt-get install -y \
             python3 \
             python3-yaml \
-            jq
+            jq \
+            docker-compose-plugin
 
       # ==========================================================
-      # MIGRATE APPS
+      # MIGRATE ALL APPS
       # ==========================================================
 
       - name: Migrate Apps to V2
@@ -57,6 +58,18 @@ jobs:
           import yaml
 
           APPS_DIR = "Apps"
+
+          ALLOWED_CATEGORIES = {
+              "Media",
+              "Productivity",
+              "Home",
+              "Networking",
+              "AI",
+              "Finance",
+              "Social",
+              "Developer",
+              "Others",
+          }
 
           CATEGORY_MAP = {
               "Casa7014": "Others",
@@ -80,18 +93,6 @@ jobs:
               "AI": "AI",
               "Finance": "Finance",
               "Social": "Social",
-          }
-
-          ALLOWED_CATEGORIES = {
-              "Media",
-              "Productivity",
-              "Home",
-              "Networking",
-              "AI",
-              "Finance",
-              "Social",
-              "Developer",
-              "Others",
           }
 
           def normalize_locales(value):
@@ -131,7 +132,21 @@ jobs:
 
               return f"com.casa7014.{slug}"
 
-          def get_port_from_compose(data):
+          def get_existing_port(xc):
+
+              value = xc.get("port_map")
+
+              if value is None:
+                  return None
+
+              value = str(value).strip()
+
+              if value.isdigit():
+                  return value
+
+              return None
+
+          def get_compose_port(data):
 
               services = data.get(
                   "services",
@@ -145,12 +160,24 @@ jobs:
                       []
                   )
 
+                  if not isinstance(
+                      ports,
+                      list
+                  ):
+                      continue
+
                   for port in ports:
 
-                      if isinstance(port, int):
+                      if isinstance(
+                          port,
+                          int
+                      ):
                           return str(port)
 
-                      if not isinstance(port, str):
+                      if not isinstance(
+                          port,
+                          str
+                      ):
                           continue
 
                       value = port.strip()
@@ -165,6 +192,7 @@ jobs:
 
                       parts = value.split(":")
 
+                      # host:container
                       if len(parts) >= 2:
 
                           published = parts[-2]
@@ -172,6 +200,7 @@ jobs:
                           if published.isdigit():
                               return published
 
+                      # single port
                       elif len(parts) == 1:
 
                           if parts[0].isdigit():
@@ -179,7 +208,7 @@ jobs:
 
               return None
 
-          def get_port_from_environment(data):
+          def get_environment_port(data):
 
               services = data.get(
                   "services",
@@ -204,11 +233,17 @@ jobs:
                       []
                   )
 
-                  if isinstance(env, dict):
+                  if isinstance(
+                      env,
+                      dict
+                  ):
 
                       items = env.items()
 
-                  else:
+                  elif isinstance(
+                      env,
+                      list
+                  ):
 
                       items = []
 
@@ -229,8 +264,15 @@ jobs:
                           )
 
                           items.append(
-                              (key, value)
+                              (
+                                  key,
+                                  value
+                              )
                           )
+
+                  else:
+
+                      continue
 
                   for key, value in items:
 
@@ -268,24 +310,6 @@ jobs:
 
               return None
 
-          def get_existing_port(xc):
-
-              value = xc.get(
-                  "port_map"
-              )
-
-              if value is None:
-                  return None
-
-              value = str(
-                  value
-              ).strip()
-
-              if value.isdigit():
-                  return value
-
-              return None
-
           errors = []
 
           for app_name in sorted(
@@ -314,7 +338,9 @@ jobs:
 
               print()
               print("=" * 70)
-              print(f"Migrating: {app_name}")
+              print(
+                  f"Migrating: {app_name}"
+              )
               print("=" * 70)
 
               try:
@@ -351,7 +377,10 @@ jobs:
                   {}
               )
 
-              if not services:
+              if not isinstance(
+                  services,
+                  dict
+              ) or not services:
 
                   errors.append(
                       f"{app_name}: no services"
@@ -372,13 +401,19 @@ jobs:
                   ).strip("-").lower()
 
               # ==================================================
-              # X-CASAOS
+              # TOP LEVEL X-CASAOS
               # ==================================================
 
-              xc = data.setdefault(
-                  "x-casaos",
-                  {}
+              xc = data.get(
+                  "x-casaos"
               )
+
+              if not isinstance(
+                  xc,
+                  dict
+              ):
+
+                  xc = {}
 
               # ==================================================
               # ID
@@ -391,7 +426,7 @@ jobs:
                       current_id,
                       str
                   )
-                  or not current_id
+                  or not current_id.strip()
               ):
 
                   xc["id"] = make_id(
@@ -399,7 +434,7 @@ jobs:
                   )
 
               # IMPORTANT:
-              # id is directly under x-casaos
+              # ID MUST BE DIRECTLY UNDER X-CASAOS
               assert "id" in xc
 
               # ==================================================
@@ -418,7 +453,7 @@ jobs:
 
                   errors.append(
                       f"{app_name}: "
-                      "cannot determine main"
+                      "cannot determine main service"
                   )
 
                   continue
@@ -432,7 +467,7 @@ jobs:
                   xc["index"] = "/"
 
               # ==================================================
-              # PORT
+              # PORT MAP
               # ==================================================
 
               port = get_existing_port(
@@ -441,17 +476,18 @@ jobs:
 
               if port is None:
 
-                  port = get_port_from_compose(
+                  port = get_compose_port(
                       data
                   )
 
               if port is None:
 
-                  port = get_port_from_environment(
+                  port = get_environment_port(
                       data
                   )
 
-              # CastSponsorSkip
+              # CastSponsorSkip uses host network
+              # and exposes HTTP metrics through 9790.
               if (
                   port is None
                   and app_name.lower()
@@ -487,35 +523,38 @@ jobs:
 
               if not xc.get("icon"):
 
-                  icons = [
+                  icon_files = [
                       "icon.svg",
                       "icon.png",
                       "icon.jpg",
                       "icon.jpeg",
                   ]
 
-                  found = None
+                  found_icon = None
 
-                  for icon in icons:
+                  for icon in icon_files:
 
-                      path = os.path.join(
+                      icon_path = os.path.join(
                           app_dir,
                           icon
                       )
 
                       if os.path.isfile(
-                          path
+                          icon_path
                       ):
 
-                          found = icon
+                          found_icon = icon
+
                           break
 
-                  if found:
+                  if found_icon:
 
                       xc["icon"] = (
                           "https://cdn.jsdelivr.net/gh/"
                           "yassinyl/casa7014@main/"
-                          f"Apps/{app_name}/{found}"
+                          "Apps/"
+                          f"{app_name}/"
+                          f"{found_icon}"
                       )
 
                   else:
@@ -602,10 +641,14 @@ jobs:
                   xc["version"] = "1.0.0"
 
               # ==================================================
-              # SAVE
+              # SAVE TOP LEVEL X-CASAOS
               # ==================================================
 
               data["x-casaos"] = xc
+
+              # ==================================================
+              # WRITE FILE
+              # ==================================================
 
               with open(
                   compose_path,
@@ -623,15 +666,19 @@ jobs:
               print(
                   f"ID:       {xc['id']}"
               )
+
               print(
                   f"MAIN:     {xc['main']}"
               )
+
               print(
                   f"PORT:     {xc['port_map']}"
               )
+
               print(
                   f"CATEGORY: {xc['category']}"
               )
+
               print(
                   f"VERSION:  {xc['version']}"
               )
@@ -639,6 +686,10 @@ jobs:
               print(
                   "Migration: OK"
               )
+
+          # ======================================================
+          # STOP IF ANY APP FAILED
+          # ======================================================
 
           if errors:
 
@@ -657,7 +708,9 @@ jobs:
 
           print()
           print("=" * 70)
-          print("ALL APPS MIGRATED SUCCESSFULLY")
+          print(
+              "ALL APPS MIGRATED SUCCESSFULLY"
+          )
           print("=" * 70)
           PY
 
@@ -674,62 +727,259 @@ jobs:
           EOF
 
       # ==========================================================
-      # STORE CONFIG
+      # FIX STORE CONFIG FOR V2
       # ==========================================================
 
       - name: Normalize store-config.json
         run: |
-          set -e
+          set -euo pipefail
 
-          if [ ! -f store-config.json ]; then
+          python3 <<'PY'
+          import json
+          import os
 
-            cat > store-config.json <<'EOF'
-          {
-            "version": 2,
-            "store_id": "casa7014-yl",
-            "name": {
-              "en_US": "Casa7014 Apps"
-            },
-            "description": {
-              "en_US": "Casa7014 Apps"
-            },
-            "maintainer": "yassinyl",
-            "url": "https://github.com/yassinyl/casa7014"
-          }
-          EOF
+          path = "store-config.json"
 
-          else
+          if os.path.isfile(path):
 
-            jq '
-              .version = 2 |
-              .store_id = (.store_id // "casa7014-yl") |
-              .name = (.name // {"en_US":"Casa7014 Apps"}) |
-              .description = (.description // {"en_US":"Casa7014 Apps"}) |
-              .maintainer = (.maintainer // "yassinyl") |
-              .url = (.url // "https://github.com/yassinyl/casa7014")
-            ' store-config.json \
-              > store-config.tmp
+              with open(
+                  path,
+                  "r",
+                  encoding="utf-8"
+              ) as f:
 
-            mv \
-              store-config.tmp \
-              store-config.json
+                  config = json.load(f)
 
-          fi
+          else:
+
+              config = {}
+
+          # ------------------------------------------------------
+          # Protocol version
+          # ------------------------------------------------------
+
+          config["version"] = 2
+
+          # ------------------------------------------------------
+          # Stable store ID
+          # ------------------------------------------------------
+
+          store_id = config.get(
+              "store_id"
+          )
+
+          if not isinstance(
+              store_id,
+              str
+          ) or not store_id.strip():
+
+              config["store_id"] = "casa7014-yl"
+
+          # ------------------------------------------------------
+          # Name
+          # ------------------------------------------------------
+
+          name = config.get(
+              "name"
+          )
+
+          if isinstance(
+              name,
+              str
+          ):
+
+              config["name"] = {
+                  "en_US": name
+              }
+
+          elif not isinstance(
+              name,
+              dict
+          ):
+
+              config["name"] = {
+                  "en_US": "Casa7014 AppStore"
+              }
+
+          elif not config["name"].get(
+              "en_US"
+          ):
+
+              first = next(
+                  iter(
+                      config["name"].values()
+                  ),
+                  "Casa7014 AppStore"
+              )
+
+              config["name"]["en_US"] = str(
+                  first
+              )
+
+          # ------------------------------------------------------
+          # Description
+          # ------------------------------------------------------
+
+          description = config.get(
+              "description"
+          )
+
+          if isinstance(
+              description,
+              str
+          ):
+
+              config["description"] = {
+                  "en_US": description
+              }
+
+          elif description is None:
+
+              config["description"] = {
+                  "en_US": "Casa7014 App Store"
+              }
+
+          elif isinstance(
+              description,
+              dict
+          ):
+
+              if not description.get(
+                  "en_US"
+              ):
+
+                  first = next(
+                      iter(
+                          description.values()
+                      ),
+                      "Casa7014 App Store"
+                  )
+
+                  description["en_US"] = str(
+                      first
+                  )
+
+          # ------------------------------------------------------
+          # Maintainer
+          # ------------------------------------------------------
+
+          if not config.get(
+              "maintainer"
+          ):
+
+              config["maintainer"] = "yassinyl"
+
+          # ------------------------------------------------------
+          # Repository URL
+          # ------------------------------------------------------
+
+          if not config.get(
+              "url"
+          ):
+
+              config["url"] = (
+                  "https://github.com/"
+                  "yassinyl/casa7014"
+              )
+
+          # ------------------------------------------------------
+          # Save
+          # ------------------------------------------------------
+
+          with open(
+              path,
+              "w",
+              encoding="utf-8"
+          ) as f:
+
+              json.dump(
+                  config,
+                  f,
+                  indent=2,
+                  ensure_ascii=False
+              )
+
+              f.write("\n")
+
+          print(
+              json.dumps(
+                  config,
+                  indent=2,
+                  ensure_ascii=False
+              )
+          )
+          PY
 
       # ==========================================================
-      # VALIDATE SOURCE
+      # VALIDATE STORE CONFIG
       # ==========================================================
 
-      - name: Validate V2 structure
+      - name: Validate store-config.json
+        run: |
+          set -euo pipefail
+
+          python3 <<'PY'
+          import json
+          import re
+
+          with open(
+              "store-config.json",
+              encoding="utf-8"
+          ) as f:
+
+              config = json.load(f)
+
+          assert config.get(
+              "version"
+          ) == 2
+
+          assert isinstance(
+              config.get("store_id"),
+              str
+          )
+
+          assert re.fullmatch(
+              r"[A-Za-z0-9._-]+",
+              config["store_id"]
+          )
+
+          assert isinstance(
+              config.get("name"),
+              dict
+          )
+
+          assert isinstance(
+              config["name"].get("en_US"),
+              str
+          )
+
+          assert config["name"]["en_US"].strip()
+
+          assert isinstance(
+              config.get("maintainer"),
+              str
+          )
+
+          print(
+              "store-config.json: OK"
+          )
+          PY
+
+      # ==========================================================
+      # VALIDATE APPS
+      # ==========================================================
+
+      - name: Validate V2 source
         shell: bash
         run: |
           set -euo pipefail
 
           python3 <<'PY'
           import os
+          import re
           import yaml
 
-          required = [
+          REQUIRED = [
               "id",
               "main",
               "index",
@@ -739,6 +989,18 @@ jobs:
               "category",
               "version",
           ]
+
+          CATEGORIES = {
+              "Media",
+              "Productivity",
+              "Home",
+              "Networking",
+              "AI",
+              "Finance",
+              "Social",
+              "Developer",
+              "Others",
+          }
 
           errors = []
 
@@ -757,12 +1019,41 @@ jobs:
               ):
                   continue
 
-              with open(
-                  compose,
-                  encoding="utf-8"
-              ) as f:
+              print(
+                  f"Checking: {compose}"
+              )
 
-                  data = yaml.safe_load(f)
+              try:
+
+                  with open(
+                      compose,
+                      encoding="utf-8"
+                  ) as f:
+
+                      data = yaml.safe_load(f)
+
+              except Exception as e:
+
+                  errors.append(
+                      f"{app_name}: {e}"
+                  )
+
+                  continue
+
+              if not isinstance(
+                  data,
+                  dict
+              ):
+
+                  errors.append(
+                      f"{app_name}: invalid YAML"
+                  )
+
+                  continue
+
+              # --------------------------------------------------
+              # Top-level x-casaos
+              # --------------------------------------------------
 
               xc = data.get(
                   "x-casaos"
@@ -775,97 +1066,198 @@ jobs:
 
                   errors.append(
                       f"{app_name}: "
-                      "missing x-casaos"
+                      "missing top-level x-casaos"
                   )
 
                   continue
 
-              # ID MUST be directly under x-casaos
-              if "id" not in xc:
+              # --------------------------------------------------
+              # ID must be directly under x-casaos
+              # --------------------------------------------------
+
+              app_id = xc.get(
+                  "id"
+              )
+
+              if not isinstance(
+                  app_id,
+                  str
+              ):
 
                   errors.append(
                       f"{app_name}: "
                       "x-casaos.id missing"
                   )
 
-              # Make sure it is not accidentally under service
-              for service_name, service in data.get(
-                  "services",
-                  {}
-              ).items():
-
-                  if isinstance(
-                      service,
-                      dict
-                  ) and "id" in service:
-
-                      errors.append(
-                          f"{app_name}: "
-                          f"id found under service "
-                          f"{service_name}"
-                      )
-
-              missing = [
-                  key
-                  for key in required
-                  if not xc.get(key)
-              ]
-
-              if missing:
+              elif not re.fullmatch(
+                  r"[A-Za-z0-9._-]+",
+                  app_id
+              ):
 
                   errors.append(
                       f"{app_name}: "
-                      + ", ".join(missing)
+                      f"invalid id: {app_id}"
                   )
 
-              else:
+              elif "." not in app_id:
+
+                  errors.append(
+                      f"{app_name}: "
+                      f"id must contain '.': {app_id}"
+                  )
+
+              # --------------------------------------------------
+              # Required fields
+              # --------------------------------------------------
+
+              for field in REQUIRED:
+
+                  if not xc.get(field):
+
+                      errors.append(
+                          f"{app_name}: "
+                          f"x-casaos.{field} missing"
+                      )
+
+              # --------------------------------------------------
+              # Category
+              # --------------------------------------------------
+
+              category = xc.get(
+                  "category"
+              )
+
+              if category not in CATEGORIES:
+
+                  errors.append(
+                      f"{app_name}: "
+                      f"invalid category: {category}"
+                  )
+
+              # --------------------------------------------------
+              # Version
+              # --------------------------------------------------
+
+              if not isinstance(
+                  xc.get("version"),
+                  str
+              ):
+
+                  errors.append(
+                      f"{app_name}: "
+                      "version must be string"
+                  )
+
+              # --------------------------------------------------
+              # Port
+              # --------------------------------------------------
+
+              if not isinstance(
+                  xc.get("port_map"),
+                  str
+              ):
+
+                  errors.append(
+                      f"{app_name}: "
+                      "port_map must be string"
+                  )
+
+              # --------------------------------------------------
+              # Main service
+              # --------------------------------------------------
+
+              services = data.get(
+                  "services",
+                  {}
+              )
+
+              main = xc.get(
+                  "main"
+              )
+
+              if (
+                  isinstance(
+                      services,
+                      dict
+                  )
+                  and main not in services
+              ):
+
+                  errors.append(
+                      f"{app_name}: "
+                      f"main service '{main}' "
+                      "does not exist"
+                  )
+
+              if not errors:
 
                   print(
-                      f"OK: {app_name}"
+                      f"  ID:       {app_id}"
                   )
 
                   print(
-                      f"    id = {xc['id']}"
+                      f"  PORT:     {xc.get('port_map')}"
                   )
 
                   print(
-                      f"    port = {xc['port_map']}"
+                      f"  CATEGORY: {category}"
+                  )
+
+                  print(
+                      "  OK"
                   )
 
           if errors:
 
               print()
-              print("VALIDATION ERRORS:")
+              print("=" * 70)
+              print("V2 VALIDATION ERRORS")
+              print("=" * 70)
 
               for error in errors:
 
                   print(
-                      f" - {error}"
+                      f"ERROR: {error}"
                   )
 
               raise SystemExit(1)
 
           print()
           print(
-              "ALL APPS PASSED V2 VALIDATION"
+              "ALL APPS PASSED V2 SOURCE VALIDATION"
           )
           PY
 
       # ==========================================================
-      # SHOW EXAMPLE
+      # SHOW STORE CONFIG
       # ==========================================================
 
-      - name: Show migrated YAML
+      - name: Show final store-config.json
         run: |
-          echo "Example migrated App:"
-          echo
+          echo "======================================"
+          echo "FINAL store-config.json"
+          echo "======================================"
 
-          FIRST_APP=$(find Apps \
-            -mindepth 2 \
-            -maxdepth 2 \
-            -name docker-compose.yml \
-            | sort \
-            | head -n 1)
+          cat store-config.json
+
+      # ==========================================================
+      # SHOW ONE MIGRATED APP
+      # ==========================================================
+
+      - name: Show migrated App
+        run: |
+          echo "======================================"
+          echo "SAMPLE V2 APP"
+          echo "======================================"
+
+          FIRST_APP=$(
+            find Apps \
+              -mindepth 2 \
+              -maxdepth 2 \
+              -name docker-compose.yml \
+              | sort \
+              | head -n 1
+          )
 
           if [ -n "$FIRST_APP" ]; then
             cat "$FIRST_APP"
@@ -878,7 +1270,7 @@ jobs:
       - name: Commit V2 migration
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           git config \
             user.name \
@@ -895,7 +1287,7 @@ jobs:
 
           if git diff --cached --quiet; then
 
-            echo "No changes to commit."
+            echo "No migration changes."
 
           else
 
@@ -909,7 +1301,7 @@ jobs:
           fi
 
       # ==========================================================
-      # BUILD V2
+      # BUILD OFFICIAL V2 DIST
       # ==========================================================
 
       - name: Build CasaOS V2
@@ -923,13 +1315,16 @@ jobs:
           report-title: Casa7014 V2 Build Report
 
       # ==========================================================
-      # BUILD RESULT
+      # VERIFY GENERATED V2 OUTPUT
       # ==========================================================
 
-      - name: Show V2 output
+      - name: Verify V2 output
+        shell: bash
         run: |
+          set -euo pipefail
+
           echo "======================================"
-          echo "CasaOS V2 BUILD OUTPUT"
+          echo "V2 OUTPUT"
           echo "======================================"
 
           find dist \
@@ -937,8 +1332,25 @@ jobs:
             -type f \
             | sort
 
+          echo
+          echo "Checking required files..."
+
+          test -f dist/store.json
+          test -f dist/index.json
+
+          echo
+          echo "store.json:"
+          cat dist/store.json
+
+          echo
+          echo "index.json:"
+          cat dist/index.json
+
+          echo
+          echo "V2 BUILD OUTPUT: OK"
+
       # ==========================================================
-      # UPLOAD ARTIFACT
+      # UPLOAD V2 DIST
       # ==========================================================
 
       - name: Upload V2 Store
@@ -946,11 +1358,16 @@ jobs:
         with:
           name: casa7014-v2-store
           path: dist
+          if-no-files-found: error
 
-      - name: Upload build report
+      # ==========================================================
+      # UPLOAD REPORT
+      # ==========================================================
+
+      - name: Upload V2 build report
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: casa7014-v2-report
           path: out/build-v2-report.json
-          if-no-files-found: ignore
+          if-no-files-found: warn

@@ -1,4 +1,4 @@
-name: Deploy ZIP to cPanel
+name: Deploy ZIP to GitHub Pages
 
 on:
   push:
@@ -9,18 +9,99 @@ on:
       - "category-list.json"
       - "recommend-list.json"
 
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: casa7014-pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+
+      # ==========================================================
+      # CHECKOUT MAIN
+      # ==========================================================
+
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # ==========================================================
+      # CREATE CASAOS V1 ZIP
+      # ==========================================================
 
       - name: Create ZIP archive
-        run: zip -r casa7014.zip Apps category-list.json recommend-list.json -x "*.png"
-
-      - name: Upload ZIP via FTP
         run: |
-          sudo apt-get install -y lftp
-          lftp -e "set ftp:ssl-allow no; put casa7014.zip -o casa7014.zip; bye" -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }}
+          set -e
+
+          echo "Creating casa7014.zip..."
+
+          zip -r casa7014.zip \
+            Apps \
+            category-list.json \
+            recommend-list.json \
+            -x "*.png"
+
+          echo
+          echo "ZIP created:"
+          ls -lh casa7014.zip
+
+      # ==========================================================
+      # GET GITHUB PAGES
+      # ==========================================================
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 0
+
+      # ==========================================================
+      # COPY ZIP TO GITHUB PAGES
+      # ==========================================================
+
+      - name: Add casa7014.zip
+        run: |
+          set -e
+
+          cp casa7014.zip gh-pages/casa7014.zip
+
+          echo
+          echo "GitHub Pages contents:"
+          ls -lah gh-pages/
+
+          echo
+          echo "ZIP:"
+          ls -lh gh-pages/casa7014.zip
+
+      # ==========================================================
+      # COMMIT + PUSH
+      # ==========================================================
+
+      - name: Publish ZIP
+        working-directory: gh-pages
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add casa7014.zip
+
+          if git diff --cached --quiet; then
+            echo "casa7014.zip is already up to date."
+            exit 0
+          fi
+
+          git commit \
+            -m "chore: update casa7014.zip [skip ci]"
+
+          git push origin HEAD:gh-pages

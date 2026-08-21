@@ -24,28 +24,13 @@ services:
     - type: bind
       source: /var/run/docker.sock
       target: /var/run/docker.sock
-    x-casaos:
-      ports:
-      - container: '9000'
-        description:
-          en_us: Portainer Web UI Port
-          zh_cn: Portainer Web UI 端口
-      - container: '9443'
-        description:
-          en_us: Portainer Web UI Port (https)
-          zh_cn: Portainer Web UI 端口 (https)
-      volumes:
-      - container: /data
-        description:
-          en_us: Portainer data directory
-          zh_cn: Portainer 数据目录
-          fr_fr: Répertoire des données de Portainer
     container_name: portainer
 x-casaos:
   architectures:
   - amd64
-  - arm
   - arm64
+  - arm
+  - ppc64le
   author: yassinyl
   category: Others
   description:
@@ -82,4 +67,19 @@ x-casaos:
   scheme: http
   id: com.casa7014.portainer-business-edition
   version: 1.0.0
+  ports:
+  - container: '9000'
+    description:
+      en_US: Portainer Web UI Port
+      zh_CN: Portainer Web UI 端口
+  - container: '9443'
+    description:
+      en_US: Portainer Web UI Port (https)
+      zh_CN: Portainer Web UI 端口 (https)
+  volumes:
+  - container: /data
+    description:
+      en_US: Portainer data directory
+      zh_CN: Portainer 数据目录
+      fr_fr: Répertoire des données de Portainer
 name: portainer-business-edition

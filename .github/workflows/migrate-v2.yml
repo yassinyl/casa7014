@@ -99,9 +99,8 @@ jobs:
           python3 <<'PY'
           import json
           import os
-          import subprocess
-          import urllib.request
           import urllib.parse
+          import urllib.request
           import yaml
 
           APPS_DIR = "Apps"
@@ -116,9 +115,7 @@ jobs:
               "linux/s390x": "s390x",
           }
 
-
           def normalize_image(image):
-
               image = image.strip()
 
               if image.startswith("docker.io/"):
@@ -129,9 +126,7 @@ jobs:
 
               return image
 
-
           def split_image(image):
-
               image = normalize_image(image)
 
               if "@" in image:
@@ -146,9 +141,7 @@ jobs:
 
               return image, "latest"
 
-
           def registry_manifest(image):
-
               repository, reference = split_image(image)
 
               print(
@@ -206,17 +199,13 @@ jobs:
 
                   return json.load(response)
 
-
           def get_platforms(manifest):
-
               if not isinstance(manifest, dict):
                   return []
 
               manifests = manifest.get("manifests")
 
               if not isinstance(manifests, list):
-
-                  # Single-platform image.
                   return []
 
               platforms = []
@@ -247,26 +236,7 @@ jobs:
 
               return platforms
 
-
-          def get_single_platform_from_manifest(manifest):
-
-              if not isinstance(manifest, dict):
-                  return []
-
-              config = manifest.get("config")
-
-              # Registry API normally returns a single manifest
-              # without a platform field. We cannot reliably infer
-              # it from the manifest itself without downloading the
-              # config blob, so leave it untouched.
-              if isinstance(config, dict):
-                  return []
-
-              return []
-
-
           def get_main_image(data):
-
               services = data.get(
                   "services",
                   {}
@@ -296,7 +266,6 @@ jobs:
                       if isinstance(image, str):
                           return main, image
 
-              # Fallback: first service containing image.
               for service_name, service in services.items():
 
                   if not isinstance(service, dict):
@@ -308,7 +277,6 @@ jobs:
                       return service_name, image
 
               return None, None
-
 
           changed = 0
 
@@ -365,9 +333,7 @@ jobs:
               if not isinstance(xc, dict):
                   continue
 
-              service_name, image = get_main_image(
-                  data
-              )
+              service_name, image = get_main_image(data)
 
               if not image:
 
@@ -387,9 +353,7 @@ jobs:
 
               try:
 
-                  manifest = registry_manifest(
-                      image
-                  )
+                  manifest = registry_manifest(image)
 
               except Exception as exc:
 
@@ -404,15 +368,7 @@ jobs:
 
                   continue
 
-              platforms = get_platforms(
-                  manifest
-              )
-
-              # --------------------------------------------------
-              # Single-platform manifests
-              #
-              # Do not guess architecture here.
-              # --------------------------------------------------
+              platforms = get_platforms(manifest)
 
               if not platforms:
 
@@ -431,10 +387,7 @@ jobs:
               print("Docker platforms:")
 
               for platform in platforms:
-
-                  print(
-                      f"  - {platform}"
-                  )
+                  print(f"  - {platform}")
 
               detected = []
 
@@ -531,11 +484,10 @@ jobs:
                       "Architecture metadata already correct."
                   )
 
-
           print()
           print("=" * 70)
           print(
-              f"Architecture normalization complete."
+              "Architecture normalization complete."
           )
           print(
               f"Apps changed: {changed}"
@@ -630,6 +582,40 @@ jobs:
 
           echo
           echo "V2 output verified successfully."
+
+      # ==========================================================
+      # CREATE CASAOS V1 ZIP
+      # ==========================================================
+
+      - name: Create CasaOS V1 ZIP
+        if: steps.build_v2.outcome == 'success'
+        run: |
+          set -euo pipefail
+
+          echo "=============================================="
+          echo "Creating CasaOS V1 ZIP"
+          echo "=============================================="
+
+          rm -f casa7014.zip
+
+          zip -r casa7014.zip \
+            Apps \
+            category-list.json \
+            recommend-list.json \
+            -x "*.png"
+
+          echo
+          echo "CasaOS V1 ZIP created:"
+          ls -lh casa7014.zip
+
+          echo
+          echo "Adding ZIP to V2 dist..."
+
+          cp casa7014.zip dist/casa7014.zip
+
+          echo
+          echo "ZIP inside dist:"
+          ls -lh dist/casa7014.zip
 
       # ==========================================================
       # UPLOAD V2 STORE ARTIFACT
@@ -744,8 +730,14 @@ jobs:
         run: |
           echo
           echo "=============================================="
-          echo "CASA7014 V2 STORE DEPLOYED SUCCESSFULLY"
+          echo "CASA7014 STORE DEPLOYED SUCCESSFULLY"
           echo "=============================================="
           echo
-          echo "Store URL:"
+          echo "ZimaOS V2:"
           echo "https://yassinyl.github.io/casa7014"
+          echo
+          echo "ZimaOS store.json:"
+          echo "https://yassinyl.github.io/casa7014/store.json"
+          echo
+          echo "CasaOS V1 ZIP:"
+          echo "https://yassinyl.github.io/casa7014/casa7014.zip"

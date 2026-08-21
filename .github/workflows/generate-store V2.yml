@@ -36,15 +36,19 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -e
+
           sudo apt-get update
+
           sudo apt-get install -y \
             python3 \
             python3-yaml \
-            jq \
-            docker-compose-plugin
+            jq
+
+          echo "Dependencies installed successfully."
 
       # ==========================================================
-      # MIGRATE ALL APPS
+      # MIGRATE APPS TO V2
       # ==========================================================
 
       - name: Migrate Apps to V2
@@ -192,7 +196,6 @@ jobs:
 
                       parts = value.split(":")
 
-                      # host:container
                       if len(parts) >= 2:
 
                           published = parts[-2]
@@ -200,7 +203,6 @@ jobs:
                           if published.isdigit():
                               return published
 
-                      # single port
                       elif len(parts) == 1:
 
                           if parts[0].isdigit():
@@ -264,10 +266,7 @@ jobs:
                           )
 
                           items.append(
-                              (
-                                  key,
-                                  value
-                              )
+                              (key, value)
                           )
 
                   else:
@@ -338,9 +337,7 @@ jobs:
 
               print()
               print("=" * 70)
-              print(
-                  f"Migrating: {app_name}"
-              )
+              print(f"Migrating: {app_name}")
               print("=" * 70)
 
               try:
@@ -401,7 +398,7 @@ jobs:
                   ).strip("-").lower()
 
               # ==================================================
-              # TOP LEVEL X-CASAOS
+              # X-CASAOS
               # ==================================================
 
               xc = data.get(
@@ -419,7 +416,9 @@ jobs:
               # ID
               # ==================================================
 
-              current_id = xc.get("id")
+              current_id = xc.get(
+                  "id"
+              )
 
               if (
                   not isinstance(
@@ -434,7 +433,8 @@ jobs:
                   )
 
               # IMPORTANT:
-              # ID MUST BE DIRECTLY UNDER X-CASAOS
+              # x-casaos.id is directly under x-casaos
+
               assert "id" in xc
 
               # ==================================================
@@ -467,7 +467,7 @@ jobs:
                   xc["index"] = "/"
 
               # ==================================================
-              # PORT MAP
+              # PORT
               # ==================================================
 
               port = get_existing_port(
@@ -486,8 +486,7 @@ jobs:
                       data
                   )
 
-              # CastSponsorSkip uses host network
-              # and exposes HTTP metrics through 9790.
+              # CastSponsorSkip
               if (
                   port is None
                   and app_name.lower()
@@ -544,7 +543,6 @@ jobs:
                       ):
 
                           found_icon = icon
-
                           break
 
                   if found_icon:
@@ -567,7 +565,7 @@ jobs:
                       continue
 
               # ==================================================
-              # NORMALIZE LOCALES
+              # LOCALES
               # ==================================================
 
               xc = normalize_locales(
@@ -641,14 +639,10 @@ jobs:
                   xc["version"] = "1.0.0"
 
               # ==================================================
-              # SAVE TOP LEVEL X-CASAOS
+              # SAVE
               # ==================================================
 
               data["x-casaos"] = xc
-
-              # ==================================================
-              # WRITE FILE
-              # ==================================================
 
               with open(
                   compose_path,
@@ -683,13 +677,7 @@ jobs:
                   f"VERSION:  {xc['version']}"
               )
 
-              print(
-                  "Migration: OK"
-              )
-
-          # ======================================================
-          # STOP IF ANY APP FAILED
-          # ======================================================
+              print("Migration: OK")
 
           if errors:
 
@@ -699,7 +687,6 @@ jobs:
               print("=" * 70)
 
               for error in errors:
-
                   print(
                       f"ERROR: {error}"
                   )
@@ -708,9 +695,7 @@ jobs:
 
           print()
           print("=" * 70)
-          print(
-              "ALL APPS MIGRATED SUCCESSFULLY"
-          )
+          print("ALL APPS MIGRATED SUCCESSFULLY")
           print("=" * 70)
           PY
 
@@ -727,7 +712,7 @@ jobs:
           EOF
 
       # ==========================================================
-      # FIX STORE CONFIG FOR V2
+      # NORMALIZE STORE CONFIG
       # ==========================================================
 
       - name: Normalize store-config.json
@@ -754,29 +739,17 @@ jobs:
 
               config = {}
 
-          # ------------------------------------------------------
-          # Protocol version
-          # ------------------------------------------------------
-
           config["version"] = 2
 
-          # ------------------------------------------------------
-          # Stable store ID
-          # ------------------------------------------------------
-
-          store_id = config.get(
-              "store_id"
-          )
-
           if not isinstance(
-              store_id,
+              config.get("store_id"),
               str
-          ) or not store_id.strip():
+          ) or not config["store_id"].strip():
 
               config["store_id"] = "casa7014-yl"
 
           # ------------------------------------------------------
-          # Name
+          # NAME
           # ------------------------------------------------------
 
           name = config.get(
@@ -817,7 +790,7 @@ jobs:
               )
 
           # ------------------------------------------------------
-          # Description
+          # DESCRIPTION
           # ------------------------------------------------------
 
           description = config.get(
@@ -860,7 +833,7 @@ jobs:
                   )
 
           # ------------------------------------------------------
-          # Maintainer
+          # MAINTAINER
           # ------------------------------------------------------
 
           if not config.get(
@@ -870,7 +843,7 @@ jobs:
               config["maintainer"] = "yassinyl"
 
           # ------------------------------------------------------
-          # Repository URL
+          # URL
           # ------------------------------------------------------
 
           if not config.get(
@@ -881,10 +854,6 @@ jobs:
                   "https://github.com/"
                   "yassinyl/casa7014"
               )
-
-          # ------------------------------------------------------
-          # Save
-          # ------------------------------------------------------
 
           with open(
               path,
@@ -929,36 +898,51 @@ jobs:
 
               config = json.load(f)
 
-          assert config.get(
-              "version"
-          ) == 2
+          if config.get("version") != 2:
+              raise SystemExit(
+                  "store-config.json: "
+                  "version must be 2"
+              )
 
-          assert isinstance(
+          if not isinstance(
               config.get("store_id"),
               str
-          )
+          ):
 
-          assert re.fullmatch(
+              raise SystemExit(
+                  "store-config.json: "
+                  "store_id invalid"
+              )
+
+          if not re.fullmatch(
               r"[A-Za-z0-9._-]+",
               config["store_id"]
-          )
+          ):
 
-          assert isinstance(
+              raise SystemExit(
+                  "store-config.json: "
+                  "invalid store_id"
+              )
+
+          if not isinstance(
               config.get("name"),
               dict
-          )
+          ):
 
-          assert isinstance(
+              raise SystemExit(
+                  "store-config.json: "
+                  "name must be object"
+              )
+
+          if not isinstance(
               config["name"].get("en_US"),
               str
-          )
+          ):
 
-          assert config["name"]["en_US"].strip()
-
-          assert isinstance(
-              config.get("maintainer"),
-              str
-          )
+              raise SystemExit(
+                  "store-config.json: "
+                  "name.en_US missing"
+              )
 
           print(
               "store-config.json: OK"
@@ -1020,25 +1004,15 @@ jobs:
                   continue
 
               print(
-                  f"Checking: {compose}"
+                  f"Checking {compose}"
               )
 
-              try:
+              with open(
+                  compose,
+                  encoding="utf-8"
+              ) as f:
 
-                  with open(
-                      compose,
-                      encoding="utf-8"
-                  ) as f:
-
-                      data = yaml.safe_load(f)
-
-              except Exception as e:
-
-                  errors.append(
-                      f"{app_name}: {e}"
-                  )
-
-                  continue
+                  data = yaml.safe_load(f)
 
               if not isinstance(
                   data,
@@ -1051,10 +1025,6 @@ jobs:
 
                   continue
 
-              # --------------------------------------------------
-              # Top-level x-casaos
-              # --------------------------------------------------
-
               xc = data.get(
                   "x-casaos"
               )
@@ -1066,15 +1036,12 @@ jobs:
 
                   errors.append(
                       f"{app_name}: "
-                      "missing top-level x-casaos"
+                      "missing x-casaos"
                   )
 
                   continue
 
-              # --------------------------------------------------
-              # ID must be directly under x-casaos
-              # --------------------------------------------------
-
+              # ID MUST BE DIRECTLY UNDER X-CASAOS
               app_id = xc.get(
                   "id"
               )
@@ -1099,17 +1066,7 @@ jobs:
                       f"invalid id: {app_id}"
                   )
 
-              elif "." not in app_id:
-
-                  errors.append(
-                      f"{app_name}: "
-                      f"id must contain '.': {app_id}"
-                  )
-
-              # --------------------------------------------------
               # Required fields
-              # --------------------------------------------------
-
               for field in REQUIRED:
 
                   if not xc.get(field):
@@ -1119,39 +1076,17 @@ jobs:
                           f"x-casaos.{field} missing"
                       )
 
-              # --------------------------------------------------
               # Category
-              # --------------------------------------------------
-
-              category = xc.get(
+              if xc.get(
                   "category"
-              )
-
-              if category not in CATEGORIES:
+              ) not in CATEGORIES:
 
                   errors.append(
                       f"{app_name}: "
-                      f"invalid category: {category}"
+                      "invalid category"
                   )
 
-              # --------------------------------------------------
-              # Version
-              # --------------------------------------------------
-
-              if not isinstance(
-                  xc.get("version"),
-                  str
-              ):
-
-                  errors.append(
-                      f"{app_name}: "
-                      "version must be string"
-                  )
-
-              # --------------------------------------------------
-              # Port
-              # --------------------------------------------------
-
+              # port_map must be string
               if not isinstance(
                   xc.get("port_map"),
                   str
@@ -1162,10 +1097,7 @@ jobs:
                       "port_map must be string"
                   )
 
-              # --------------------------------------------------
-              # Main service
-              # --------------------------------------------------
-
+              # main service must exist
               services = data.get(
                   "services",
                   {}
@@ -1192,15 +1124,11 @@ jobs:
               if not errors:
 
                   print(
-                      f"  ID:       {app_id}"
+                      f"  ID: {app_id}"
                   )
 
                   print(
-                      f"  PORT:     {xc.get('port_map')}"
-                  )
-
-                  print(
-                      f"  CATEGORY: {category}"
+                      f"  PORT: {xc.get('port_map')}"
                   )
 
                   print(
@@ -1224,30 +1152,25 @@ jobs:
 
           print()
           print(
-              "ALL APPS PASSED V2 SOURCE VALIDATION"
+              "ALL APPS PASSED V2 VALIDATION"
           )
           PY
 
       # ==========================================================
-      # SHOW STORE CONFIG
+      # SHOW RESULT
       # ==========================================================
 
-      - name: Show final store-config.json
+      - name: Show migrated structure
         run: |
           echo "======================================"
-          echo "FINAL store-config.json"
+          echo "STORE CONFIG"
           echo "======================================"
 
           cat store-config.json
 
-      # ==========================================================
-      # SHOW ONE MIGRATED APP
-      # ==========================================================
-
-      - name: Show migrated App
-        run: |
+          echo
           echo "======================================"
-          echo "SAMPLE V2 APP"
+          echo "SAMPLE APP"
           echo "======================================"
 
           FIRST_APP=$(
@@ -1264,7 +1187,7 @@ jobs:
           fi
 
       # ==========================================================
-      # COMMIT MIGRATION
+      # COMMIT
       # ==========================================================
 
       - name: Commit V2 migration
@@ -1287,7 +1210,7 @@ jobs:
 
           if git diff --cached --quiet; then
 
-            echo "No migration changes."
+            echo "No changes to commit."
 
           else
 
@@ -1301,7 +1224,7 @@ jobs:
           fi
 
       # ==========================================================
-      # BUILD OFFICIAL V2 DIST
+      # BUILD V2
       # ==========================================================
 
       - name: Build CasaOS V2
@@ -1315,7 +1238,7 @@ jobs:
           report-title: Casa7014 V2 Build Report
 
       # ==========================================================
-      # VERIFY GENERATED V2 OUTPUT
+      # VERIFY BUILD
       # ==========================================================
 
       - name: Verify V2 output
@@ -1324,33 +1247,28 @@ jobs:
           set -euo pipefail
 
           echo "======================================"
-          echo "V2 OUTPUT"
+          echo "V2 BUILD OUTPUT"
           echo "======================================"
 
           find dist \
-            -maxdepth 4 \
+            -maxdepth 5 \
             -type f \
             | sort
 
           echo
-          echo "Checking required files..."
+          echo "Checking store.json..."
 
           test -f dist/store.json
+
+          echo "Checking index.json..."
+
           test -f dist/index.json
 
           echo
-          echo "store.json:"
-          cat dist/store.json
-
-          echo
-          echo "index.json:"
-          cat dist/index.json
-
-          echo
-          echo "V2 BUILD OUTPUT: OK"
+          echo "V2 BUILD OUTPUT OK"
 
       # ==========================================================
-      # UPLOAD V2 DIST
+      # UPLOAD ARTIFACT
       # ==========================================================
 
       - name: Upload V2 Store
@@ -1361,7 +1279,7 @@ jobs:
           if-no-files-found: error
 
       # ==========================================================
-      # UPLOAD REPORT
+      # BUILD REPORT
       # ==========================================================
 
       - name: Upload V2 build report

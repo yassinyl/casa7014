@@ -1,0 +1,326 @@
+name: Update README App List
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Apps/**/docker-compose.yml"
+      - "Apps/**/icon.png"
+      - "README.md"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-readme
+  cancel-in-progress: true
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ==========================================================
+      # CHECKOUT
+      # ==========================================================
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # ==========================================================
+      # INSTALL PYTHON DEPENDENCIES
+      # ==========================================================
+
+      - name: Install PyYAML
+        run: |
+          python3 -m pip install --quiet PyYAML
+
+      # ==========================================================
+      # UPDATE APPLICATION TABLE
+      # ==========================================================
+
+      - name: Update README application table
+        run: |
+          python3 <<'PY'
+          import os
+          import re
+          import urllib.parse
+          import yaml
+
+          ROOT = "Apps"
+          README = "README.md"
+
+          START = "<!-- apps:start -->"
+          END = "<!-- apps:end -->"
+
+          apps = []
+
+          if os.path.isdir(ROOT):
+
+              for app_name in sorted(os.listdir(ROOT), key=str.lower):
+
+                  app_dir = os.path.join(ROOT, app_name)
+
+                  if not os.path.isdir(app_dir):
+                      continue
+
+                  compose_path = os.path.join(
+                      app_dir,
+                      "docker-compose.yml"
+                  )
+
+                  if not os.path.isfile(compose_path):
+                      continue
+
+                  try:
+                      with open(
+                          compose_path,
+                          "r",
+                          encoding="utf-8"
+                      ) as f:
+                          data = yaml.safe_load(f)
+                  except Exception as e:
+                      print(
+                          f"WARNING: Could not read "
+                          f"{compose_path}: {e}"
+                      )
+                      continue
+
+                  if not isinstance(data, dict):
+                      continue
+
+                  casaos = data.get("x-casaos", {})
+
+                  if not isinstance(casaos, dict):
+                      continue
+
+                  # ------------------------------------------------
+                  # APPLICATION NAME
+                  # ------------------------------------------------
+
+                  title = casaos.get("title", {})
+
+                  if isinstance(title, dict):
+                      name = (
+                          title.get("en_US")
+                          or title.get("en_us")
+                          or app_name
+                      )
+                  else:
+                      name = str(title or app_name)
+
+                  # ------------------------------------------------
+                  # DESCRIPTION
+                  # ------------------------------------------------
+
+                  tagline = casaos.get("tagline", {})
+
+                  if isinstance(tagline, dict):
+                      description = (
+                          tagline.get("en_US")
+                          or tagline.get("en_us")
+                          or ""
+                      )
+                  else:
+                      description = str(tagline or "")
+
+                  if not description:
+                      description_data = casaos.get(
+                          "description",
+                          {}
+                      )
+
+                      if isinstance(
+                          description_data,
+                          dict
+                      ):
+                          description = (
+                              description_data.get("en_US")
+                              or description_data.get("en_us")
+                              or ""
+                          )
+                      else:
+                          description = str(
+                              description_data or ""
+                          )
+
+                  # ------------------------------------------------
+                  # ICON
+                  # ------------------------------------------------
+
+                  encoded_app = urllib.parse.quote(
+                      app_name,
+                      safe=""
+                  )
+
+                  icon_url = (
+                      "https://cdn.jsdelivr.net/gh/"
+                      "yassinyl/casa7014@main/"
+                      f"Apps/{encoded_app}/icon.png"
+                  )
+
+                  # ------------------------------------------------
+                  # APP URL
+                  # ------------------------------------------------
+
+                  app_id = casaos.get("id", "")
+
+                  apps.append({
+                      "name": str(name).strip(),
+                      "description": str(
+                          description
+                      ).strip(),
+                      "icon": icon_url,
+                      "id": str(app_id).strip(),
+                  })
+
+          # --------------------------------------------------------
+          # SORT APPLICATIONS
+          # --------------------------------------------------------
+
+          apps.sort(
+              key=lambda x: x["name"].lower()
+          )
+
+          # --------------------------------------------------------
+          # BUILD TABLE
+          # --------------------------------------------------------
+
+          lines = [
+              START,
+              "",
+              "| Icon | Application | Description |",
+              "|:---:|---|---|"
+          ]
+
+          for app in apps:
+
+              name = app["name"]
+              description = app["description"]
+              icon = app["icon"]
+
+              # Prevent breaking Markdown table.
+              name = name.replace("|", "\\|")
+              description = (
+                  description
+                  .replace("|", "\\|")
+                  .replace("\n", " ")
+              )
+
+              lines.append(
+                  f'| <img src="{icon}" '
+                  f'width="48" height="48"> | '
+                  f'**{name}** | '
+                  f'{description} |'
+              )
+
+          lines.append("")
+          lines.append(END)
+
+          new_table = "\n".join(lines)
+
+          # --------------------------------------------------------
+          # READ README
+          # --------------------------------------------------------
+
+          if not os.path.isfile(README):
+              raise SystemExit(
+                  "README.md not found."
+              )
+
+          with open(
+              README,
+              "r",
+              encoding="utf-8"
+          ) as f:
+              content = f.read()
+
+          # --------------------------------------------------------
+          # REPLACE TABLE
+          # --------------------------------------------------------
+
+          pattern = re.compile(
+              re.escape(START)
+              + r".*?"
+              + re.escape(END),
+              re.DOTALL
+          )
+
+          if not pattern.search(content):
+
+              raise SystemExit(
+                  "Could not find "
+                  f"{START} / {END} markers in README.md"
+              )
+
+          updated = pattern.sub(
+              new_table,
+              content,
+              count=1
+          )
+
+          # --------------------------------------------------------
+          # WRITE README
+          # --------------------------------------------------------
+
+          with open(
+              README,
+              "w",
+              encoding="utf-8"
+          ) as f:
+              f.write(updated)
+
+          print(
+              f"README updated with {len(apps)} application(s)."
+          )
+
+          for app in apps:
+              print(
+                  f" - {app['name']} "
+                  f"({app['id'] or 'no id'})"
+              )
+
+          PY
+
+      # ==========================================================
+      # SHOW CHANGES
+      # ==========================================================
+
+      - name: Show README changes
+        run: |
+          git diff -- README.md || true
+
+      # ==========================================================
+      # COMMIT CHANGES
+      # ==========================================================
+
+      - name: Commit README changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config \
+            user.name \
+            "github-actions[bot]"
+
+          git config \
+            user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "README is already up to date."
+            exit 0
+          fi
+
+          git commit \
+            -m "docs: update application list [skip ci]"
+
+          git push origin HEAD:main

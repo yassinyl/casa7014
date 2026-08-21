@@ -8,10 +8,18 @@
 
    - Open the CasaOS dashboard in your web browser.  
    - Navigate to the **App Store** section and click on **Add Source**.  
-   - Enter the following URL:  
-     ```
-     https://yassinletaief.tn/casa7014/casa7014.zip
-     ```  
+   - Enter the following URL:
+
+**Appstore V1 (CasaOs)**
+
+         https://yassinyl.github.io/casa7014/casa7014.zip
+       
+
+**Appstore V2 (ZimaOS)**
+     
+     
+     https://yassinyl.github.io/casa7014/store.json
+       
      
    - Click **Add** to save the source.  
 

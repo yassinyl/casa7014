@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: casa7014-v2
@@ -80,7 +82,7 @@ jobs:
           bash .github/scripts/migrate-to-v2.sh
 
       # ==========================================================
-      # LINT V2
+      # LINT
       # ==========================================================
 
       - name: Lint V2 invariants
@@ -88,7 +90,7 @@ jobs:
           bash .github/scripts/lint-casaos-v2.sh
 
       # ==========================================================
-      # DETECT V2 MIGRATION
+      # DETECT V2
       # ==========================================================
 
       - name: Detect V2 migration
@@ -97,7 +99,7 @@ jobs:
           bash .github/scripts/detect-v2-migration.sh
 
       # ==========================================================
-      # BUILD CASAOS V2
+      # BUILD V2
       # ==========================================================
 
       - name: Build V2
@@ -109,7 +111,10 @@ jobs:
         with:
           source: .
           output: dist
-          base-url: https://yassinletaief.tn/casa7014
+
+          # IMPORTANT:
+          # This must be the final public URL where dist/ is served.
+          base-url: https://yassinyl.github.io/casa7014
 
       # ==========================================================
       # VERIFY V2 OUTPUT
@@ -125,17 +130,23 @@ jobs:
           test -d dist
 
           echo
-          echo "Generated V2 files:"
+          echo "Generated files:"
           find dist -maxdepth 5 -type f | sort
 
           echo
-          echo "V2 build output verified successfully."
+          echo "Checking required V2 files..."
+
+          test -f dist/index.json
+          test -f dist/store.json
+
+          echo
+          echo "V2 output verified successfully."
 
       # ==========================================================
       # UPLOAD V2 STORE AS ARTIFACT
       # ==========================================================
 
-      - name: Upload V2 store
+      - name: Upload V2 store artifact
         if: steps.migrated.outputs.migrated == 'true'
         uses: actions/upload-artifact@v6
 
@@ -145,17 +156,7 @@ jobs:
           if-no-files-found: error
 
       # ==========================================================
-      # FAIL ONLY IF BUILD REALLY FAILED
-      # ==========================================================
-
-      - name: Fail if V2 build failed
-        if: steps.migrated.outputs.migrated == 'true' && steps.build_v2.outcome != 'success'
-        run: |
-          echo "Casa7014 V2 build failed."
-          exit 1
-
-      # ==========================================================
-      # COMMIT AUTOMATIC V2 MIGRATION
+      # COMMIT MIGRATION
       # ==========================================================
 
       - name: Commit automatic V2 migration
@@ -182,27 +183,65 @@ jobs:
 
             echo "No migration changes."
 
-            exit 0
+          else
+
+            git commit \
+              -m "chore: migrate app store to CasaOS V2 [skip ci]"
+
+            echo "Pushing migration to main..."
+
+            git push \
+              origin \
+              HEAD:refs/heads/main
+
+            echo "Migration committed successfully."
 
           fi
 
-          git commit \
-            -m "chore: migrate app store to CasaOS V2 [skip ci]"
+      # ==========================================================
+      # CONFIGURE GITHUB PAGES
+      # ==========================================================
 
-          echo "Pushing migration to main..."
+      - name: Configure GitHub Pages
+        if: steps.migrated.outputs.migrated == 'true'
+        uses: actions/configure-pages@v5
 
-          git push \
-            origin \
-            HEAD:refs/heads/main
+      # ==========================================================
+      # UPLOAD DIST TO GITHUB PAGES
+      # ==========================================================
 
-          echo "Migration committed successfully."
+      - name: Upload GitHub Pages artifact
+        if: steps.migrated.outputs.migrated == 'true'
+        uses: actions/upload-pages-artifact@v4
+
+        with:
+          path: ./dist
+
+      # ==========================================================
+      # DEPLOY TO GITHUB PAGES
+      # ==========================================================
+
+      - name: Deploy to GitHub Pages
+        if: steps.migrated.outputs.migrated == 'true'
+        id: deployment
+
+        uses: actions/deploy-pages@v4
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ==========================================================
       # FINAL STATUS
       # ==========================================================
 
       - name: Complete
+        if: steps.migrated.outputs.migrated == 'true'
         run: |
           echo "=============================================="
-          echo "Casa7014 V2 migration completed successfully."
+          echo "Casa7014 V2 store deployed successfully."
           echo "=============================================="
+          echo
+          echo "Store URL:"
+          echo "https://yassinyl.github.io/casa7014"
+          echo
+          echo "V2 files are served from GitHub Pages."

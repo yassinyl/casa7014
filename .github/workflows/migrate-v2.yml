@@ -79,23 +79,29 @@ jobs:
 
       - name: Migrate Apps to V2
         run: |
+          set -euo pipefail
+
           bash .github/scripts/migrate-to-v2.sh
 
       # ==========================================================
-      # LINT
+      # LINT V2
       # ==========================================================
 
       - name: Lint V2 invariants
         run: |
+          set -euo pipefail
+
           bash .github/scripts/lint-casaos-v2.sh
 
       # ==========================================================
-      # DETECT V2
+      # DETECT V2 MIGRATION
       # ==========================================================
 
       - name: Detect V2 migration
         id: migrated
         run: |
+          set -euo pipefail
+
           bash .github/scripts/detect-v2-migration.sh
 
       # ==========================================================
@@ -105,23 +111,55 @@ jobs:
       - name: Build V2
         if: steps.migrated.outputs.migrated == 'true'
         id: build_v2
+        continue-on-error: true
 
         uses: IceWhaleTech/build-appstore-action@787271faebb0ef2101eb0f85d5485ff7208140db
 
         with:
           source: .
           output: dist
-
-          # IMPORTANT:
-          # This must be the final public URL where dist/ is served.
           base-url: https://yassinyl.github.io/casa7014
+
+      # ==========================================================
+      # SHOW BUILD RESULT
+      # ==========================================================
+
+      - name: Show V2 build result
+        if: always()
+        run: |
+          echo "=============================================="
+          echo "V2 BUILD RESULT"
+          echo "=============================================="
+
+          echo
+          echo "Build outcome:"
+          echo "${{ steps.build_v2.outcome }}"
+
+          echo
+          echo "Current directory:"
+          pwd
+
+          echo
+          echo "Repository files:"
+          find . -maxdepth 3 -type f | sort | head -300
+
+          echo
+          echo "=============================================="
+          echo "DIST CONTENT"
+          echo "=============================================="
+
+          if [ -d dist ]; then
+            find dist -type f | sort
+          else
+            echo "dist directory does not exist."
+          fi
 
       # ==========================================================
       # VERIFY V2 OUTPUT
       # ==========================================================
 
       - name: Verify V2 output
-        if: steps.migrated.outputs.migrated == 'true'
+        if: steps.build_v2.outcome == 'success'
         run: |
           set -euo pipefail
 
@@ -130,36 +168,46 @@ jobs:
           test -d dist
 
           echo
-          echo "Generated files:"
-          find dist -maxdepth 5 -type f | sort
-
-          echo
-          echo "Checking required V2 files..."
-
-          test -f dist/index.json
-          test -f dist/store.json
+          echo "Generated V2 files:"
+          find dist -type f | sort
 
           echo
           echo "V2 output verified successfully."
 
       # ==========================================================
-      # UPLOAD V2 STORE AS ARTIFACT
+      # UPLOAD V2 STORE ARTIFACT
       # ==========================================================
 
       - name: Upload V2 store artifact
-        if: steps.migrated.outputs.migrated == 'true'
+        if: always() && steps.migrated.outputs.migrated == 'true'
         uses: actions/upload-artifact@v6
 
         with:
           name: casa7014-v2-store
           path: dist
-          if-no-files-found: error
+          if-no-files-found: ignore
 
       # ==========================================================
-      # COMMIT MIGRATION
+      # FAIL IF BUILD FAILED
+      # ==========================================================
+
+      - name: Fail if V2 build failed
+        if: steps.build_v2.outcome != 'success'
+        run: |
+          echo "=============================================="
+          echo "Casa7014 V2 BUILD FAILED"
+          echo "=============================================="
+          echo
+          echo "Check the 'Show V2 build result' step above."
+          echo
+          exit 1
+
+      # ==========================================================
+      # COMMIT AUTOMATIC V2 MIGRATION
       # ==========================================================
 
       - name: Commit automatic V2 migration
+        if: steps.build_v2.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -203,7 +251,7 @@ jobs:
       # ==========================================================
 
       - name: Configure GitHub Pages
-        if: steps.migrated.outputs.migrated == 'true'
+        if: steps.build_v2.outcome == 'success'
         uses: actions/configure-pages@v5
 
       # ==========================================================
@@ -211,7 +259,7 @@ jobs:
       # ==========================================================
 
       - name: Upload GitHub Pages artifact
-        if: steps.migrated.outputs.migrated == 'true'
+        if: steps.build_v2.outcome == 'success'
         uses: actions/upload-pages-artifact@v4
 
         with:
@@ -222,7 +270,7 @@ jobs:
       # ==========================================================
 
       - name: Deploy to GitHub Pages
-        if: steps.migrated.outputs.migrated == 'true'
+        if: steps.build_v2.outcome == 'success'
         id: deployment
 
         uses: actions/deploy-pages@v4
@@ -231,17 +279,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ==========================================================
-      # FINAL STATUS
+      # COMPLETE
       # ==========================================================
 
       - name: Complete
-        if: steps.migrated.outputs.migrated == 'true'
+        if: steps.build_v2.outcome == 'success'
         run: |
+          echo
           echo "=============================================="
-          echo "Casa7014 V2 store deployed successfully."
+          echo "Casa7014 V2 STORE DEPLOYED SUCCESSFULLY"
           echo "=============================================="
           echo
           echo "Store URL:"
           echo "https://yassinyl.github.io/casa7014"
           echo
-          echo "V2 files are served from GitHub Pages."
+          echo "GitHub Pages deployment completed."

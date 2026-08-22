@@ -42,6 +42,13 @@ The application list below is automatically generated from the
 
 | Icon | Application | Description |
 |:---:|---|---|
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Aria2/icon.png" width="48" height="48"> | **Aria2** | The lightweight multi-protocol & multi-source command-line download utility |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Aria2%20Pro/icon.png" width="48" height="48"> | **Aria2 Pro** | A better Aria2 Docker container |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/dispatcharr/icon.png" width="48" height="48"> | **Dispatcharr** | IPTV Stream Management and DVR |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/fritzbox-wlan-password-rotator/icon.png" width="48" height="48"> | **FritzBox WLAN Password Rotator** | Automatically rotate WLAN passwords for FRITZ!Box |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/linkstack/icon.png" width="48" height="48"> | **LinkStack** | The Ultimate Link Management Solution |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | Video surveillance for your cameras |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | Lightweight Docker management UI |
 
 <!-- apps:end -->
 

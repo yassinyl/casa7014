@@ -5,8 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "Apps/**/docker-compose.yml"
-      - "Apps/**/icon.png"
+      - "Apps/**"
       - "README.md"
 
   workflow_dispatch:
@@ -16,10 +15,12 @@ permissions:
 
 concurrency:
   group: update-readme
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+
   update-readme:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -32,9 +33,11 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          persist-credentials: true
+          ref: main
 
       # ==========================================================
-      # INSTALL PYTHON DEPENDENCIES
+      # INSTALL PYTHON YAML
       # ==========================================================
 
       - name: Install PyYAML
@@ -42,11 +45,14 @@ jobs:
           python3 -m pip install --quiet PyYAML
 
       # ==========================================================
-      # UPDATE APPLICATION TABLE
+      # GENERATE APPLICATION TABLE
       # ==========================================================
 
-      - name: Update README application table
+      - name: Generate application table
+        shell: bash
         run: |
+          set -euo pipefail
+
           python3 <<'PY'
           import os
           import re
@@ -61,11 +67,21 @@ jobs:
 
           apps = []
 
+          # ======================================================
+          # SCAN APPS DIRECTORY
+          # ======================================================
+
           if os.path.isdir(ROOT):
 
-              for app_name in sorted(os.listdir(ROOT), key=str.lower):
+              for app_name in sorted(
+                  os.listdir(ROOT),
+                  key=str.lower
+              ):
 
-                  app_dir = os.path.join(ROOT, app_name)
+                  app_dir = os.path.join(
+                      ROOT,
+                      app_name
+                  )
 
                   if not os.path.isdir(app_dir):
                       continue
@@ -79,58 +95,84 @@ jobs:
                       continue
 
                   try:
+
                       with open(
                           compose_path,
                           "r",
                           encoding="utf-8"
                       ) as f:
+
                           data = yaml.safe_load(f)
+
                   except Exception as e:
+
                       print(
                           f"WARNING: Could not read "
                           f"{compose_path}: {e}"
                       )
+
                       continue
 
                   if not isinstance(data, dict):
                       continue
 
-                  casaos = data.get("x-casaos", {})
+                  casaos = data.get(
+                      "x-casaos",
+                      {}
+                  )
 
                   if not isinstance(casaos, dict):
                       continue
 
-                  # ------------------------------------------------
+                  # ==================================================
                   # APPLICATION NAME
-                  # ------------------------------------------------
+                  # ==================================================
 
-                  title = casaos.get("title", {})
+                  title = casaos.get(
+                      "title",
+                      {}
+                  )
 
                   if isinstance(title, dict):
+
                       name = (
                           title.get("en_US")
                           or title.get("en_us")
                           or app_name
                       )
+
                   else:
-                      name = str(title or app_name)
 
-                  # ------------------------------------------------
+                      name = str(
+                          title or app_name
+                      )
+
+                  # ==================================================
                   # DESCRIPTION
-                  # ------------------------------------------------
+                  # ==================================================
 
-                  tagline = casaos.get("tagline", {})
+                  tagline = casaos.get(
+                      "tagline",
+                      {}
+                  )
 
                   if isinstance(tagline, dict):
+
                       description = (
                           tagline.get("en_US")
                           or tagline.get("en_us")
                           or ""
                       )
-                  else:
-                      description = str(tagline or "")
 
+                  else:
+
+                      description = str(
+                          tagline or ""
+                      )
+
+                  # Fallback to description
                   if not description:
+
                       description_data = casaos.get(
                           "description",
                           {}
@@ -140,36 +182,82 @@ jobs:
                           description_data,
                           dict
                       ):
+
                           description = (
                               description_data.get("en_US")
                               or description_data.get("en_us")
                               or ""
                           )
+
                       else:
+
                           description = str(
                               description_data or ""
                           )
 
-                  # ------------------------------------------------
+                  # ==================================================
                   # ICON
-                  # ------------------------------------------------
+                  # ==================================================
 
                   encoded_app = urllib.parse.quote(
                       app_name,
                       safe=""
                   )
 
+                  icon_path = os.path.join(
+                      app_dir,
+                      "icon.png"
+                  )
+
+                  # Use icon.png when available.
+                  # Otherwise try common icon formats.
+                  if not os.path.isfile(icon_path):
+
+                      for filename in [
+                          "icon.svg",
+                          "icon.jpg",
+                          "icon.jpeg",
+                          "icon.webp"
+                      ]:
+
+                          candidate = os.path.join(
+                              app_dir,
+                              filename
+                          )
+
+                          if os.path.isfile(candidate):
+
+                              icon_filename = filename
+
+                              break
+
+                      else:
+
+                          icon_filename = "icon.png"
+
+                  else:
+
+                      icon_filename = "icon.png"
+
+                  encoded_icon = urllib.parse.quote(
+                      icon_filename,
+                      safe=""
+                  )
+
                   icon_url = (
                       "https://cdn.jsdelivr.net/gh/"
                       "yassinyl/casa7014@main/"
-                      f"Apps/{encoded_app}/icon.png"
+                      f"Apps/{encoded_app}/{encoded_icon}"
                   )
 
-                  # ------------------------------------------------
-                  # APP URL
-                  # ------------------------------------------------
+                  # ==================================================
+                  # APP ID
+                  # ==================================================
 
-                  app_id = casaos.get("id", "")
+                  app_id = casaos.get(
+                      "id",
+                      ""
+                  )
 
                   apps.append({
                       "name": str(name).strip(),
@@ -180,17 +268,17 @@ jobs:
                       "id": str(app_id).strip(),
                   })
 
-          # --------------------------------------------------------
+          # ==========================================================
           # SORT APPLICATIONS
-          # --------------------------------------------------------
+          # ==========================================================
 
           apps.sort(
               key=lambda x: x["name"].lower()
           )
 
-          # --------------------------------------------------------
+          # ==========================================================
           # BUILD TABLE
-          # --------------------------------------------------------
+          # ==========================================================
 
           lines = [
               START,
@@ -205,12 +293,17 @@ jobs:
               description = app["description"]
               icon = app["icon"]
 
-              # Prevent breaking Markdown table.
-              name = name.replace("|", "\\|")
+              # Prevent breaking Markdown table
+              name = name.replace(
+                  "|",
+                  "\\|"
+              )
+
               description = (
                   description
                   .replace("|", "\\|")
                   .replace("\n", " ")
+                  .strip()
               )
 
               lines.append(
@@ -225,11 +318,12 @@ jobs:
 
           new_table = "\n".join(lines)
 
-          # --------------------------------------------------------
-          # READ README
-          # --------------------------------------------------------
+          # ==========================================================
+          # CHECK README
+          # ==========================================================
 
           if not os.path.isfile(README):
+
               raise SystemExit(
                   "README.md not found."
               )
@@ -239,11 +333,12 @@ jobs:
               "r",
               encoding="utf-8"
           ) as f:
+
               content = f.read()
 
-          # --------------------------------------------------------
-          # REPLACE TABLE
-          # --------------------------------------------------------
+          # ==========================================================
+          # FIND TABLE MARKERS
+          # ==========================================================
 
           pattern = re.compile(
               re.escape(START)
@@ -256,8 +351,13 @@ jobs:
 
               raise SystemExit(
                   "Could not find "
-                  f"{START} / {END} markers in README.md"
+                  f"{START} / {END} "
+                  "markers in README.md"
               )
+
+          # ==========================================================
+          # REPLACE TABLE
+          # ==========================================================
 
           updated = pattern.sub(
               new_table,
@@ -265,22 +365,35 @@ jobs:
               count=1
           )
 
-          # --------------------------------------------------------
+          # ==========================================================
           # WRITE README
-          # --------------------------------------------------------
+          # ==========================================================
 
           with open(
               README,
               "w",
               encoding="utf-8"
           ) as f:
+
               f.write(updated)
 
+          # ==========================================================
+          # OUTPUT
+          # ==========================================================
+
+          print()
+          print(
+              "=============================================="
+          )
           print(
               f"README updated with {len(apps)} application(s)."
           )
+          print(
+              "=============================================="
+          )
 
           for app in apps:
+
               print(
                   f" - {app['name']} "
                   f"({app['id'] or 'no id'})"
@@ -294,13 +407,17 @@ jobs:
 
       - name: Show README changes
         run: |
+          echo "=============================================="
+          echo "README DIFF"
+          echo "=============================================="
+
           git diff -- README.md || true
 
       # ==========================================================
-      # COMMIT CHANGES
+      # COMMIT AND PUSH
       # ==========================================================
 
-      - name: Commit README changes
+      - name: Commit README update
         shell: bash
         run: |
           set -euo pipefail
@@ -316,11 +433,27 @@ jobs:
           git add README.md
 
           if git diff --cached --quiet; then
+
             echo "README is already up to date."
+
             exit 0
+
           fi
 
           git commit \
             -m "docs: update application list [skip ci]"
 
-          git push origin HEAD:main
+          # IMPORTANT:
+          # Explicitly target the branch refs/heads/main.
+          # The repository also has a tag named "main",
+          # so using HEAD:main causes:
+          # "dst refspec main matches more than one"
+
+          git push \
+            origin \
+            HEAD:refs/heads/main
+
+          echo
+          echo "=============================================="
+          echo "README UPDATED SUCCESSFULLY"
+          echo "=============================================="

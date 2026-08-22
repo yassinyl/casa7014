@@ -1,38 +1,56 @@
 name: dispatcharr
+
 services:
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:latest
     restart: unless-stopped
     container_name: dispatcharr
+
     ports:
-    - target: 9191
-      published: '9191'
-      protocol: tcp
+      - target: 9191
+        published: "9191"
+        protocol: tcp
+
     volumes:
-    - /DATA/AppData/$AppID/data:/data
+      - /DATA/AppData/$AppID/data:/data
+
     environment:
       DISPATCHARR_ENV: aio
       REDIS_HOST: localhost
       CELERY_BROKER_URL: redis://localhost:6379/0
       DISPATCHARR_LOG_LEVEL: info
+
 x-casaos:
   id: com.casa7014.dispatcharr
   main: dispatcharr
   index: /
-  port_map: '9191'
+  port_map: "9191"
   scheme: http
+
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/icon.png
+
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/screenshot-2.png
+
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/thumbnail.png
+
   title:
     en_US: Dispatcharr
+
   tagline:
     en_US: IPTV Stream Management and DVR
+
   description:
-    en_US: Dispatcharr is an IPTV stream management platform for managing channels,
-      streams, EPG data, and DVR functionality.
+    en_US: Dispatcharr is an IPTV stream management platform for managing channels, streams, EPG data, and DVR functionality.
+
   author: yassinyl
   developer: Dispatcharr
+
   category: Media
+
   architectures:
-  - amd64
-  - arm64
+    - amd64
+    - arm64
+
   version: 0.29.0

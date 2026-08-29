@@ -1,6 +1,6 @@
 services:
   portainer:
-    image: portainer/portainer-ee:2.41.0
+    image: portainer/portainer-ee:2.45.0
     deploy:
       resources:
         reservations:

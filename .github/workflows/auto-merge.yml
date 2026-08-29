@@ -1,31 +1,97 @@
-name: automerge
+name: Auto Merge
+
 on:
   pull_request:
     types:
+      - opened
+      - synchronize
+      - reopened
       - labeled
       - unlabeled
-      - synchronize
-      - opened
-      - edited
       - ready_for_review
-      - reopened
-      - unlocked
+
   pull_request_review:
     types:
       - submitted
+
   check_suite:
     types:
       - completed
-  status: {}
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: automerge-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
 jobs:
+
   automerge:
-    env:
-      MERGE_METHOD: "squash"
-      GITHUB_TOKEN: "${{ secrets.MY_GITHUB_TOKEN }}"
+
     runs-on: ubuntu-latest
+
     steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.16.4"
+
+      # ==========================================================
+      # AUTO MERGE
+      # ==========================================================
+
+      - name: Automerge
+        id: automerge
+        uses: pascalgn/automerge-action@v0.16.4
+
         env:
-          GITHUB_TOKEN: "${{ secrets.MY_GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Only PRs with this label are eligible
+          MERGE_LABELS: "automerge"
+
+          # Method
+          MERGE_METHOD: "squash"
+
+          # Don't delete the branch automatically
+          MERGE_DELETE_BRANCH: "false"
+
+          # Number of retries
+          MERGE_RETRIES: "6"
+
+          # Wait 10 seconds between retries
+          MERGE_RETRY_SLEEP: "10000"
+
+          # No approvals required
+          MERGE_REQUIRED_APPROVALS: "0"
+
+          # Only merge when GitHub considers the PR ready
+          MERGE_READY_STATE: "clean,has_hooks,unknown,unstable"
+
+          # Update only PRs with automerge label
+          UPDATE_LABELS: "automerge"
+
+          # Update method
+          UPDATE_METHOD: "merge"
+
+      # ==========================================================
+      # RESULT
+      # ==========================================================
+
+      - name: Show result
+        if: always()
+        run: |
+          echo "=============================================="
+          echo "AUTOMERGE RESULT"
+          echo "=============================================="
+
+          echo
+          echo "Result:"
+          echo "${{ steps.automerge.outputs.mergeResult }}"
+
+          echo
+          echo "Pull Request:"
+          echo "${{ steps.automerge.outputs.pullRequestNumber }}"
+
+          echo
+          echo "=============================================="

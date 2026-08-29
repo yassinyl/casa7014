@@ -54,5 +54,5 @@ x-casaos:
         \ in the settings after installation.\nAfter installation, access the web\
         \ interface at: \nhttp://your_server_ip:8765\n"
   id: com.casa7014.motioneye-beta
-  version: 1.0.0
+  version: 0.43.1
 name: motioneye-beta

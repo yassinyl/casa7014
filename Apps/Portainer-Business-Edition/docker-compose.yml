@@ -66,7 +66,7 @@ x-casaos:
   port_map: '9000'
   scheme: http
   id: com.casa7014.portainer-business-edition
-  version: 1.0.0
+  version: 2.45.0
   ports:
   - container: '9000'
     description:

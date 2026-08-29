@@ -27,7 +27,7 @@ jobs:
       # ======================================================
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5.0.1
         with:
           fetch-depth: 0
           persist-credentials: true
@@ -48,14 +48,17 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -euo pipefail
+
           python -m pip install --upgrade pip
+
           python -m pip install \
             requests \
             PyYAML \
             packaging
 
       # ======================================================
-      # RUN UPDATER
+      # CHECK DOCKER IMAGES
       # ======================================================
 
       - name: Check Docker images
@@ -90,20 +93,22 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
+        id: create-pr
+
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+          base: main
+
+          branch: docker-image-updates
+
+          delete-branch: true
 
           commit-message: "chore(docker): update docker images"
 
           title: "chore(docker): update Docker images"
 
           body-path: .github/PR_BODY.md
-
-          branch: docker-image-updates
-
-          delete-branch: true
-
-          base: main
 
           labels: |
             docker
@@ -113,18 +118,26 @@ jobs:
             Apps/**/docker-compose.yml
 
       # ======================================================
-      # SUMMARY
+      # RESULT
       # ======================================================
 
-      - name: Summary
+      - name: Show Pull Request result
         if: always()
         run: |
           echo "=============================================="
-          echo "Docker image update scan completed"
+          echo "DOCKER IMAGE UPDATE RESULT"
           echo "=============================================="
 
-          if git diff --quiet -- Apps; then
-            echo "No application image changes."
-          else
-            echo "Docker image updates detected."
-          fi
+          echo "PR number:"
+          echo "${{ steps.create-pr.outputs.pull-request-number }}"
+
+          echo
+          echo "PR URL:"
+          echo "${{ steps.create-pr.outputs.pull-request-url }}"
+
+          echo
+          echo "Branch:"
+          echo "${{ steps.create-pr.outputs.pull-request-branch }}"
+
+          echo
+          echo "=============================================="

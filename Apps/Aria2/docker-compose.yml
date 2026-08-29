@@ -28,8 +28,8 @@ services:
 x-casaos:
   architectures:
   - amd64
-  - arm64
   - arm
+  - arm64
   author: yassinyl
   category: Others
   description:

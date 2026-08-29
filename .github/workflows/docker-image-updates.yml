@@ -22,29 +22,72 @@ jobs:
 
     steps:
 
-      # ======================================================
+      # ==========================================================
       # CHECKOUT
-      # ======================================================
+      # ==========================================================
 
       - name: Checkout
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: true
           ref: main
 
-      # ======================================================
+      # ==========================================================
+      # CLEAN AMBIGUOUS MAIN TAG
+      # ==========================================================
+
+      - name: Clean conflicting main tag
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "=============================================="
+          echo "Checking Git references"
+          echo "=============================================="
+
+          echo
+          echo "Remote main references:"
+          git ls-remote origin "refs/heads/main" "refs/tags/main" || true
+
+          echo
+          echo "Checking for conflicting tag refs..."
+
+          if git ls-remote --exit-code origin "refs/tags/main" >/dev/null 2>&1; then
+            echo "Found conflicting tag: refs/tags/main"
+            echo "Deleting tag refs/tags/main..."
+
+            git push origin ":refs/tags/main"
+
+            echo "Conflicting main tag deleted."
+          else
+            echo "No conflicting main tag found."
+          fi
+
+          echo
+          echo "Refreshing Git references..."
+
+          git fetch origin \
+            "+refs/heads/*:refs/remotes/origin/*" \
+            "+refs/tags/*:refs/tags/*" \
+            --prune
+
+          echo
+          echo "Current main references:"
+          git show-ref | grep -E '(^|/)main$' || true
+
+      # ==========================================================
       # PYTHON
-      # ======================================================
+      # ==========================================================
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
-      # ======================================================
-      # DEPENDENCIES
-      # ======================================================
+      # ==========================================================
+      # INSTALL DEPENDENCIES
+      # ==========================================================
 
       - name: Install dependencies
         run: |
@@ -57,23 +100,31 @@ jobs:
             PyYAML \
             packaging
 
-      # ======================================================
+      # ==========================================================
       # CHECK DOCKER IMAGES
-      # ======================================================
+      # ==========================================================
 
       - name: Check Docker images
         id: updater
+        shell: bash
         run: |
           set -euo pipefail
 
+          echo "=============================================="
+          echo "CHECKING DOCKER IMAGES"
+          echo "=============================================="
+
           python .github/scripts/update_docker_images.py
 
-      # ======================================================
+      # ==========================================================
       # SHOW CHANGES
-      # ======================================================
+      # ==========================================================
 
       - name: Show changes
+        shell: bash
         run: |
+          set -euo pipefail
+
           echo "=============================================="
           echo "DOCKER IMAGE CHANGES"
           echo "=============================================="
@@ -87,11 +138,35 @@ jobs:
 
           git diff -- Apps
 
-      # ======================================================
+      # ==========================================================
+      # CHECK IF CHANGES EXIST
+      # ==========================================================
+
+      - name: Check for changes
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- Apps; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+
+            echo
+            echo "No Docker image updates found."
+
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+
+            echo
+            echo "Docker image updates detected."
+          fi
+
+      # ==========================================================
       # CREATE PULL REQUEST
-      # ======================================================
+      # ==========================================================
 
       - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         id: create-pr
 
@@ -108,7 +183,19 @@ jobs:
 
           title: "chore(docker): update Docker images"
 
-          body-path: .github/PR_BODY.md
+          body: |
+            ## Docker Image Updates
+
+            This pull request was automatically generated.
+
+            The workflow checks Docker images used by the applications
+            and updates version tags when a newer release is available.
+
+            ### Important
+
+            Applications using the `latest` tag are intentionally skipped.
+
+            Only explicitly versioned Docker image tags are checked.
 
           labels: |
             docker
@@ -117,17 +204,23 @@ jobs:
           add-paths: |
             Apps/**/docker-compose.yml
 
-      # ======================================================
-      # RESULT
-      # ======================================================
+      # ==========================================================
+      # SHOW PR RESULT
+      # ==========================================================
 
       - name: Show Pull Request result
         if: always()
+        shell: bash
         run: |
           echo "=============================================="
           echo "DOCKER IMAGE UPDATE RESULT"
           echo "=============================================="
 
+          echo
+          echo "Changes detected:"
+          echo "${{ steps.changes.outputs.changed }}"
+
+          echo
           echo "PR number:"
           echo "${{ steps.create-pr.outputs.pull-request-number }}"
 
@@ -136,7 +229,7 @@ jobs:
           echo "${{ steps.create-pr.outputs.pull-request-url }}"
 
           echo
-          echo "Branch:"
+          echo "PR branch:"
           echo "${{ steps.create-pr.outputs.pull-request-branch }}"
 
           echo

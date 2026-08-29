@@ -3,41 +3,128 @@ name: Docker Image Updates
 on:
   schedule:
     - cron: "0 3 * * *"
+
   workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: docker-image-updates
+  cancel-in-progress: false
+
 jobs:
+
   update-images:
+
     runs-on: ubuntu-latest
 
     steps:
+
+      # ======================================================
+      # CHECKOUT
+      # ======================================================
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          ref: main
+
+      # ======================================================
+      # PYTHON
+      # ======================================================
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
+      # ======================================================
+      # DEPENDENCIES
+      # ======================================================
+
       - name: Install dependencies
         run: |
-          pip install requests pyyaml packaging
+          python -m pip install --upgrade pip
+          python -m pip install \
+            requests \
+            PyYAML \
+            packaging
 
-      - name: Run updater
+      # ======================================================
+      # RUN UPDATER
+      # ======================================================
+
+      - name: Check Docker images
+        id: updater
         run: |
+          set -euo pipefail
+
           python .github/scripts/update_docker_images.py
 
+      # ======================================================
+      # SHOW CHANGES
+      # ======================================================
+
+      - name: Show changes
+        run: |
+          echo "=============================================="
+          echo "DOCKER IMAGE CHANGES"
+          echo "=============================================="
+
+          git status --short
+
+          echo
+          echo "=============================================="
+          echo "DIFF"
+          echo "=============================================="
+
+          git diff -- Apps
+
+      # ======================================================
+      # CREATE PULL REQUEST
+      # ======================================================
+
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
           commit-message: "chore(docker): update docker images"
-          title: "Update Docker images"
+
+          title: "chore(docker): update Docker images"
+
           body-path: .github/PR_BODY.md
+
           branch: docker-image-updates
+
           delete-branch: true
+
+          base: main
+
           labels: |
             docker
             updates
+
+          add-paths: |
+            Apps/**/docker-compose.yml
+
+      # ======================================================
+      # SUMMARY
+      # ======================================================
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "=============================================="
+          echo "Docker image update scan completed"
+          echo "=============================================="
+
+          if git diff --quiet -- Apps; then
+            echo "No application image changes."
+          else
+            echo "Docker image updates detected."
+          fi

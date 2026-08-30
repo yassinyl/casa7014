@@ -39,7 +39,7 @@ x-casaos:
   main: app
   author: yassinyl
   developer: phipzzz
-  category: Others
+  category: Networking
   description:
     en_US: 'A tool that automatically updates the guest WLAN password of a FRITZ!Box
       after a defined interval and displays the updated credentials and QR code on

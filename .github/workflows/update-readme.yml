@@ -37,7 +37,7 @@ jobs:
           ref: main
 
       # ==========================================================
-      # INSTALL PYTHON YAML
+      # INSTALL PYYAML
       # ==========================================================
 
       - name: Install PyYAML
@@ -67,8 +67,180 @@ jobs:
 
           apps = []
 
+
           # ======================================================
-          # SCAN APPS DIRECTORY
+          # HELPERS
+          # ======================================================
+
+          def get_localized(value, fallback=""):
+
+              if isinstance(value, dict):
+
+                  return str(
+                      value.get("en_US")
+                      or value.get("en_us")
+                      or next(
+                          iter(value.values()),
+                          fallback
+                      )
+                      or fallback
+                  ).strip()
+
+              if value is None:
+                  return fallback
+
+              return str(value).strip()
+
+
+          def get_main_image(data):
+
+              services = data.get(
+                  "services",
+                  {}
+              )
+
+              if not isinstance(
+                  services,
+                  dict
+              ):
+                  return None
+
+
+              casaos = data.get(
+                  "x-casaos",
+                  {}
+              )
+
+              if not isinstance(
+                  casaos,
+                  dict
+              ):
+                  casaos = {}
+
+
+              main = casaos.get(
+                  "main"
+              )
+
+
+              # --------------------------------------------------
+              # Prefer x-casaos.main
+              # --------------------------------------------------
+
+              if (
+                  main
+                  and main in services
+                  and isinstance(
+                      services[main],
+                      dict
+                  )
+              ):
+
+                  image = services[main].get(
+                      "image"
+                  )
+
+                  if isinstance(
+                      image,
+                      str
+                  ):
+
+                      return image.strip()
+
+
+              # --------------------------------------------------
+              # Fallback to first service with image
+              # --------------------------------------------------
+
+              for service in services.values():
+
+                  if not isinstance(
+                      service,
+                      dict
+                  ):
+                      continue
+
+                  image = service.get(
+                      "image"
+                  )
+
+                  if isinstance(
+                      image,
+                      str
+                  ):
+
+                      return image.strip()
+
+
+              return None
+
+
+          def get_image_tag(image):
+
+              if not image:
+                  return None
+
+              # Docker digest is not a tag.
+              if "@" in image:
+                  return None
+
+
+              last = image.rsplit(
+                  "/",
+                  1
+              )[-1]
+
+
+              if ":" not in last:
+
+                  return "latest"
+
+
+              return last.rsplit(
+                  ":",
+                  1
+              )[1]
+
+
+          def get_version(casaos, data):
+
+              # --------------------------------------------------
+              # Prefer CasaOS V2 version
+              # --------------------------------------------------
+
+              version = casaos.get(
+                  "version"
+              )
+
+
+              if (
+                  version is not None
+                  and str(version).strip()
+              ):
+
+                  return str(
+                      version
+                  ).strip()
+
+
+              # --------------------------------------------------
+              # Fallback to Docker image tag
+              # --------------------------------------------------
+
+              tag = get_image_tag(
+                  get_main_image(data)
+              )
+
+
+              if tag:
+                  return tag
+
+
+              return "—"
+
+
+          # ======================================================
+          # SCAN APPS
           # ======================================================
 
           if os.path.isdir(ROOT):
@@ -83,16 +255,28 @@ jobs:
                       app_name
                   )
 
-                  if not os.path.isdir(app_dir):
+
+                  if not os.path.isdir(
+                      app_dir
+                  ):
                       continue
+
 
                   compose_path = os.path.join(
                       app_dir,
                       "docker-compose.yml"
                   )
 
-                  if not os.path.isfile(compose_path):
+
+                  if not os.path.isfile(
+                      compose_path
+                  ):
                       continue
+
+
+                  # ------------------------------------------------
+                  # LOAD YAML
+                  # ------------------------------------------------
 
                   try:
 
@@ -102,7 +286,9 @@ jobs:
                           encoding="utf-8"
                       ) as f:
 
-                          data = yaml.safe_load(f)
+                          data = yaml.safe_load(
+                              f
+                          )
 
                   except Exception as e:
 
@@ -113,220 +299,256 @@ jobs:
 
                       continue
 
-                  if not isinstance(data, dict):
+
+                  if not isinstance(
+                      data,
+                      dict
+                  ):
                       continue
+
 
                   casaos = data.get(
                       "x-casaos",
                       {}
                   )
 
-                  if not isinstance(casaos, dict):
+
+                  if not isinstance(
+                      casaos,
+                      dict
+                  ):
                       continue
 
-                  # ==================================================
-                  # APPLICATION NAME
-                  # ==================================================
+
+                  # ------------------------------------------------
+                  # NAME
+                  # ------------------------------------------------
 
                   title = casaos.get(
-                      "title",
-                      {}
+                      "title"
                   )
 
-                  if isinstance(title, dict):
 
-                      name = (
-                          title.get("en_US")
-                          or title.get("en_us")
-                          or app_name
-                      )
+                  name = get_localized(
+                      title,
+                      app_name
+                  )
 
-                  else:
 
-                      name = str(
-                          title or app_name
-                      )
-
-                  # ==================================================
+                  # ------------------------------------------------
                   # DESCRIPTION
-                  # ==================================================
+                  # ------------------------------------------------
 
-                  tagline = casaos.get(
-                      "tagline",
-                      {}
+                  description = get_localized(
+                      casaos.get(
+                          "tagline"
+                      ),
+                      ""
                   )
 
-                  if isinstance(tagline, dict):
 
-                      description = (
-                          tagline.get("en_US")
-                          or tagline.get("en_us")
-                          or ""
-                      )
-
-                  else:
-
-                      description = str(
-                          tagline or ""
-                      )
-
-                  # Fallback to description
                   if not description:
 
-                      description_data = casaos.get(
-                          "description",
-                          {}
+                      description = get_localized(
+                          casaos.get(
+                              "description"
+                          ),
+                          ""
                       )
 
-                      if isinstance(
-                          description_data,
-                          dict
-                      ):
 
-                          description = (
-                              description_data.get("en_US")
-                              or description_data.get("en_us")
-                              or ""
-                          )
-
-                      else:
-
-                          description = str(
-                              description_data or ""
-                          )
-
-                  # ==================================================
+                  # ------------------------------------------------
                   # ICON
-                  # ==================================================
+                  # ------------------------------------------------
 
                   encoded_app = urllib.parse.quote(
                       app_name,
                       safe=""
                   )
 
-                  icon_path = os.path.join(
-                      app_dir,
-                      "icon.png"
-                  )
 
-                  # Use icon.png when available.
-                  # Otherwise try common icon formats.
-                  if not os.path.isfile(icon_path):
+                  icon_filename = None
 
-                      for filename in [
-                          "icon.svg",
-                          "icon.jpg",
-                          "icon.jpeg",
-                          "icon.webp"
-                      ]:
 
-                          candidate = os.path.join(
-                              app_dir,
-                              filename
-                          )
+                  for filename in [
 
-                          if os.path.isfile(candidate):
+                      "icon.png",
+                      "icon.svg",
+                      "icon.jpg",
+                      "icon.jpeg",
+                      "icon.webp",
 
-                              icon_filename = filename
+                  ]:
 
-                              break
+                      candidate = os.path.join(
+                          app_dir,
+                          filename
+                      )
 
-                      else:
 
-                          icon_filename = "icon.png"
+                      if os.path.isfile(
+                          candidate
+                      ):
 
-                  else:
+                          icon_filename = filename
+
+                          break
+
+
+                  if icon_filename is None:
 
                       icon_filename = "icon.png"
+
 
                   encoded_icon = urllib.parse.quote(
                       icon_filename,
                       safe=""
                   )
 
+
                   icon_url = (
                       "https://cdn.jsdelivr.net/gh/"
                       "yassinyl/casa7014@main/"
-                      f"Apps/{encoded_app}/{encoded_icon}"
+                      f"Apps/{encoded_app}/"
+                      f"{encoded_icon}"
                   )
 
-                  # ==================================================
-                  # APP ID
-                  # ==================================================
 
-                  app_id = casaos.get(
-                      "id",
-                      ""
+                  # ------------------------------------------------
+                  # VERSION
+                  # ------------------------------------------------
+
+                  version = get_version(
+                      casaos,
+                      data
                   )
+
+
+                  # ------------------------------------------------
+                  # ID
+                  # ------------------------------------------------
+
+                  app_id = str(
+                      casaos.get(
+                          "id",
+                          ""
+                      )
+                  ).strip()
+
 
                   apps.append({
-                      "name": str(name).strip(),
-                      "description": str(
-                          description
-                      ).strip(),
+
+                      "name": name,
+
+                      "description": description,
+
                       "icon": icon_url,
-                      "id": str(app_id).strip(),
+
+                      "version": version,
+
+                      "id": app_id,
+
                   })
 
-          # ==========================================================
-          # SORT APPLICATIONS
-          # ==========================================================
+
+          # ======================================================
+          # SORT
+          # ======================================================
 
           apps.sort(
               key=lambda x: x["name"].lower()
           )
 
-          # ==========================================================
+
+          # ======================================================
           # BUILD TABLE
-          # ==========================================================
+          # ======================================================
 
           lines = [
+
               START,
+
               "",
-              "| Icon | Application | Description |",
-              "|:---:|---|---|"
+
+              "| Icon | Application | Version | Description |",
+
+              "|:---:|---|:---:|---|"
+
           ]
+
 
           for app in apps:
 
-              name = app["name"]
-              description = app["description"]
-              icon = app["icon"]
-
-              # Prevent breaking Markdown table
-              name = name.replace(
+              name = app[
+                  "name"
+              ].replace(
                   "|",
                   "\\|"
               )
 
+
+              version = app[
+                  "version"
+              ].replace(
+                  "|",
+                  "\\|"
+              )
+
+
               description = (
-                  description
-                  .replace("|", "\\|")
-                  .replace("\n", " ")
+                  app["description"]
+                  .replace(
+                      "|",
+                      "\\|"
+                  )
+                  .replace(
+                      "\n",
+                      " "
+                  )
                   .strip()
               )
 
+
               lines.append(
-                  f'| <img src="{icon}" '
+
+                  f'| <img src="{app["icon"]}" '
                   f'width="48" height="48"> | '
+
                   f'**{name}** | '
+
+                  f'`{version}` | '
+
                   f'{description} |'
+
               )
 
-          lines.append("")
-          lines.append(END)
 
-          new_table = "\n".join(lines)
+          lines.extend([
 
-          # ==========================================================
-          # CHECK README
-          # ==========================================================
+              "",
 
-          if not os.path.isfile(README):
+              END
+
+          ])
+
+
+          new_table = "\n".join(
+              lines
+          )
+
+
+          # ======================================================
+          # READ README
+          # ======================================================
+
+          if not os.path.isfile(
+              README
+          ):
 
               raise SystemExit(
                   "README.md not found."
               )
+
 
           with open(
               README,
@@ -336,38 +558,59 @@ jobs:
 
               content = f.read()
 
-          # ==========================================================
-          # FIND TABLE MARKERS
-          # ==========================================================
+
+          # ======================================================
+          # FIND TABLE
+          # ======================================================
 
           pattern = re.compile(
-              re.escape(START)
-              + r".*?"
-              + re.escape(END),
-              re.DOTALL
-          )
 
-          if not pattern.search(content):
-
-              raise SystemExit(
-                  "Could not find "
-                  f"{START} / {END} "
-                  "markers in README.md"
+              re.escape(
+                  START
               )
 
-          # ==========================================================
-          # REPLACE TABLE
-          # ==========================================================
+              + r".*?"
 
-          updated = pattern.sub(
-              new_table,
-              content,
-              count=1
+              + re.escape(
+                  END
+              ),
+
+              re.DOTALL
+
           )
 
-          # ==========================================================
+
+          if not pattern.search(
+              content
+          ):
+
+              raise SystemExit(
+
+                  f"Could not find "
+                  f"{START} / {END} "
+                  f"markers in README.md"
+
+              )
+
+
+          # ======================================================
+          # REPLACE TABLE
+          # ======================================================
+
+          updated = pattern.sub(
+
+              new_table,
+
+              content,
+
+              count=1
+
+          )
+
+
+          # ======================================================
           # WRITE README
-          # ==========================================================
+          # ======================================================
 
           with open(
               README,
@@ -375,27 +618,36 @@ jobs:
               encoding="utf-8"
           ) as f:
 
-              f.write(updated)
+              f.write(
+                  updated
+              )
 
-          # ==========================================================
+
+          # ======================================================
           # OUTPUT
-          # ==========================================================
+          # ======================================================
 
           print()
+
           print(
               "=============================================="
           )
+
           print(
-              f"README updated with {len(apps)} application(s)."
+              f"README updated with "
+              f"{len(apps)} application(s)."
           )
+
           print(
               "=============================================="
           )
+
 
           for app in apps:
 
               print(
                   f" - {app['name']} "
+                  f"v{app['version']} "
                   f"({app['id'] or 'no id'})"
               )
 
@@ -407,6 +659,7 @@ jobs:
 
       - name: Show README changes
         run: |
+
           echo "=============================================="
           echo "README DIFF"
           echo "=============================================="
@@ -420,6 +673,7 @@ jobs:
       - name: Commit README update
         shell: bash
         run: |
+
           set -euo pipefail
 
           git config \
@@ -430,30 +684,37 @@ jobs:
             user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
+
           git add README.md
+
 
           if git diff --cached --quiet; then
 
-            echo "README is already up to date."
+              echo "README is already up to date."
 
-            exit 0
+              exit 0
 
           fi
+
 
           git commit \
             -m "docs: update application list [skip ci]"
 
+
           # IMPORTANT:
-          # Explicitly target the branch refs/heads/main.
-          # The repository also has a tag named "main",
-          # so using HEAD:main causes:
-          # "dst refspec main matches more than one"
+          # The repository has a tag named "main".
+          # Therefore HEAD:main is ambiguous.
+          # Always explicitly target the branch.
 
           git push \
             origin \
             HEAD:refs/heads/main
 
+
           echo
+
           echo "=============================================="
+
           echo "README UPDATED SUCCESSFULLY"
+
           echo "=============================================="

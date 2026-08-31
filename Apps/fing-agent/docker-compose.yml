@@ -25,12 +25,7 @@ x-casaos:
   port_map: "44444"
   scheme: http
 
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing%20agent/icon.png
-
-  screenshot_link:
-    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing%20agent/screenshot-1.png
-
-  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing%20agent/thumbnail.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png
 
   title:
     en_US: Fing Agent

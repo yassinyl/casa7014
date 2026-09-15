@@ -1,0 +1,171 @@
+name: bootimus
+
+services:
+  bootimus-db:
+    container_name: bootimus-db
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bootimus
+      POSTGRES_PASSWORD: bootimus
+      POSTGRES_DB: bootimus
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/postgres_data
+        target: /var/lib/postgresql/data
+    networks:
+      bootimus_net:
+        ipv4_address: 172.23.0.2
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U bootimus
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  bootimus:
+    container_name: bootimus-server
+    image: garybowers/bootimus:latest
+    restart: unless-stopped
+    depends_on:
+      bootimus-db:
+        condition: service_healthy
+
+    environment:
+      BOOTIMUS_DATA_DIR: /data
+      BOOTIMUS_DB_HOST: bootimus-db
+      BOOTIMUS_DB_PORT: 5432
+      BOOTIMUS_DB_USER: bootimus
+      BOOTIMUS_DB_PASSWORD: bootimus
+      BOOTIMUS_DB_NAME: bootimus
+      BOOTIMUS_DB_SSLMODE: disable
+      BOOTIMUS_TFTP_PORT: 69
+      BOOTIMUS_HTTP_PORT: 8080
+      BOOTIMUS_ADMIN_PORT: 8081
+      BOOTIMUS_PROXY_DHCP_ENABLED: "true"
+
+      # CHANGE TO YOUR BOOTIMUS LAN IP
+      BOOTIMUS_SERVER_ADDR: 192.168.1.201
+
+    networks:
+      bootimus_net:
+        ipv4_address: 172.23.0.3
+
+      host_bridge:
+        ipv4_address: 192.168.1.201
+
+    ports:
+      - target: 69
+        published: "69"
+        protocol: udp
+      - target: 8080
+        published: "8080"
+        protocol: tcp
+      - target: 8081
+        published: "8081"
+        protocol: tcp
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /data
+
+    cap_add:
+      - NET_BIND_SERVICE
+
+    x-casaos:
+      envs:
+        - container: BOOTIMUS_PROXY_DHCP_ENABLED
+          description:
+            en_US: Enable ProxyDHCP for PXE booting
+        - container: BOOTIMUS_SERVER_ADDR
+          description:
+            en_US: Bootimus LAN IP address
+
+      ports:
+        - container: "69"
+          description:
+            en_US: PXE TFTP UDP Port
+        - container: "8080"
+          description:
+            en_US: Bootimus HTTP Port
+        - container: "8081"
+          description:
+            en_US: Bootimus Web Administration Port
+
+      volumes:
+        - container: /data
+          description:
+            en_US: Bootimus data directory
+
+networks:
+  bootimus_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+          gateway: 172.23.0.1
+
+  host_bridge:
+    driver: macvlan
+    driver_opts:
+      # CHANGE TO YOUR LAN INTERFACE
+      parent: eth0
+    ipam:
+      config:
+        # CHANGE THESE TO MATCH YOUR LAN
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          ip_range: 192.168.1.201/32
+
+x-casaos:
+  id: com.casa7014.bootimus
+  main: bootimus
+
+  architectures:
+    - amd64
+    - arm64
+
+  port_map: "8081"
+  index: /
+  scheme: http
+
+  title:
+    en_US: Bootimus
+
+  author: yassinyl
+  developer: garybowers
+  category: Utilities
+
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/icon.png
+
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/thumbnail.png
+
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-2.png
+
+  description:
+    en_US: Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, and a web administration interface.
+
+  tagline:
+    en_US: Modern PXE and HTTP Boot Server
+
+  version: "0.1.76"
+
+  website: "https://github.com/garybowers/bootimus"
+  repo: "https://github.com/garybowers/bootimus"
+  support: "https://github.com/garybowers/bootimus/issues"
+  docs: "https://github.com/garybowers/bootimus/tree/main/docs"
+
+  tips:
+    before_install:
+      en_US: >-
+        Bootimus uses ProxyDHCP to provide PXE boot information while your
+        existing DHCP server continues assigning IP addresses. Do not disable
+        your existing DHCP server. Before installation, change the LAN subnet,
+        gateway, Bootimus IP address, and network interface in this compose file
+        to match your network. Make sure the Bootimus IP is unused and preferably
+        outside the DHCP pool. Bootimus and PXE clients must be on the same LAN
+        or broadcast domain.

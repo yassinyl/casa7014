@@ -1,82 +1,79 @@
+name: aria2
 services:
   aria2:
     image: johngong/aria2:1.36.0
     container_name: aria2
-    deploy:
-      resources:
-        reservations:
-          memory: 64M
     restart: unless-stopped
     network_mode: bridge
     ports:
-    - 6881:6881
-    - 6881:6881/udp
-    - 6800:6800
-    - 6880:8080
+      - target: 6881
+        published: "6881"
+        protocol: tcp
+      - target: 6881
+        published: "6881"
+        protocol: udp
+      - target: 6800
+        published: "6800"
+        protocol: tcp
+      - target: 8080
+        published: "6880"
+        protocol: tcp
     environment:
-    - ARIA2_RPC_SECRET=token
-    - ARIA2_RPC_LISTEN_PORT=6800
-    - ARIA2_LISTEN_PORT=6881
-    - ARIA2_TRACKERS_UPDATE_AUTO=true
-    - ARIA2_TRACKERS_LIST_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
-    - UID=1000
-    - GID=1000
-    - UMASK=022
+      ARIA2_RPC_SECRET: token
+      ARIA2_RPC_LISTEN_PORT: "6800"
+      ARIA2_LISTEN_PORT: "6881"
+      ARIA2_TRACKERS_UPDATE_AUTO: "true"
+      ARIA2_TRACKERS_LIST_URL: https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
+      UID: "1000"
+      GID: "1000"
+      UMASK: "022"
     volumes:
-    - /DATA/AppData/aria2/config:/config
-    - /DATA/Downloads:/Downloads
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+      - type: bind
+        source: /DATA/Downloads
+        target: /Downloads
+    x-casaos:
+      envs:
+        - container: ARIA2_RPC_SECRET
+          description:
+            en_US: Aria2 RPC secret
+      ports:
+        - container: "6800"
+          description:
+            en_US: Aria2 RPC port
+        - container: "6881"
+          description:
+            en_US: BitTorrent port
+      volumes:
+        - container: /config
+          description:
+            en_US: Configuration directory
+        - container: /Downloads
+          description:
+            en_US: Download directory
 x-casaos:
-  architectures:
-  - amd64
-  - arm
-  - arm64
-  author: yassinyl
-  category: Others
-  description:
-    en_US: Aria2 is a lightweight multi-protocol & multi-source command-line download
-      utility. It supports HTTP/HTTPS, FTP, SFTP, BitTorrent, and Metalink.
-  developer: johngong
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png
-  screenshot_link:
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-1.png
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-2.png
-  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/aria2/thumbnail.png
+  id: com.casa7014.aria2
   main: aria2
-  tagline:
-    en_US: The lightweight multi-protocol & multi-source command-line download utility
-  tips:
-    before_install:
-      en_US: 'Aria2 itself is a download kernel with no admin panel. This application
-        integrates with WebUI [AriaNg](http://ariang.mayswind.net) for graphical management,
-        but you still **need to set up the AriaNg connection information manually**
-        after installation:
-
-
-        | Environment | Default | Description |
-
-        | --- | --- | --- |
-
-        | ARIA2_RPC_SECRET | `token` | RPC SecretKey |
-
-        | ARIA2_RPC_LISTEN_PORT | `6800` | RPC Port |
-
-
-        Alternatively, you can use a mobile app to connect to the management, e.g.
-        [Aria2App](https://github.com/devgianlu/Aria2App).
-
-
-        **NOTE**: Changes to Aria2 settings using the third-party panel will only
-        be saved for that sub-process, and will not modify the configuration file;
-        if permanently modified, you should manually modify the Aria2 configuration
-        file.
-
-        '
+  architectures: [amd64, arm, arm64]
+  port_map: "6880"
+  index: /#!/downloading
+  scheme: http
   title:
     en_US: Aria2
-  scheme: http
-  hostname: ''
-  port_map: '6880'
-  index: /#!/downloading
-  id: com.casa7014.aria2
-  version: 1.36.0
-name: aria2
+  author: yassinyl
+  developer: johngong
+  category: Others
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/thumbnail.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-2.png
+  description:
+    en_US: Lightweight multi-protocol and multi-source download utility.
+  tagline:
+    en_US: Lightweight multi-protocol download utility
+  version: "1.36.0"
+  repo: https://github.com/johngong/aria2
+  docs: https://aria2.github.io/

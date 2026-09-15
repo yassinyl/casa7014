@@ -1,0 +1,15 @@
+name: Docker Image Update Check
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: List pinned images
+        run: |
+          grep -RhsE '^\s*image:' Apps/*/docker-compose.yml | sort -u

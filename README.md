@@ -4,7 +4,7 @@
 
 [![CasaOS](https://img.shields.io/badge/CasaOS-V1-blue)](https://www.casaos.io/)
 [![ZimaOS](https://img.shields.io/badge/ZimaOS-V2-green)](https://www.zimaspace.com/)
-[![Apps](https://img.shields.io/badge/Apps-7-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
+[![Apps](https://img.shields.io/badge/Apps-9-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
 
 ---
 
@@ -48,14 +48,15 @@ The application list below is automatically generated from the
 
 | Icon | Application | Version | Description |
 |:---:|---|:---:|---|
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Aria2/icon.png" width="48" height="48"> | **Aria2** | `1.36.0` | The lightweight multi-protocol & multi-source command-line download utility |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Aria2%20Pro/icon.png" width="48" height="48"> | **Aria2 Pro** | `1.0.0` | A better Aria2 Docker container |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/dispatcharr/icon.png" width="48" height="48"> | **Dispatcharr** | `0.30.0` | IPTV Stream Management and DVR |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/fing-agent/icon.png" width="48" height="48"> | **Fing Agent** | `1.1.1` | Network monitoring agent |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/fritzbox-wlan-password-rotator/icon.png" width="48" height="48"> | **FritzBox WLAN Password Rotator** | `1.4.1` | Automatically rotate WLAN passwords for FRITZ!Box |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/linkstack/icon.png" width="48" height="48"> | **LinkStack** | `1.0.0` | The Ultimate Link Management Solution |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | `0.43.1` | Video surveillance for your cameras |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | `2.45.0` | Lightweight Docker management UI |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="48" height="48"> | **Aria2** | `1.36.0` | Lightweight multi-protocol and multi-source download utility. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png" width="48" height="48"> | **Aria2 Pro** | `1.0.0` | Aria2 is currently the most powerful and versatile download tool. It supports various downloading protocols such as BT, magnet, HTTP, and FTP, and is commonly used as a server for offline downloading. [DOC](https://p3terx.com/archives/docker-aria2-pro.html) |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/icon.png" width="48" height="48"> | **Bootimus** | `0.1.76` | Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, and a web administration interface. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/Dispatcharr/icon.png" width="48" height="48"> | **Dispatcharr** | `0.30.0` | Dispatcharr is an IPTV stream management platform for managing channels, streams, EPG data, and DVR functionality. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png" width="48" height="48"> | **Fing Agent** | `1.1.1` | Fing Agent is a network monitoring agent that discovers and monitors devices on your local network. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="48" height="48"> | **FritzBox WLAN Password Rotator** | `1.4.1` | A tool that automatically updates the guest WLAN password of a FRITZ!Box after a defined interval and displays the updated credentials and QR code on a central webpage in your home network. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="48" height="48"> | **LinkStack** | `1.0.0` | LinkStack is a highly customizable link-sharing platform with an intuitive and easy-to-use user interface. It offers the ultimate solution for creating a personalized and professional profile page. Showcase all your important links in one place and forget the limitation of only one link on social media. Set up your personal site on your server with just a few clicks. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | `0.43.1` | MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | `2.45.0` | Portainer is a lightweight management UI which allows you to easily manage your Docker environments. It is designed to be easy to use and offers full control over your Docker hosts and containers. |
 
 <!-- apps:end -->
 

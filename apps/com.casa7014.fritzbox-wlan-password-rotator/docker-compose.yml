@@ -1,0 +1,45 @@
+services:
+  app:
+    image: phipzzz/fritzbox-wlan-password-rotator:1.4.1
+    restart: unless-stopped
+    network_mode: bridge
+    environment:
+      PUID: $PUID
+      PGID: $PGID
+      TZ: Africa/Tunis
+      CRONTAB_EXPRESSION: 0 3 * * *
+      FB_ADDRESS: 192.168.178.1
+      FB_PASSWORD: ''
+      FB_USER: ''
+      WEB_PASSWORD: password
+      WEB_PUBLIC_ENABLED: 'true'
+      WEB_PAGE_TITLE: WLAN QR-Code
+      WLAN_CONFIGURATION: WLANConfiguration3
+      WEB_WELCOME_MESSAGE_CONTENT: welcome
+      PW_CHARSET_ASCII_UPPERCASE: 'True'
+      PW_CHARSET_ASCII_LOWERCASE: 'True'
+      PW_CHARSET_DIGITS: 'True'
+      PW_CHARSET_PUNCTUATION: 'False'
+      WEB_CUSTOM_BACKGROUND: 'True'
+    ports:
+      - target: 5000
+        published: 5001
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/fritzbox-wlan-password-rotator/config
+        target: /app/data
+      - type: bind
+        source: /DATA/AppData/fritzbox-wlan-password-rotator/background
+        target: /app/static/src/img
+name: fritzbox-wlan-password-rotator
+x-casaos:
+  main: app
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png
+  title:
+    en_US: FritzBox WLAN Password Rotator
+  port_map: '5001'
+  id: com.casa7014.fritzbox-wlan-password-rotator
+  index: /
+  scheme: http
+  version: 1.4.1

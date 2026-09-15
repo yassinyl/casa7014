@@ -1,0 +1,57 @@
+{
+  "architectures": [
+    "amd64",
+    "arm",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "LinkStackOrg",
+  "category": "Others",
+  "description": "LinkStack is a highly customizable link-sharing platform with an intuitive and easy-to-use user interface. It offers the ultimate solution for creating a personalized and professional profile page. Showcase all your important links in one place and forget the limitation of only one link on social media. Set up your personal site on your server with just a few clicks.\n",
+  "screenshot_link": [
+    "/apps/com.casa7014.linkstack/assets/screenshot-1.webp",
+    "/apps/com.casa7014.linkstack/assets/screenshot-2.webp",
+    "/apps/com.casa7014.linkstack/assets/screenshot-3.webp"
+  ],
+  "tagline": "The Ultimate Link Management Solution",
+  "tips": {
+    "before_install": "This application does not have persistent storage set by default, which means you will lose your application data once you reset the container!\n\nYou can set up file mounts yourself to achieve persistent configuration directories. For more information, [please refer](https://github.com/LinkStackOrg/linkstack-docker#persistent-storage).\n"
+  },
+  "envs": [
+    {
+      "container": "TZ",
+      "description": {
+        "en_US": "TimeZone",
+        "zh_CN": "时区"
+      }
+    },
+    {
+      "container": "PHP_MEMORY_LIMIT",
+      "description": {
+        "en_US": "PHP memory limit",
+        "zh_CN": "PHP内存限制"
+      }
+    },
+    {
+      "container": "UPLOAD_MAX_FILESIZE",
+      "description": {
+        "en_US": "Maximum file upload size",
+        "zh_CN": "最大文件上传大小"
+      }
+    }
+  ],
+  "persistence_warning": "To ensure persistent storage for your data, configure file mounts as suggested in the installation tips above.\n",
+  "title": "LinkStack",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.linkstack",
+  "version": "1.0.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 268435456,
+  "min_image_size": {
+    "amd64": 84874427,
+    "arm": 81208896,
+    "arm64": 85725146
+  }
+}

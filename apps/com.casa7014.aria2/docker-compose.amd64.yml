@@ -1,0 +1,46 @@
+name: aria2
+services:
+  aria2:
+    image: johngong/aria2:1.36.0@sha256:55010207d6653a075f85488ad58169c9b51fa5cf258dd17ecf3e71e97a0f6fb3
+    container_name: aria2
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - target: 6881
+        published: "6881"
+        protocol: tcp
+      - target: 6881
+        published: "6881"
+        protocol: udp
+      - target: 6800
+        published: "6800"
+        protocol: tcp
+      - target: 8080
+        published: "6880"
+        protocol: tcp
+    environment:
+      ARIA2_RPC_SECRET: token
+      ARIA2_RPC_LISTEN_PORT: "6800"
+      ARIA2_LISTEN_PORT: "6881"
+      ARIA2_TRACKERS_UPDATE_AUTO: "true"
+      ARIA2_TRACKERS_LIST_URL: https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
+      UID: "1000"
+      GID: "1000"
+      UMASK: "022"
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+      - type: bind
+        source: /DATA/Downloads
+        target: /Downloads
+x-casaos:
+  id: com.casa7014.aria2
+  main: aria2
+  port_map: "6880"
+  index: /#!/downloading
+  scheme: http
+  title:
+    en_US: Aria2
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.aria2/assets/icon.png
+  version: "1.36.0"

@@ -1,0 +1,31 @@
+services:
+  motioneye:
+    image: ghcr.io/motioneye-project/motioneye:0.43.1@sha256:efdcf6c1c51e4d8fa9dcdbec4fa2de2c1666c777c85e458990b681501b3e7c6e
+    container_name: motioneye-yassinyl
+    network_mode: bridge
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: 64M
+    ports:
+      - 8765:8765
+      - 9081:9081
+    environment:
+      - TZ=Africa/Tunis
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
+      - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
+name: motioneye-beta
+x-casaos:
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.motioneye-beta/assets/icon.png
+  main: motioneye
+  title:
+    en_US: MotionEye
+  scheme: http
+  port_map: '8765'
+  index: /
+  id: com.casa7014.motioneye-beta
+  version: 0.43.1

@@ -1,0 +1,60 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64",
+    "arm",
+    "ppc64le"
+  ],
+  "author": "yassinyl",
+  "category": "Others",
+  "description": "Portainer is a lightweight management UI which allows you to easily manage your Docker environments. It is designed to be easy to use and offers full control over your Docker hosts and containers.",
+  "developer": "Portainer",
+  "screenshot_link": [
+    "/apps/com.casa7014.portainer-business-edition/assets/screenshot-1.webp"
+  ],
+  "tagline": "Lightweight Docker management UI",
+  "thumbnail": "/apps/com.casa7014.portainer-business-edition/assets/thumbnail.webp",
+  "tips": {
+    "before_install": "After installing Portainer Business Edition, you will need a valid license key to activate it. You can obtain your license key by visiting [this link](https://www.portainer.io/take-3)."
+  },
+  "ports": [
+    {
+      "container": "9000",
+      "description": {
+        "en_US": "Portainer Web UI Port",
+        "zh_CN": "Portainer Web UI 端口"
+      }
+    },
+    {
+      "container": "9443",
+      "description": {
+        "en_US": "Portainer Web UI Port (https)",
+        "zh_CN": "Portainer Web UI 端口 (https)"
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "container": "/data",
+      "description": {
+        "en_US": "Portainer data directory",
+        "zh_CN": "Portainer 数据目录",
+        "fr_fr": "Répertoire des données de Portainer"
+      }
+    }
+  ],
+  "title": "Portainer ( Business Edition )",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.portainer-business-edition",
+  "version": "2.45.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 33554432,
+  "min_image_size": {
+    "amd64": 63900210,
+    "arm": 60390505,
+    "arm64": 58674302,
+    "ppc64le": 58096911
+  }
+}

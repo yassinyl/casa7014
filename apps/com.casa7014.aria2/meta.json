@@ -1,0 +1,32 @@
+{
+  "architectures": [
+    "amd64",
+    "arm",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "johngong",
+  "category": "Others",
+  "thumbnail": "/apps/com.casa7014.aria2/assets/thumbnail.webp",
+  "screenshot_link": [
+    "/apps/com.casa7014.aria2/assets/screenshot-1.webp",
+    "/apps/com.casa7014.aria2/assets/screenshot-2.webp"
+  ],
+  "description": "Lightweight multi-protocol and multi-source download utility.",
+  "tagline": "Lightweight multi-protocol download utility",
+  "repo": "https://github.com/johngong/aria2",
+  "docs": "https://aria2.github.io/",
+  "title": "Aria2",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.aria2",
+  "version": "1.36.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 11398310,
+    "arm": 10563947,
+    "arm64": 11641585
+  }
+}

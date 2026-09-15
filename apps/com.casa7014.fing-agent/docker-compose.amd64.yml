@@ -1,0 +1,28 @@
+name: fing agent
+services:
+  fing-agent:
+    image: fing/fing-agent:1.1.1@sha256:fc8594058fd0583fbb3142049aa5d67f26b63d329d93eb18961e0ba5516f646d
+    container_name: FingAgent
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - target: 44444
+        published: '44444'
+        protocol: tcp
+    restart: always
+    deploy:
+      restart_policy:
+        condition: always
+    volumes:
+      - /DATA/AppData/$AppID/data:/app/fingdata
+x-casaos:
+  id: com.casa7014.fing-agent
+  main: fing-agent
+  index: /
+  port_map: '44444'
+  scheme: http
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.fing-agent/assets/icon.png
+  title:
+    en_US: Fing Agent
+  version: 1.1.1

@@ -1,0 +1,34 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "garybowers",
+  "category": "Utilities",
+  "screenshot_link": [
+    "/apps/com.casa7014.bootimus/assets/screenshot-1.webp",
+    "/apps/com.casa7014.bootimus/assets/screenshot-2.webp"
+  ],
+  "description": "Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, and a web administration interface.",
+  "tagline": "Modern PXE and HTTP Boot Server",
+  "website": "https://github.com/garybowers/bootimus",
+  "repo": "https://github.com/garybowers/bootimus",
+  "support": "https://github.com/garybowers/bootimus/issues",
+  "docs": "https://github.com/garybowers/bootimus/tree/main/docs",
+  "tips": {
+    "before_install": "Bootimus uses ProxyDHCP to provide PXE boot information while your existing DHCP server continues assigning IP addresses. Do not disable your existing DHCP server. Before installation, change the LAN subnet, gateway, Bootimus IP address, and network interface in this compose file to match your network. Make sure the Bootimus IP is unused and preferably outside the DHCP pool. Bootimus and PXE clients must be on the same LAN or broadcast domain."
+  },
+  "title": "Bootimus",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.bootimus",
+  "version": "0.1.76",
+  "categories": [
+    "utilities"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 241602048,
+    "arm64": 239496326
+  }
+}

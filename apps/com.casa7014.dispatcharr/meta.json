@@ -1,0 +1,28 @@
+{
+  "screenshot_link": [
+    "/apps/com.casa7014.dispatcharr/assets/screenshot-1.webp",
+    "/apps/com.casa7014.dispatcharr/assets/screenshot-2.webp"
+  ],
+  "thumbnail": "/apps/com.casa7014.dispatcharr/assets/thumbnail.webp",
+  "tagline": "IPTV Stream Management and DVR",
+  "description": "Dispatcharr is an IPTV stream management platform for managing channels, streams, EPG data, and DVR functionality.",
+  "author": "yassinyl",
+  "developer": "Dispatcharr",
+  "category": "Media",
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "title": "Dispatcharr",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.dispatcharr",
+  "version": "0.30.0",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 956934981,
+    "arm64": 818006626
+  }
+}

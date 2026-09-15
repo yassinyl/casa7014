@@ -1,0 +1,53 @@
+services:
+  ariang:
+    container_name: aria2-ariang
+    image: p3terx/ariang:latest@sha256:b79a7131311cf9da85c2433124d90696d64dbabbb9ef6b19e1ad38dba02b45b6
+    logging:
+      options:
+        max-size: 1m
+    restart: unless-stopped
+    ports:
+      - 6880:6880
+  aria2-pro:
+    environment:
+      LISTEN_PORT: '6888'
+      PGID: $PGID
+      PUID: $PUID
+      RPC_PORT: '6800'
+      RPC_SECRET: TOKEN
+    image: p3terx/aria2-pro:202209060423@sha256:b121ddfd839a17397238368e1628364f530cdb0e356cc4895d9cd03c99827004
+    container_name: aria2-pro
+    deploy:
+      resources:
+        reservations:
+          memory: 64M
+    network_mode: bridge
+    ports:
+      - target: 6800
+        published: '6800'
+        protocol: tcp
+      - target: 6888
+        published: '6888'
+        protocol: tcp
+      - target: 6888
+        published: '6888'
+        protocol: udp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/Downloads
+        target: /downloads
+      - type: bind
+        source: /DATA/AppData/aria2-pro/config
+        target: /config
+name: aria2-pro
+x-casaos:
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.aria2-pro/assets/icon.png
+  main: aria2-pro
+  title:
+    en_US: Aria2 Pro
+  scheme: http
+  port_map: '6800'
+  index: /#!/downloading
+  id: com.casa7014.aria2-pro
+  version: 1.0.0

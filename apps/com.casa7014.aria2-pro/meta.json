@@ -1,0 +1,82 @@
+{
+  "architectures": [
+    "amd64",
+    "386",
+    "arm64",
+    "arm"
+  ],
+  "author": "yassinyl",
+  "category": "Others",
+  "description": "Aria2 is currently the most powerful and versatile download tool. It supports various downloading protocols such as BT, magnet, HTTP, and FTP, and is commonly used as a server for offline downloading. [DOC](https://p3terx.com/archives/docker-aria2-pro.html)",
+  "developer": "P3TERX",
+  "screenshot_link": [
+    "/apps/com.casa7014.aria2-pro/assets/screenshot-1.webp",
+    "/apps/com.casa7014.aria2-pro/assets/screenshot-2.webp"
+  ],
+  "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
+  "tagline": "A better Aria2 Docker container",
+  "tips": {
+    "before_install": "Aria2 itself is a download kernel with no admin panel. This application integrates with WebUI [AriaNg](http://ariang.mayswind.net) for graphical management, but you still **need to set up the AriaNg connection information manually** after installation:\n\n| Environment | Default | Description |\n| --- | --- | --- |\n| RPC_SECRET | `TOKEN` | RPC SecretKey |\n| RPC_PORT | `6800` | RPC Port |\n\nAlternatively, you can use a mobile app to connect to the management, e.g. [Aria2App](https://github.com/devgianlu/Aria2App).\n\n**NOTE**: Changes to Aria2 settings using the third-party panel will only be saved for that sub-process, and will not modify the configuration file; if permanently modified, you should manually modify the Aria2 configuration file.\n"
+  },
+  "hostname": "",
+  "envs": [
+    {
+      "container": "RPC_SECRET",
+      "description": {
+        "en_US": "RPC secret key setting, which is the password required to be filled in when connecting to the WebUI, and only recommended to use letters and numbers.",
+        "zh_CN": "RPC 密钥设置，即 WebUI 连接时需要填写的密码，只建议使用字母和数字。"
+      }
+    },
+    {
+      "container": "RPC_PORT",
+      "description": {
+        "en_US": "RPC port setting",
+        "zh_CN": "RPC 端口设置"
+      }
+    },
+    {
+      "container": "LISTEN_PORT",
+      "description": {
+        "en_US": "BT listening port (TCP), DHT listening port (UDP) setting",
+        "zh_CN": "BT 监听端口（TCP）、DHT 监听端口（UDP）设置"
+      }
+    }
+  ],
+  "ports": [
+    {
+      "container": "6800",
+      "description": {
+        "en_US": "RPC communication port mapping.",
+        "zh_CN": "RPC 通信端口映射。"
+      }
+    },
+    {
+      "container": "6888",
+      "description": {
+        "en_US": "BT listening port (TCP) mapping, which is the port defined in the listen-port option in Aria2 configuration.",
+        "zh_CN": "BT 监听端口（TCP）映射，即 Aria2 配置中 listen-port 选项定义的端口。"
+      }
+    },
+    {
+      "container": "6888",
+      "description": {
+        "en_US": "DHT listening port (UDP) mapping, which is the port defined in the dht-listen-port option in Aria2 configuration.",
+        "zh_CN": "DHT 监听端口（UDP）映射，即 Aria2 配置中 dht-listen-port 选项定义的端口。"
+      }
+    }
+  ],
+  "title": "Aria2 Pro",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.aria2-pro",
+  "version": "1.0.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 67108864,
+  "min_image_size": {
+    "386": 13946104,
+    "amd64": 13814692,
+    "arm": 12029682,
+    "arm64": 13485339
+  }
+}

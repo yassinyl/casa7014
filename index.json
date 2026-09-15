@@ -1,0 +1,204 @@
+{
+  "version": 2,
+  "updated_at": "2026-09-15T21:00:13Z",
+  "app_count": 9,
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "apps": [
+    {
+      "id": "com.casa7014.aria2",
+      "title": "Aria2",
+      "tagline": "Lightweight multi-protocol download utility",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "yassinyl",
+      "developer": "johngong",
+      "architectures": [
+        "amd64",
+        "arm",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.aria2/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.aria2/assets/thumbnail.webp",
+      "compose_url": "/apps/com.casa7014.aria2/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.aria2/meta.json",
+      "content_hash": "b2c950b8",
+      "version": "1.36.0"
+    },
+    {
+      "id": "com.casa7014.aria2-pro",
+      "title": "Aria2 Pro",
+      "tagline": "A better Aria2 Docker container",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "yassinyl",
+      "developer": "P3TERX",
+      "architectures": [
+        "amd64",
+        "386",
+        "arm64",
+        "arm"
+      ],
+      "icon": "/apps/com.casa7014.aria2-pro/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
+      "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
+      "content_hash": "e5f80e0c",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.casa7014.bootimus",
+      "title": "Bootimus",
+      "tagline": "Modern PXE and HTTP Boot Server",
+      "category": "Utilities",
+      "categories": [
+        "utilities"
+      ],
+      "author": "yassinyl",
+      "developer": "garybowers",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.bootimus/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.bootimus/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.bootimus/meta.json",
+      "content_hash": "68a423e9",
+      "version": "0.1.76"
+    },
+    {
+      "id": "com.casa7014.dispatcharr",
+      "title": "Dispatcharr",
+      "tagline": "IPTV Stream Management and DVR",
+      "category": "Media",
+      "categories": [
+        "media"
+      ],
+      "author": "yassinyl",
+      "developer": "Dispatcharr",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.dispatcharr/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.dispatcharr/assets/thumbnail.webp",
+      "compose_url": "/apps/com.casa7014.dispatcharr/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.dispatcharr/meta.json",
+      "content_hash": "c3cb6855",
+      "version": "0.30.0"
+    },
+    {
+      "id": "com.casa7014.fing-agent",
+      "title": "Fing Agent",
+      "tagline": "Network monitoring agent",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "Fing",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.fing-agent/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.fing-agent/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.fing-agent/meta.json",
+      "content_hash": "bcb2d1a5",
+      "version": "1.1.1"
+    },
+    {
+      "id": "com.casa7014.fritzbox-wlan-password-rotator",
+      "title": "FritzBox WLAN Password Rotator",
+      "tagline": "Automatically rotate WLAN passwords for FRITZ!Box",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "phipzzz",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.webp",
+      "compose_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/meta.json",
+      "content_hash": "eaa415bc",
+      "version": "1.4.1"
+    },
+    {
+      "id": "com.casa7014.linkstack",
+      "title": "LinkStack",
+      "tagline": "The Ultimate Link Management Solution",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "yassinyl",
+      "developer": "LinkStackOrg",
+      "architectures": [
+        "amd64",
+        "arm",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.linkstack/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.linkstack/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.linkstack/meta.json",
+      "content_hash": "e52dec2f",
+      "version": "1.0.0"
+    },
+    {
+      "id": "com.casa7014.motioneye-beta",
+      "title": "MotionEye",
+      "tagline": "Video surveillance for your cameras",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "yassinyl",
+      "developer": "ccrisan",
+      "architectures": [
+        "amd64",
+        "arm",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.motioneye-beta/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.motioneye-beta/assets/icon.webp",
+      "compose_url": "/apps/com.casa7014.motioneye-beta/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.motioneye-beta/meta.json",
+      "content_hash": "3c81aa25",
+      "version": "0.43.1"
+    },
+    {
+      "id": "com.casa7014.portainer-business-edition",
+      "title": "Portainer ( Business Edition )",
+      "tagline": "Lightweight Docker management UI",
+      "category": "Others",
+      "categories": [
+        "others"
+      ],
+      "author": "yassinyl",
+      "developer": "Portainer",
+      "architectures": [
+        "amd64",
+        "arm64",
+        "arm",
+        "ppc64le"
+      ],
+      "icon": "/apps/com.casa7014.portainer-business-edition/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.portainer-business-edition/assets/thumbnail.webp",
+      "compose_url": "/apps/com.casa7014.portainer-business-edition/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.portainer-business-edition/meta.json",
+      "content_hash": "85400990",
+      "version": "2.45.0"
+    }
+  ]
+}

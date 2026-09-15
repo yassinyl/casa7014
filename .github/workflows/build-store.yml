@@ -1,0 +1,57 @@
+name: Build and Publish Store
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Apps/**"
+      - "store-config.json"
+      - "supported-languages.json"
+      - "category-list.json"
+      - "recommend-list.json"
+      - ".github/workflows/build-store.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build CasaOS V2 Store
+        uses: IceWhaleTech/build-appstore-action@v1
+        with:
+          source: .
+          output: dist
+          base-url: https://yassinyl.github.io/casa7014
+          cache-file: .cache/build_appstore/image-size-cache.json
+          digest-cache-file: .cache/build_appstore/image-digest-cache.json
+
+      - name: Build CasaOS V1 ZIP
+        run: |
+          mkdir -p dist/store
+
+          cd Apps
+
+          zip -r ../dist/store/main.zip . \
+            -x "*/.git/*" \
+            -x "*/.DS_Store"
+
+      - name: Prepare V1 filename
+        run: |
+          cp dist/store/main.zip dist/casa7014.zip
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          keep_files: false

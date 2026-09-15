@@ -140,7 +140,7 @@ x-casaos:
 
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/icon.png
 
-  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/thumbnail.png
+#  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/thumbnail.png
 
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-1.png

@@ -4,7 +4,7 @@
 
 [![CasaOS](https://img.shields.io/badge/CasaOS-V1-blue)](https://www.casaos.io/)
 [![ZimaOS](https://img.shields.io/badge/ZimaOS-V2-green)](https://www.zimaspace.com/)
-[![Apps](https://img.shields.io/badge/Apps-9-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
+[![Apps](https://img.shields.io/badge/Apps-10-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
 
 ---
 
@@ -54,6 +54,7 @@ The application list below is automatically generated from the
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/dispatcharr/icon.png" width="48" height="48"> | **Dispatcharr** | `0.30.0` | IPTV stream management platform for channels, streams, EPG and DVR. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png" width="48" height="48"> | **Fing Agent** | `1.1.1` | Network monitoring agent that discovers and monitors devices on your local network. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="48" height="48"> | **FritzBox WLAN Password Rotator** | `1.4.1` | Automatically rotates the guest WLAN password of a FRITZ!Box and displays credentials and a QR code. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/lan-orangutan/icon.png" width="48" height="48"> | **LAN Orangutan** | `3.3.8` | LAN Orangutan is a self-hosted network discovery and device inventory tool that scans your LAN, identifies devices, and helps you organize and monitor your network. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="48" height="48"> | **LinkStack** | `1.0.0` | Highly customizable link-sharing platform with an intuitive user interface. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | `0.43.1` | Open-source video surveillance application for managing webcams and IP cameras. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | `2.45.0` | Lightweight Docker management UI. |

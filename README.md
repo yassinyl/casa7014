@@ -18,7 +18,7 @@
 4. Enter:
 
 ```text
-https://yassinyl.github.io/casa7014/casa7014.zip
+https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/casa7014.zip
 ```
 
 5. Click **Add**.
@@ -32,7 +32,7 @@ https://yassinyl.github.io/casa7014/casa7014.zip
 3. Enter:
 
 ```text
-https://yassinyl.github.io/casa7014/store.json
+https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/store.json
 ```
 
 4. Click **Add**.

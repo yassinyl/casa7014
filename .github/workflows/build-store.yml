@@ -11,6 +11,7 @@ on:
       - "category-list.json"
       - "recommend-list.json"
       - ".github/workflows/build-store.yml"
+      - ".github/scripts/purge-jsdelivr-cache.sh"
 
   workflow_dispatch:
 
@@ -48,6 +49,19 @@ jobs:
         run: |
           cp dist/store/main.zip dist/casa7014.zip
 
+      - name: Disable Jekyll
+        run: |
+          touch dist/.nojekyll
+
+      - name: Capture previous gh-pages revision
+        id: gh_pages_before
+        run: |
+          set -euo pipefail
+
+          previous="$(git ls-remote origin refs/heads/gh-pages | awk '{print $1}')"
+
+          echo "sha=$previous" >> "$GITHUB_OUTPUT"
+
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -55,3 +69,70 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./dist
           keep_files: false
+
+      - name: Collect changed gh-pages paths
+        env:
+          PREVIOUS_GH_PAGES_SHA: ${{ steps.gh_pages_before.outputs.sha }}
+        run: |
+          set -euo pipefail
+
+          git fetch --no-tags origin gh-pages --depth=2
+
+          current="$(git rev-parse origin/gh-pages)"
+
+          mkdir -p out
+
+          paths_file="out/jsdelivr-purge-paths.txt"
+
+          : > "$paths_file"
+
+          if [[ -n "$PREVIOUS_GH_PAGES_SHA" ]] &&
+             git cat-file -e "$PREVIOUS_GH_PAGES_SHA^{commit}" 2>/dev/null; then
+
+            git diff \
+              --name-only \
+              "$PREVIOUS_GH_PAGES_SHA" \
+              "$current" \
+              -- > "$paths_file"
+
+          else
+
+            git diff-tree \
+              --root \
+              --no-commit-id \
+              --name-only \
+              -r "$current" > "$paths_file"
+
+          fi
+
+          printf '%s\n' \
+            store.json \
+            index.json \
+            store/main.zip \
+            casa7014.zip >> "$paths_file"
+
+          sort -u -o "$paths_file" "$paths_file"
+
+          echo "Files to purge:"
+          cat "$paths_file"
+
+      - name: Refresh jsDelivr cache
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r path; do
+            [[ -n "$path" ]] || continue
+
+            url="https://purge.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/$path"
+
+            echo "Purging: $url"
+
+            curl \
+              --fail \
+              --silent \
+              --show-error \
+              --retry 3 \
+              --retry-delay 2 \
+              "$url" || true
+
+          done < out/jsdelivr-purge-paths.txt

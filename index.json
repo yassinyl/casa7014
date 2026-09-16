@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T12:58:12Z",
+  "updated_at": "2026-09-16T13:23:24Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -164,17 +164,17 @@
         "others"
       ],
       "author": "yassinyl",
-      "developer": "ccrisan",
+      "developer": "motioneye-project",
       "architectures": [
         "amd64",
         "arm",
         "arm64"
       ],
       "icon": "/apps/com.casa7014.motioneye-beta/assets/icon.png",
-      "thumbnail": "/apps/com.casa7014.motioneye-beta/assets/icon.webp",
+      "thumbnail": "",
       "compose_url": "/apps/com.casa7014.motioneye-beta/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.motioneye-beta/meta.json",
-      "content_hash": "3c81aa25",
+      "content_hash": "e3e0f9df",
       "version": "0.43.1"
     },
     {

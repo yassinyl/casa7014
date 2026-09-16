@@ -5,21 +5,17 @@
     "arm64"
   ],
   "author": "yassinyl",
-  "developer": "ccrisan",
+  "developer": "motioneye-project",
   "category": "Others",
-  "description": "MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface.\n",
   "screenshot_link": [
     "/apps/com.casa7014.motioneye-beta/assets/screenshot-1.webp",
     "/apps/com.casa7014.motioneye-beta/assets/screenshot-2.webp",
     "/apps/com.casa7014.motioneye-beta/assets/screenshot-3.webp",
     "/apps/com.casa7014.motioneye-beta/assets/screenshot-4.webp"
   ],
-  "thumbnail": "/apps/com.casa7014.motioneye-beta/assets/icon.webp",
+  "description": "Open-source video surveillance application for managing webcams and IP cameras.",
   "tagline": "Video surveillance for your cameras",
-  "hostname": "",
-  "tips": {
-    "before_install": "MotionEye requires a webcam or IP camera to be connected to function properly. \nIf you use USB cameras, you can add their paths (like /dev/video0) in the settings after installation.\nAfter installation, access the web interface at: \nhttp://your_server_ip:8765\n"
-  },
+  "repo": "https://github.com/motioneye-project/motioneye",
   "title": "MotionEye",
   "base_url": "https://yassinyl.github.io/casa7014",
   "id": "com.casa7014.motioneye-beta",
@@ -27,7 +23,7 @@
   "categories": [
     "others"
   ],
-  "min_memory": 67108864,
+  "min_memory": 0,
   "min_image_size": {
     "amd64": 259739858,
     "arm": 220776835,

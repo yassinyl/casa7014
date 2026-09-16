@@ -2,14 +2,16 @@ name: dispatcharr
 services:
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:0.30.0@sha256:0ba8e97c2a711f3df757f65d21e9fc36f871ff3198f59b68e5987fa7e529d8a6
-    restart: unless-stopped
     container_name: dispatcharr
+    restart: unless-stopped
     ports:
       - target: 9191
-        published: '9191'
+        published: "9191"
         protocol: tcp
     volumes:
-      - /DATA/AppData/$AppID/data:/data
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /data
     environment:
       DISPATCHARR_ENV: aio
       REDIS_HOST: localhost
@@ -18,10 +20,10 @@ services:
 x-casaos:
   id: com.casa7014.dispatcharr
   main: dispatcharr
+  port_map: "9191"
   index: /
-  port_map: '9191'
   scheme: http
-  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.dispatcharr/assets/icon.png
   title:
     en_US: Dispatcharr
-  version: 0.30.0
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.dispatcharr/assets/icon.png
+  version: "0.30.0"

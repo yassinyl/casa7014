@@ -1,3 +1,4 @@
+name: fritzbox-wlan-password-rotator
 services:
   app:
     image: phipzzz/fritzbox-wlan-password-rotator:1.4.1
@@ -6,58 +7,79 @@ services:
     environment:
       PUID: $PUID
       PGID: $PGID
-      TZ: Africa/Tunis
-      CRONTAB_EXPRESSION: 0 3 * * *
+      TZ: $TZ
+      CRONTAB_EXPRESSION: "0 3 * * *"
       FB_ADDRESS: 192.168.178.1
-      FB_PASSWORD: ''
-      FB_USER: ''
+      FB_PASSWORD: ""
+      FB_USER: ""
       WEB_PASSWORD: password
-      WEB_PUBLIC_ENABLED: 'true'
+      WEB_PUBLIC_ENABLED: "true"
       WEB_PAGE_TITLE: WLAN QR-Code
       WLAN_CONFIGURATION: WLANConfiguration3
       WEB_WELCOME_MESSAGE_CONTENT: welcome
-      PW_CHARSET_ASCII_UPPERCASE: 'True'
-      PW_CHARSET_ASCII_LOWERCASE: 'True'
-      PW_CHARSET_DIGITS: 'True'
-      PW_CHARSET_PUNCTUATION: 'False'
-      WEB_CUSTOM_BACKGROUND: 'True'
+      PW_CHARSET_ASCII_UPPERCASE: "True"
+      PW_CHARSET_ASCII_LOWERCASE: "True"
+      PW_CHARSET_DIGITS: "True"
+      PW_CHARSET_PUNCTUATION: "False"
+      WEB_CUSTOM_BACKGROUND: "True"
     ports:
-    - target: 5000
-      published: 5001
-      protocol: tcp
+      - target: 5000
+        published: "5001"
+        protocol: tcp
     volumes:
-    - type: bind
-      source: /DATA/AppData/fritzbox-wlan-password-rotator/config
-      target: /app/data
-    - type: bind
-      source: /DATA/AppData/fritzbox-wlan-password-rotator/background
-      target: /app/static/src/img
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /app/data
+      - type: bind
+        source: /DATA/AppData/$AppID/background
+        target: /app/static/src/img
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            en_US: Time zone
+        - container: FB_ADDRESS
+          description:
+            en_US: FRITZ!Box address
+        - container: FB_USER
+          description:
+            en_US: FRITZ!Box username
+        - container: FB_PASSWORD
+          description:
+            en_US: FRITZ!Box password
+        - container: WEB_PASSWORD
+          description:
+            en_US: Web interface password
+      ports:
+        - container: "5000"
+          description:
+            en_US: Web interface port
+      volumes:
+        - container: /app/data
+          description:
+            en_US: Application data directory
+        - container: /app/static/src/img
+          description:
+            en_US: Custom background directory
 x-casaos:
-  architectures:
-  - amd64
-  - arm64
+  id: com.casa7014.fritzbox-wlan-password-rotator
   main: app
+  architectures: [amd64, arm64]
+  port_map: "5001"
+  index: /
+  scheme: http
+  title:
+    en_US: FritzBox WLAN Password Rotator
   author: yassinyl
   developer: phipzzz
   category: Networking
-  description:
-    en_US: 'A tool that automatically updates the guest WLAN password of a FRITZ!Box
-      after a defined interval and displays the updated credentials and QR code on
-      a central webpage in your home network.
-
-      '
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png
   screenshot_link:
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/screenshot-1.png
+  description:
+    en_US: Automatically rotates the guest WLAN password of a FRITZ!Box and displays credentials and a QR code.
   tagline:
     en_US: Automatically rotate WLAN passwords for FRITZ!Box
-  title:
-    en_US: FritzBox WLAN Password Rotator
-  store_app_id: fritzbox-wlan-password-rotator
-  port_map: '5001'
-  id: com.casa7014.fritzbox-wlan-password-rotator
-  index: /
-  scheme: http
-  version: 1.4.1
-name: fritzbox-wlan-password-rotator
+  version: "1.4.1"
+  repo: https://github.com/phipzzz/fritzbox-wlan-password-rotator

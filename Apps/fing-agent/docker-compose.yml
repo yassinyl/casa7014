@@ -1,39 +1,44 @@
-name: fing agent
+name: fing-agent
 services:
   fing-agent:
     image: fing/fing-agent:1.1.1
     container_name: FingAgent
     network_mode: host
-    cap_add:
-    - NET_ADMIN
-    ports:
-    - target: 44444
-      published: '44444'
-      protocol: tcp
+    cap_add: [NET_ADMIN]
     restart: always
-    deploy:
-      restart_policy:
-        condition: always
+    ports:
+      - target: 44444
+        published: "44444"
+        protocol: tcp
     volumes:
-    - /DATA/AppData/$AppID/data:/app/fingdata
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /app/fingdata
+    x-casaos:
+      ports:
+        - container: "44444"
+          description:
+            en_US: Fing Agent port
+      volumes:
+        - container: /app/fingdata
+          description:
+            en_US: Fing Agent data directory
 x-casaos:
   id: com.casa7014.fing-agent
   main: fing-agent
+  architectures: [amd64, arm64]
+  port_map: "44444"
   index: /
-  port_map: '44444'
   scheme: http
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png
   title:
     en_US: Fing Agent
-  tagline:
-    en_US: Network monitoring agent
-  description:
-    en_US: Fing Agent is a network monitoring agent that discovers and monitors devices
-      on your local network.
   author: yassinyl
   developer: Fing
   category: Networking
-  architectures:
-  - amd64
-  - arm64
-  version: 1.1.1
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png
+  description:
+    en_US: Network monitoring agent that discovers and monitors devices on your local network.
+  tagline:
+    en_US: Network monitoring agent
+  version: "1.1.1"
+  website: https://www.fing.com/products/fing-agent

@@ -1,0 +1,32 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "Mostafa Wahied",
+  "category": "Networking",
+  "screenshot_link": [
+    "/apps/com.casa7014.portracker/assets/screenshot-1.webp"
+  ],
+  "description": "Portracker is a self-hosted, real-time port monitoring and discovery tool that automatically discovers services, ports, Docker containers, and network services on your systems.",
+  "tagline": "Real-time port monitoring and discovery",
+  "update_at": "2026-09-17",
+  "website": "https://github.com/mostafa-wahied/portracker",
+  "repo": "https://github.com/mostafa-wahied/portracker",
+  "support": "https://github.com/mostafa-wahied/portracker/issues",
+  "docs": "https://github.com/mostafa-wahied/portracker#readme",
+  "title": "Portracker",
+  "release_note": "Portracker 1.3.13 provides real-time port monitoring and discovery,\nDocker container discovery, internal and published port detection,\npeer monitoring, and a modern web dashboard.",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.portracker",
+  "version": "1.3.13",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 188445156,
+    "arm64": 167870016
+  }
+}

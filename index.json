@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T12:50:55Z",
+  "updated_at": "2026-09-16T12:53:47Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -130,7 +130,7 @@
       "thumbnail": "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.webp",
       "compose_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/meta.json",
-      "content_hash": "eaa415bc",
+      "content_hash": "31db52ad",
       "version": "1.4.1"
     },
     {

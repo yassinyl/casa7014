@@ -1,3 +1,4 @@
+name: fritzbox-wlan-password-rotator
 services:
   app:
     image: phipzzz/fritzbox-wlan-password-rotator:1.4.1@sha256:ad41c08f4c55adbe401cf031144dc99b5a6ce46d21e6adbf37c1616d645c3adf
@@ -6,40 +7,39 @@ services:
     environment:
       PUID: $PUID
       PGID: $PGID
-      TZ: Africa/Tunis
-      CRONTAB_EXPRESSION: 0 3 * * *
+      TZ: $TZ
+      CRONTAB_EXPRESSION: "0 3 * * *"
       FB_ADDRESS: 192.168.178.1
-      FB_PASSWORD: ''
-      FB_USER: ''
+      FB_PASSWORD: ""
+      FB_USER: ""
       WEB_PASSWORD: password
-      WEB_PUBLIC_ENABLED: 'true'
+      WEB_PUBLIC_ENABLED: "true"
       WEB_PAGE_TITLE: WLAN QR-Code
       WLAN_CONFIGURATION: WLANConfiguration3
       WEB_WELCOME_MESSAGE_CONTENT: welcome
-      PW_CHARSET_ASCII_UPPERCASE: 'True'
-      PW_CHARSET_ASCII_LOWERCASE: 'True'
-      PW_CHARSET_DIGITS: 'True'
-      PW_CHARSET_PUNCTUATION: 'False'
-      WEB_CUSTOM_BACKGROUND: 'True'
+      PW_CHARSET_ASCII_UPPERCASE: "True"
+      PW_CHARSET_ASCII_LOWERCASE: "True"
+      PW_CHARSET_DIGITS: "True"
+      PW_CHARSET_PUNCTUATION: "False"
+      WEB_CUSTOM_BACKGROUND: "True"
     ports:
       - target: 5000
-        published: 5001
+        published: "5001"
         protocol: tcp
     volumes:
       - type: bind
-        source: /DATA/AppData/fritzbox-wlan-password-rotator/config
+        source: /DATA/AppData/$AppID/config
         target: /app/data
       - type: bind
-        source: /DATA/AppData/fritzbox-wlan-password-rotator/background
+        source: /DATA/AppData/$AppID/background
         target: /app/static/src/img
-name: fritzbox-wlan-password-rotator
 x-casaos:
-  main: app
-  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png
-  title:
-    en_US: FritzBox WLAN Password Rotator
-  port_map: '5001'
   id: com.casa7014.fritzbox-wlan-password-rotator
+  main: app
+  port_map: "5001"
   index: /
   scheme: http
-  version: 1.4.1
+  title:
+    en_US: FritzBox WLAN Password Rotator
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png
+  version: "1.4.1"

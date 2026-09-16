@@ -6,12 +6,13 @@
   "author": "yassinyl",
   "developer": "phipzzz",
   "category": "Networking",
-  "description": "A tool that automatically updates the guest WLAN password of a FRITZ!Box after a defined interval and displays the updated credentials and QR code on a central webpage in your home network.\n",
   "thumbnail": "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.webp",
   "screenshot_link": [
     "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/screenshot-1.webp"
   ],
+  "description": "Automatically rotates the guest WLAN password of a FRITZ!Box and displays credentials and a QR code.",
   "tagline": "Automatically rotate WLAN passwords for FRITZ!Box",
+  "repo": "https://github.com/phipzzz/fritzbox-wlan-password-rotator",
   "title": "FritzBox WLAN Password Rotator",
   "base_url": "https://yassinyl.github.io/casa7014",
   "id": "com.casa7014.fritzbox-wlan-password-rotator",

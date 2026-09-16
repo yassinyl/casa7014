@@ -5,17 +5,21 @@ services:
     container_name: bootimus-db
     image: postgres:16@sha256:b0743658432ade5ff808dc51f94da7ee99ed2a40e354a9f89fa0c42022fee3c0
     restart: unless-stopped
+
     environment:
       POSTGRES_USER: bootimus
       POSTGRES_PASSWORD: bootimus
       POSTGRES_DB: bootimus
+
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/postgres_data
         target: /var/lib/postgresql/data
+
     networks:
       bootimus_net:
         ipv4_address: 172.23.0.2
+
     healthcheck:
       test:
         - CMD-SHELL
@@ -28,40 +32,46 @@ services:
     container_name: bootimus-server
     image: garybowers/bootimus:latest@sha256:22c07d0c7ece2363c8c86bde9ce4fb61649a9aaf6f8cb33cdfeffeac29c0cd66
     restart: unless-stopped
+
     depends_on:
       bootimus-db:
         condition: service_healthy
 
     environment:
       BOOTIMUS_DATA_DIR: /data
+
       BOOTIMUS_DB_HOST: bootimus-db
       BOOTIMUS_DB_PORT: 5432
       BOOTIMUS_DB_USER: bootimus
       BOOTIMUS_DB_PASSWORD: bootimus
       BOOTIMUS_DB_NAME: bootimus
       BOOTIMUS_DB_SSLMODE: disable
+
       BOOTIMUS_TFTP_PORT: 69
       BOOTIMUS_HTTP_PORT: 8080
       BOOTIMUS_ADMIN_PORT: 8081
-      BOOTIMUS_PROXY_DHCP_ENABLED: "true"
 
-      # CHANGE TO YOUR BOOTIMUS LAN IP
-      BOOTIMUS_SERVER_ADDR: 192.168.1.201
+      BOOTIMUS_PROXY_DHCP_ENABLED: "true"
+      BOOTIMUS_SERVER_ADDR: 192.168.178.111
+      BOOTIMUS_WINDOWS_SMB_ENABLED: "true"
 
     networks:
       bootimus_net:
         ipv4_address: 172.23.0.3
 
-      host_bridge:
-        ipv4_address: 192.168.1.201
-
     ports:
       - target: 69
         published: "69"
         protocol: udp
+
+      - target: 445
+        published: "445"
+        protocol: tcp
+
       - target: 8080
         published: "8080"
         protocol: tcp
+
       - target: 8081
         published: "8081"
         protocol: tcp
@@ -74,6 +84,7 @@ services:
     cap_add:
       - NET_BIND_SERVICE
 
+
 networks:
   bootimus_net:
     driver: bridge
@@ -82,17 +93,6 @@ networks:
         - subnet: 172.23.0.0/16
           gateway: 172.23.0.1
 
-  host_bridge:
-    driver: macvlan
-    driver_opts:
-      # CHANGE TO YOUR LAN INTERFACE
-      parent: eth0
-    ipam:
-      config:
-        # CHANGE THESE TO MATCH YOUR LAN
-        - subnet: 192.168.1.0/24
-          gateway: 192.168.1.1
-          ip_range: 192.168.1.201/32
 
 x-casaos:
   id: com.casa7014.bootimus

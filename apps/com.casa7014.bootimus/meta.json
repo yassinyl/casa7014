@@ -8,16 +8,18 @@
   "category": "Utilities",
   "screenshot_link": [
     "/apps/com.casa7014.bootimus/assets/screenshot-1.webp",
-    "/apps/com.casa7014.bootimus/assets/screenshot-2.webp"
+    "/apps/com.casa7014.bootimus/assets/screenshot-2.webp",
+    "/apps/com.casa7014.bootimus/assets/screenshot-3.webp"
   ],
-  "description": "Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, and a web administration interface.",
+  "description": "Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, Windows SMB deployment, and a web administration interface.",
   "tagline": "Modern PXE and HTTP Boot Server",
   "website": "https://github.com/garybowers/bootimus",
   "repo": "https://github.com/garybowers/bootimus",
   "support": "https://github.com/garybowers/bootimus/issues",
   "docs": "https://github.com/garybowers/bootimus/tree/main/docs",
   "tips": {
-    "before_install": "Bootimus uses ProxyDHCP to provide PXE boot information while your existing DHCP server continues assigning IP addresses. Do not disable your existing DHCP server. Before installation, change the LAN subnet, gateway, Bootimus IP address, and network interface in this compose file to match your network. Make sure the Bootimus IP is unused and preferably outside the DHCP pool. Bootimus and PXE clients must be on the same LAN or broadcast domain."
+    "before_install": "IMPORTANT - PXE NETWORK CONFIGURATION\n\nBootimus requires a macvlan network connected directly\nto your physical LAN interface.\n\nThe macvlan network is NOT created automatically.\n\nAfter installing Bootimus, create the macvlan network:\n\nsudo docker network create -d macvlan \\\n  --subnet=192.168.178.0/24 \\\n  --gateway=192.168.178.1 \\\n  --ip-range=192.168.178.111/32 \\\n  -o parent=eth0 \\\n  bootimus_lan\n\nThen connect it to Bootimus:\n\nsudo docker network connect \\\n  --ip 192.168.178.111 \\\n  bootimus_lan \\\n  bootimus-server\n\nThen restart Bootimus:\n\nsudo docker restart bootimus-server\n\nWeb UI:\n\nhttp://192.168.178.111:8081\n\nIMPORTANT:\n\n192.168.178.111 is only an example.\n\nReplace it with an unused IP address from your own LAN.\n\nReplace 192.168.178.0/24 with your LAN subnet.\n\nReplace 192.168.178.1 with your LAN gateway.\n\nReplace eth0 with your physical LAN interface if necessary.\n\nThe IP configured in BOOTIMUS_SERVER_ADDR must match\nthe IP assigned to Bootimus through the macvlan network.\n\nDo not disable your existing DHCP server.\n\nBootimus ProxyDHCP works alongside an existing DHCP server\nsuch as a FRITZ!Box.\n",
+    "after_install": "Bootimus has been installed.\n\nPXE requires an additional macvlan network.\n\nCreate the macvlan network:\n\nsudo docker network create -d macvlan \\\n  --subnet=192.168.178.0/24 \\\n  --gateway=192.168.178.1 \\\n  --ip-range=192.168.178.111/32 \\\n  -o parent=eth0 \\\n  bootimus_lan\n\nConnect it to Bootimus:\n\nsudo docker network connect \\\n  --ip 192.168.178.111 \\\n  bootimus_lan \\\n  bootimus-server\n\nRestart Bootimus:\n\nsudo docker restart bootimus-server\n\nWeb UI:\n\nhttp://192.168.178.111:8081\n\nReplace 192.168.178.111 with the unused LAN IP\nassigned to your Bootimus macvlan network.\n"
   },
   "title": "Bootimus",
   "base_url": "https://yassinyl.github.io/casa7014",

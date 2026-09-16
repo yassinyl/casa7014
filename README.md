@@ -55,7 +55,7 @@ The application list below is automatically generated from the
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png" width="48" height="48"> | **Fing Agent** | `1.1.1` | Fing Agent is a network monitoring agent that discovers and monitors devices on your local network. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fritzbox-wlan-password-rotator/icon.png" width="48" height="48"> | **FritzBox WLAN Password Rotator** | `1.4.1` | Automatically rotates the guest WLAN password of a FRITZ!Box and displays credentials and a QR code. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png" width="48" height="48"> | **LinkStack** | `1.0.0` | Highly customizable link-sharing platform with an intuitive user interface. |
-| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | `0.43.1` | MotionEye is an open-source video surveillance application that manages webcams easily with a graphical interface. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png" width="48" height="48"> | **MotionEye** | `0.43.1` | Open-source video surveillance application for managing webcams and IP cameras. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | `2.45.0` | Lightweight Docker management UI. |
 
 <!-- apps:end -->

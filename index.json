@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T13:28:04Z",
-  "app_count": 9,
+  "updated_at": "2026-09-16T13:44:22Z",
+  "app_count": 10,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
     {
@@ -132,6 +132,27 @@
       "meta_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/meta.json",
       "content_hash": "31db52ad",
       "version": "1.4.1"
+    },
+    {
+      "id": "com.casa7014.lan-orangutan",
+      "title": "LAN Orangutan",
+      "tagline": "Network discovery and device inventory",
+      "category": "Utilities",
+      "categories": [
+        "utilities"
+      ],
+      "author": "yassinyl",
+      "developer": "291 Group",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.lan-orangutan/assets/icon.png",
+      "thumbnail": "/apps/com.casa7014.lan-orangutan/assets/thumbnail.webp",
+      "compose_url": "/apps/com.casa7014.lan-orangutan/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.lan-orangutan/meta.json",
+      "content_hash": "1018c050",
+      "version": "3.3.8"
     },
     {
       "id": "com.casa7014.linkstack",

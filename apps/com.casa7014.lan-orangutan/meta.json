@@ -1,0 +1,34 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "291 Group",
+  "category": "Utilities",
+  "thumbnail": "/apps/com.casa7014.lan-orangutan/assets/thumbnail.webp",
+  "screenshot_link": [
+    "/apps/com.casa7014.lan-orangutan/assets/screenshot-1.webp",
+    "/apps/com.casa7014.lan-orangutan/assets/screenshot-2.webp"
+  ],
+  "description": "LAN Orangutan is a self-hosted network discovery and device inventory tool that scans your LAN, identifies devices, and helps you organize and monitor your network.",
+  "tagline": "Network discovery and device inventory",
+  "update_at": "2026-09-16",
+  "website": "https://291grp.com/",
+  "repo": "https://github.com/291-Group/LAN-Orangutan",
+  "support": "https://github.com/291-Group/LAN-Orangutan/issues",
+  "docs": "https://github.com/291-Group/LAN-Orangutan#readme",
+  "title": "LAN Orangutan",
+  "release_note": "LAN Orangutan 3.3.8 improves LAN device discovery, device identification,\nnetwork scanning, security information, and the web interface.",
+  "base_url": "https://yassinyl.github.io/casa7014",
+  "id": "com.casa7014.lan-orangutan",
+  "version": "3.3.8",
+  "categories": [
+    "utilities"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 16630335,
+    "arm64": 16548119
+  }
+}

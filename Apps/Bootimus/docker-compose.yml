@@ -5,17 +5,21 @@ services:
     container_name: bootimus-db
     image: postgres:16
     restart: unless-stopped
+
     environment:
       POSTGRES_USER: bootimus
       POSTGRES_PASSWORD: bootimus
       POSTGRES_DB: bootimus
+
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/postgres_data
         target: /var/lib/postgresql/data
+
     networks:
       bootimus_net:
         ipv4_address: 172.23.0.2
+
     healthcheck:
       test:
         - CMD-SHELL
@@ -28,40 +32,46 @@ services:
     container_name: bootimus-server
     image: garybowers/bootimus:latest
     restart: unless-stopped
+
     depends_on:
       bootimus-db:
         condition: service_healthy
 
     environment:
       BOOTIMUS_DATA_DIR: /data
+
       BOOTIMUS_DB_HOST: bootimus-db
       BOOTIMUS_DB_PORT: 5432
       BOOTIMUS_DB_USER: bootimus
       BOOTIMUS_DB_PASSWORD: bootimus
       BOOTIMUS_DB_NAME: bootimus
       BOOTIMUS_DB_SSLMODE: disable
+
       BOOTIMUS_TFTP_PORT: 69
       BOOTIMUS_HTTP_PORT: 8080
       BOOTIMUS_ADMIN_PORT: 8081
-      BOOTIMUS_PROXY_DHCP_ENABLED: "true"
 
-      # CHANGE TO YOUR BOOTIMUS LAN IP
-      BOOTIMUS_SERVER_ADDR: 192.168.1.201
+      BOOTIMUS_PROXY_DHCP_ENABLED: "true"
+      BOOTIMUS_SERVER_ADDR: 192.168.178.111
+      BOOTIMUS_WINDOWS_SMB_ENABLED: "true"
 
     networks:
       bootimus_net:
         ipv4_address: 172.23.0.3
 
-      host_bridge:
-        ipv4_address: 192.168.1.201
-
     ports:
       - target: 69
         published: "69"
         protocol: udp
+
+      - target: 445
+        published: "445"
+        protocol: tcp
+
       - target: 8080
         published: "8080"
         protocol: tcp
+
       - target: 8081
         published: "8081"
         protocol: tcp
@@ -74,30 +84,6 @@ services:
     cap_add:
       - NET_BIND_SERVICE
 
-    x-casaos:
-      envs:
-        - container: BOOTIMUS_PROXY_DHCP_ENABLED
-          description:
-            en_US: Enable ProxyDHCP for PXE booting
-        - container: BOOTIMUS_SERVER_ADDR
-          description:
-            en_US: Bootimus LAN IP address
-
-      ports:
-        - container: "69"
-          description:
-            en_US: PXE TFTP UDP Port
-        - container: "8080"
-          description:
-            en_US: Bootimus HTTP Port
-        - container: "8081"
-          description:
-            en_US: Bootimus Web Administration Port
-
-      volumes:
-        - container: /data
-          description:
-            en_US: Bootimus data directory
 
 networks:
   bootimus_net:
@@ -107,17 +93,6 @@ networks:
         - subnet: 172.23.0.0/16
           gateway: 172.23.0.1
 
-  host_bridge:
-    driver: macvlan
-    driver_opts:
-      # CHANGE TO YOUR LAN INTERFACE
-      parent: eth0
-    ipam:
-      config:
-        # CHANGE THESE TO MATCH YOUR LAN
-        - subnet: 192.168.1.0/24
-          gateway: 192.168.1.1
-          ip_range: 192.168.1.201/32
 
 x-casaos:
   id: com.casa7014.bootimus
@@ -140,32 +115,107 @@ x-casaos:
 
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/icon.png
 
-#  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/thumbnail.png
-
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/screenshot-3.png
 
   description:
-    en_US: Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, and a web administration interface.
+    en_US: Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, Windows SMB deployment, and a web administration interface.
 
   tagline:
     en_US: Modern PXE and HTTP Boot Server
 
   version: "0.1.76"
 
-  website: "https://github.com/garybowers/bootimus"
-  repo: "https://github.com/garybowers/bootimus"
-  support: "https://github.com/garybowers/bootimus/issues"
-  docs: "https://github.com/garybowers/bootimus/tree/main/docs"
+  website: https://github.com/garybowers/bootimus
+  repo: https://github.com/garybowers/bootimus
+  support: https://github.com/garybowers/bootimus/issues
+  docs: https://github.com/garybowers/bootimus/tree/main/docs
 
   tips:
     before_install:
-      en_US: >-
-        Bootimus uses ProxyDHCP to provide PXE boot information while your
-        existing DHCP server continues assigning IP addresses. Do not disable
-        your existing DHCP server. Before installation, change the LAN subnet,
-        gateway, Bootimus IP address, and network interface in this compose file
-        to match your network. Make sure the Bootimus IP is unused and preferably
-        outside the DHCP pool. Bootimus and PXE clients must be on the same LAN
-        or broadcast domain.
+      en_US: |
+        IMPORTANT - PXE NETWORK CONFIGURATION
+
+        Bootimus requires a macvlan network connected directly
+        to your physical LAN interface.
+
+        The macvlan network is NOT created automatically.
+
+        After installing Bootimus, create the macvlan network:
+
+        sudo docker network create -d macvlan \
+          --subnet=192.168.178.0/24 \
+          --gateway=192.168.178.1 \
+          --ip-range=192.168.178.111/32 \
+          -o parent=eth0 \
+          bootimus_lan
+
+        Then connect it to Bootimus:
+
+        sudo docker network connect \
+          --ip 192.168.178.111 \
+          bootimus_lan \
+          bootimus-server
+
+        Then restart Bootimus:
+
+        sudo docker restart bootimus-server
+
+        Web UI:
+
+        http://192.168.178.111:8081
+
+        IMPORTANT:
+
+        192.168.178.111 is only an example.
+
+        Replace it with an unused IP address from your own LAN.
+
+        Replace 192.168.178.0/24 with your LAN subnet.
+
+        Replace 192.168.178.1 with your LAN gateway.
+
+        Replace eth0 with your physical LAN interface if necessary.
+
+        The IP configured in BOOTIMUS_SERVER_ADDR must match
+        the IP assigned to Bootimus through the macvlan network.
+
+        Do not disable your existing DHCP server.
+
+        Bootimus ProxyDHCP works alongside an existing DHCP server
+        such as a FRITZ!Box.
+
+    after_install:
+      en_US: |
+        Bootimus has been installed.
+
+        PXE requires an additional macvlan network.
+
+        Create the macvlan network:
+
+        sudo docker network create -d macvlan \
+          --subnet=192.168.178.0/24 \
+          --gateway=192.168.178.1 \
+          --ip-range=192.168.178.111/32 \
+          -o parent=eth0 \
+          bootimus_lan
+
+        Connect it to Bootimus:
+
+        sudo docker network connect \
+          --ip 192.168.178.111 \
+          bootimus_lan \
+          bootimus-server
+
+        Restart Bootimus:
+
+        sudo docker restart bootimus-server
+
+        Web UI:
+
+        http://192.168.178.111:8081
+
+        Replace 192.168.178.111 with the unused LAN IP
+        assigned to your Bootimus macvlan network.

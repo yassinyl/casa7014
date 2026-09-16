@@ -1,38 +1,34 @@
+name: portainer-business-edition
 services:
   portainer:
     image: portainer/portainer-ee:2.45.0@sha256:e627b862b9ed44942f8fafc496a79864e80ee39458b32d16bb3ce6387e0bdc6a
-    deploy:
-      resources:
-        reservations:
-          memory: 32M
+    container_name: portainer
+    restart: unless-stopped
     network_mode: bridge
     ports:
       - target: 8000
-        published: '8000'
+        published: "8000"
         protocol: tcp
       - target: 9000
-        published: '9000'
+        published: "9000"
         protocol: tcp
       - target: 9443
-        published: '9443'
+        published: "9443"
         protocol: tcp
-    restart: unless-stopped
     volumes:
       - type: bind
-        source: /DATA/AppData/portainer
+        source: /DATA/AppData/$AppID
         target: /data
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-    container_name: portainer
-name: portainer-business-edition
 x-casaos:
-  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.portainer-business-edition/assets/icon.png
+  id: com.casa7014.portainer-business-edition
   main: portainer
+  port_map: "9000"
+  index: /
+  scheme: http
   title:
     en_US: Portainer ( Business Edition )
-  index: /
-  port_map: '9000'
-  scheme: http
-  id: com.casa7014.portainer-business-edition
-  version: 2.45.0
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.portainer-business-edition/assets/icon.png
+  version: "2.45.0"

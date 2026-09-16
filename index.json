@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T03:52:49Z",
+  "updated_at": "2026-09-16T12:45:09Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -197,7 +197,7 @@
       "thumbnail": "/apps/com.casa7014.portainer-business-edition/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.portainer-business-edition/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.portainer-business-edition/meta.json",
-      "content_hash": "85400990",
+      "content_hash": "1a239579",
       "version": "2.45.0"
     }
   ]

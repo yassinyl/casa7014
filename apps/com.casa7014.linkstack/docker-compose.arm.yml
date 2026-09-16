@@ -1,9 +1,10 @@
+name: linkstack
 services:
   linkstack:
     hostname: linkstack
     image: linkstackorg/linkstack:latest@sha256:de7bd450dc67b668050a644acb5502499ab22c316d1ea3ff5a80e5e8f371776f
     environment:
-      TZ: Africa/Tunis
+      TZ: $TZ
       SERVER_ADMIN: admin@example.com
       HTTP_SERVER_NAME: example.com
       HTTPS_SERVER_NAME: example.com
@@ -12,23 +13,18 @@ services:
       UPLOAD_MAX_FILESIZE: 8M
     ports:
       - target: 80
-        published: '8081'
+        published: "8081"
         protocol: tcp
     restart: unless-stopped
     container_name: linkstack
-    deploy:
-      resources:
-        reservations:
-          memory: 256M
     network_mode: bridge
-name: linkstack
 x-casaos:
+  id: com.casa7014.linkstack
   main: linkstack
-  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.linkstack/assets/icon.png
+  port_map: "8081"
+  index: /
+  scheme: http
   title:
     en_US: LinkStack
-  port_map: '8081'
-  scheme: http
-  id: com.casa7014.linkstack
-  index: /
-  version: 1.0.0
+  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.linkstack/assets/icon.png
+  version: "1.0.0"

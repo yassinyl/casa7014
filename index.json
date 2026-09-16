@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T12:53:47Z",
+  "updated_at": "2026-09-16T12:58:12Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -152,7 +152,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.linkstack/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.linkstack/meta.json",
-      "content_hash": "e52dec2f",
+      "content_hash": "044970bb",
       "version": "1.0.0"
     },
     {

@@ -1,58 +1,69 @@
+name: motioneye-beta
 services:
   motioneye:
     image: ghcr.io/motioneye-project/motioneye:0.43.1
     container_name: motioneye-yassinyl
     network_mode: bridge
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          memory: 64M
     ports:
-    - 8765:8765
-    - 9081:9081
+      - target: 8765
+        published: "8765"
+        protocol: tcp
+      - target: 9081
+        published: "9081"
+        protocol: tcp
     environment:
-    - TZ=Africa/Tunis
-    - PUID=1000
-    - PGID=1000
+      TZ: $TZ
+      PUID: "1000"
+      PGID: "1000"
     volumes:
-    - /DATA/AppData/motioneye/etc_motioneye:/etc/motioneye
-    - /DATA/AppData/motioneye/var_lib_motioneye:/var/lib/motioneye
+      - type: bind
+        source: /DATA/AppData/$AppID/etc_motioneye
+        target: /etc/motioneye
+      - type: bind
+        source: /DATA/AppData/$AppID/var_lib_motioneye
+        target: /var/lib/motioneye
+    x-casaos:
+      envs:
+        - container: TZ
+          description:
+            en_US: Time zone
+      ports:
+        - container: "8765"
+          description:
+            en_US: MotionEye WebUI port
+        - container: "9081"
+          description:
+            en_US: Secondary HTTP port
+      volumes:
+        - container: /etc/motioneye
+          description:
+            en_US: Configuration directory
+        - container: /var/lib/motioneye
+          description:
+            en_US: Data directory
 x-casaos:
-  architectures:
-  - amd64
-  - arm
-  - arm64
-  author: yassinyl
-  developer: ccrisan
-  category: Others
-  description:
-    en_US: 'MotionEye is an open-source video surveillance application that manages
-      webcams easily with a graphical interface.
-
-      '
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
-  screenshot_link:
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-1.png
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-2.png
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-3.png
-  - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-4.png
-  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
+  id: com.casa7014.motioneye-beta
   main: motioneye
-  tagline:
-    en_US: Video surveillance for your cameras
+  architectures: [amd64, arm, arm64]
+  port_map: "8765"
+  index: /
+  scheme: http
   title:
     en_US: MotionEye
-  scheme: http
-  hostname: ''
-  port_map: '8765'
-  index: /
-  tips:
-    before_install:
-      en_US: "MotionEye requires a webcam or IP camera to be connected to function\
-        \ properly. \nIf you use USB cameras, you can add their paths (like /dev/video0)\
-        \ in the settings after installation.\nAfter installation, access the web\
-        \ interface at: \nhttp://your_server_ip:8765\n"
-  id: com.casa7014.motioneye-beta
-  version: 0.43.1
-name: motioneye-beta
+  author: yassinyl
+  developer: motioneye-project
+  category: Others
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
+#  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-1.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-2.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-3.png
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-4.png
+  description:
+    en_US: Open-source video surveillance application for managing webcams and IP cameras.
+  tagline:
+    en_US: Video surveillance for your cameras
+  version: "0.43.1"
+  repo: https://github.com/motioneye-project/motioneye

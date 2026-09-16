@@ -1,13 +1,14 @@
 {
-  "tagline": "Network monitoring agent",
-  "description": "Fing Agent is a network monitoring agent that discovers and monitors devices on your local network.",
-  "author": "yassinyl",
-  "developer": "Fing",
-  "category": "Networking",
   "architectures": [
     "amd64",
     "arm64"
   ],
+  "author": "yassinyl",
+  "developer": "Fing",
+  "category": "Networking",
+  "description": "Network monitoring agent that discovers and monitors devices on your local network.",
+  "tagline": "Network monitoring agent",
+  "website": "https://www.fing.com/products/fing-agent",
   "title": "Fing Agent",
   "base_url": "https://yassinyl.github.io/casa7014",
   "id": "com.casa7014.fing-agent",

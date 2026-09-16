@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T13:26:02Z",
+  "updated_at": "2026-09-16T13:28:04Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -109,7 +109,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.fing-agent/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.fing-agent/meta.json",
-      "content_hash": "bcb2d1a5",
+      "content_hash": "918f34b4",
       "version": "1.1.1"
     },
     {

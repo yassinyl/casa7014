@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-16T13:23:24Z",
+  "updated_at": "2026-09-16T13:26:02Z",
   "app_count": 9,
   "base_url": "https://yassinyl.github.io/casa7014",
   "apps": [
@@ -38,15 +38,15 @@
       "developer": "P3TERX",
       "architectures": [
         "amd64",
-        "386",
         "arm64",
-        "arm"
+        "arm",
+        "386"
       ],
       "icon": "/apps/com.casa7014.aria2-pro/assets/icon.png",
       "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
-      "content_hash": "e5f80e0c",
+      "content_hash": "43296e58",
       "version": "1.0.0"
     },
     {

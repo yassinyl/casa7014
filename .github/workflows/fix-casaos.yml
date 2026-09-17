@@ -1,0 +1,117 @@
+name: Fix CasaOS V2 Compose
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq \
+            https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Fix service-level x-casaos
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          changed=0
+
+          for compose in Apps/*/docker-compose.yml; do
+            [ -f "$compose" ] || continue
+
+            app="$(basename "$(dirname "$compose")")"
+
+            count="$(
+              yq eval '
+                [
+                  .services[]?
+                  | select(has("x-casaos"))
+                ]
+                | length
+              ' "$compose"
+            )"
+
+            if [ "$count" = "0" ]; then
+              echo "OK: $app"
+              continue
+            fi
+
+            echo "FIX: $app ($count service-level x-casaos block(s))"
+
+            yq eval -i '
+              .services |= with_entries(
+                .value |= del(."x-casaos")
+              )
+            ' "$compose"
+
+            changed=1
+          done
+
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Validate YAML
+        run: |
+          set -euo pipefail
+
+          for compose in Apps/*/docker-compose.yml; do
+            [ -f "$compose" ] || continue
+
+            echo "Checking $compose"
+
+            yq eval '.' "$compose" >/dev/null
+
+            remaining="$(
+              yq eval '
+                [
+                  .services[]?
+                  | select(has("x-casaos"))
+                ]
+                | length
+              ' "$compose"
+            )"
+
+            if [ "$remaining" != "0" ]; then
+              echo "ERROR: service-level x-casaos remains in $compose"
+              exit 1
+            fi
+          done
+
+      - name: Run CasaOS V2 validator
+        run: |
+          chmod +x .github/scripts/lint-casaos-v2.sh
+          .github/scripts/lint-casaos-v2.sh
+
+      - name: Show changes
+        run: |
+          git status --short
+          git diff -- Apps/
+
+      - name: Commit changes
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- Apps/; then
+            echo "No changes needed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Apps/*/docker-compose.yml
+
+          git commit -m "fix: remove legacy service-level x-casaos"
+
+          git push

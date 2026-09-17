@@ -1,5 +1,4 @@
 name: lan-orangutan
-
 services:
   lan-orangutan:
     image: ghcr.io/291-group/lan-orangutan:3.3.8
@@ -31,16 +30,6 @@ services:
       start_period: 5s
     labels:
       icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/lan-orangutan/icon.png
-    x-casaos:
-      ports:
-        - container: "291"
-          description:
-            en_US: LAN Orangutan WebUI port
-      volumes:
-        - container: /var/lib/lan-orangutan
-          description:
-            en_US: LAN Orangutan data directory
-
 x-casaos:
   id: com.casa7014.lan-orangutan
   main: lan-orangutan

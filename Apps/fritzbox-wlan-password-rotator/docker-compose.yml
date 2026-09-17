@@ -33,34 +33,6 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/background
         target: /app/static/src/img
-    x-casaos:
-      envs:
-        - container: TZ
-          description:
-            en_US: Time zone
-        - container: FB_ADDRESS
-          description:
-            en_US: FRITZ!Box address
-        - container: FB_USER
-          description:
-            en_US: FRITZ!Box username
-        - container: FB_PASSWORD
-          description:
-            en_US: FRITZ!Box password
-        - container: WEB_PASSWORD
-          description:
-            en_US: Web interface password
-      ports:
-        - container: "5000"
-          description:
-            en_US: Web interface port
-      volumes:
-        - container: /app/data
-          description:
-            en_US: Application data directory
-        - container: /app/static/src/img
-          description:
-            en_US: Custom background directory
 x-casaos:
   id: com.casa7014.fritzbox-wlan-password-rotator
   main: app

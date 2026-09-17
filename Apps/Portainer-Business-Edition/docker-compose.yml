@@ -22,18 +22,6 @@ services:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
-    x-casaos:
-      ports:
-        - container: "9000"
-          description:
-            en_US: Portainer HTTP port
-        - container: "9443"
-          description:
-            en_US: Portainer HTTPS port
-      volumes:
-        - container: /data
-          description:
-            en_US: Portainer data directory
 x-casaos:
   id: com.casa7014.portainer-business-edition
   main: portainer

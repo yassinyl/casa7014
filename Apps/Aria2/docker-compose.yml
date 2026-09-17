@@ -34,25 +34,6 @@ services:
       - type: bind
         source: /DATA/Downloads
         target: /Downloads
-    x-casaos:
-      envs:
-        - container: ARIA2_RPC_SECRET
-          description:
-            en_US: Aria2 RPC secret
-      ports:
-        - container: "6800"
-          description:
-            en_US: Aria2 RPC port
-        - container: "6881"
-          description:
-            en_US: BitTorrent port
-      volumes:
-        - container: /config
-          description:
-            en_US: Configuration directory
-        - container: /Downloads
-          description:
-            en_US: Download directory
 x-casaos:
   id: com.casa7014.aria2
   main: aria2

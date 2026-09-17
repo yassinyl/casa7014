@@ -14,15 +14,6 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/data
         target: /app/fingdata
-    x-casaos:
-      ports:
-        - container: "44444"
-          description:
-            en_US: Fing Agent port
-      volumes:
-        - container: /app/fingdata
-          description:
-            en_US: Fing Agent data directory
 x-casaos:
   id: com.casa7014.fing-agent
   main: fing-agent

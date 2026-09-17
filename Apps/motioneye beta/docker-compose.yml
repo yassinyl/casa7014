@@ -23,25 +23,6 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/var_lib_motioneye
         target: /var/lib/motioneye
-    x-casaos:
-      envs:
-        - container: TZ
-          description:
-            en_US: Time zone
-      ports:
-        - container: "8765"
-          description:
-            en_US: MotionEye WebUI port
-        - container: "9081"
-          description:
-            en_US: Secondary HTTP port
-      volumes:
-        - container: /etc/motioneye
-          description:
-            en_US: Configuration directory
-        - container: /var/lib/motioneye
-          description:
-            en_US: Data directory
 x-casaos:
   id: com.casa7014.motioneye-beta
   main: motioneye
@@ -55,7 +36,7 @@ x-casaos:
   developer: motioneye-project
   category: Others
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
-#  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
+  #  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/icon.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-2.png

@@ -8,11 +8,6 @@ services:
       - target: 6880
         published: "6880"
         protocol: tcp
-    x-casaos:
-      ports:
-        - container: "6880"
-          description:
-            en_US: AriaNg WebUI port
   aria2-pro:
     image: p3terx/aria2-pro:202209060423
     container_name: aria2-pro
@@ -41,31 +36,6 @@ services:
       - type: bind
         source: /DATA/AppData/$AppID/config
         target: /config
-    x-casaos:
-      envs:
-        - container: RPC_SECRET
-          description:
-            en_US: RPC secret key
-        - container: RPC_PORT
-          description:
-            en_US: RPC port
-        - container: LISTEN_PORT
-          description:
-            en_US: BitTorrent listening port
-      ports:
-        - container: "6800"
-          description:
-            en_US: RPC port
-        - container: "6888"
-          description:
-            en_US: BitTorrent TCP/UDP port
-      volumes:
-        - container: /downloads
-          description:
-            en_US: Download directory
-        - container: /config
-          description:
-            en_US: Configuration directory
 x-casaos:
   id: com.casa7014.aria2-pro
   main: aria2-pro

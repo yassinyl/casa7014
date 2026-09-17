@@ -17,15 +17,6 @@ services:
       REDIS_HOST: localhost
       CELERY_BROKER_URL: redis://localhost:6379/0
       DISPATCHARR_LOG_LEVEL: info
-    x-casaos:
-      ports:
-        - container: "9191"
-          description:
-            en_US: Dispatcharr WebUI port
-      volumes:
-        - container: /data
-          description:
-            en_US: Dispatcharr data directory
 x-casaos:
   id: com.casa7014.dispatcharr
   main: dispatcharr

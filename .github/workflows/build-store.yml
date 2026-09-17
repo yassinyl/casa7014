@@ -31,7 +31,10 @@ jobs:
         with:
           source: .
           output: dist
-          base-url: https://yassinyl.github.io/casa7014
+
+          # V2 Store + all generated assets use jsDelivr
+          base-url: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages
+
           cache-file: .cache/build_appstore/image-size-cache.json
           digest-cache-file: .cache/build_appstore/image-digest-cache.json
 
@@ -105,6 +108,7 @@ jobs:
 
           fi
 
+          # Always purge the main store entry points and V1 ZIPs
           printf '%s\n' \
             store.json \
             index.json \

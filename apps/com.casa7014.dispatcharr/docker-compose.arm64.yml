@@ -1,7 +1,7 @@
 name: dispatcharr
 services:
   dispatcharr:
-    image: ghcr.io/dispatcharr/dispatcharr:0.30.0@sha256:35b2b9a14d4878c2465d860089d483cbadd9a6090d124da14efbff89e7d5b292
+    image: ghcr.io/dispatcharr/dispatcharr:0.31.0@sha256:c4c84fc4806cac12cf4a33b6df6918b2021e83788f5fe6506430c9ce7538855c
     container_name: dispatcharr
     restart: unless-stopped
     ports:

@@ -1,7 +1,7 @@
 name: portainer-business-edition
 services:
   portainer:
-    image: portainer/portainer-ee:2.45.0@sha256:8befa517e11533a8080ea2b5090ad9e8eb1628ded2c51bb62a1a3d744dca7488
+    image: portainer/portainer-ee:2.45.1@sha256:f45ccd1c7b22993f0f2be1094c360f65fabf6b8a7c708bcdc0f23b1e1c704be8
     container_name: portainer
     restart: unless-stopped
     network_mode: bridge
@@ -31,4 +31,4 @@ x-casaos:
   title:
     en_US: Portainer ( Business Edition )
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.portainer-business-edition/assets/icon.png
-  version: "2.45.0"
+  version: "2.45.1"

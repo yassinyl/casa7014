@@ -20,15 +20,15 @@
   "title": "Portainer ( Business Edition )",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.portainer-business-edition",
-  "version": "2.45.0",
+  "version": "2.45.1",
   "categories": [
     "others"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 63900210,
-    "arm": 60390505,
-    "arm64": 58674302,
-    "ppc64le": 58096911
+    "amd64": 63859076,
+    "arm": 60351304,
+    "arm64": 58633997,
+    "ppc64le": 58062015
   }
 }

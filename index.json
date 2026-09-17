@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-17T23:52:09Z",
+  "updated_at": "2026-09-17T23:52:50Z",
   "app_count": 11,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -137,9 +137,9 @@
       "id": "com.casa7014.lan-orangutan",
       "title": "LAN Orangutan",
       "tagline": "Network discovery and device inventory",
-      "category": "Utilities",
+      "category": "Networking",
       "categories": [
-        "utilities"
+        "networking"
       ],
       "author": "yassinyl",
       "developer": "291 Group",
@@ -151,7 +151,7 @@
       "thumbnail": "/apps/com.casa7014.lan-orangutan/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.lan-orangutan/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.lan-orangutan/meta.json",
-      "content_hash": "a921b79c",
+      "content_hash": "f18de4d5",
       "version": "3.3.8"
     },
     {

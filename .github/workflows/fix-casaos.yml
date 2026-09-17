@@ -16,19 +16,25 @@ jobs:
 
       - name: Install yq
         run: |
+          set -e
+
           sudo wget -qO /usr/local/bin/yq \
             https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+
           sudo chmod +x /usr/local/bin/yq
+
           yq --version
 
-      - name: Fix service-level x-casaos
+      - name: Remove legacy service-level x-casaos
         shell: bash
         run: |
           set -euo pipefail
 
-          changed=0
+          found=0
+          fixed=0
 
           for compose in Apps/*/docker-compose.yml; do
+
             [ -f "$compose" ] || continue
 
             app="$(basename "$(dirname "$compose")")"
@@ -43,12 +49,15 @@ jobs:
               ' "$compose"
             )"
 
-            if [ "$count" = "0" ]; then
+            if [ "$count" -eq 0 ]; then
               echo "OK: $app"
               continue
             fi
 
-            echo "FIX: $app ($count service-level x-casaos block(s))"
+            found=1
+
+            echo "FIX: $app"
+            echo "Found $count service-level x-casaos block(s)"
 
             yq eval -i '
               .services |= with_entries(
@@ -56,19 +65,45 @@ jobs:
               )
             ' "$compose"
 
-            changed=1
+            remaining="$(
+              yq eval '
+                [
+                  .services[]?
+                  | select(has("x-casaos"))
+                ]
+                | length
+              ' "$compose"
+            )"
+
+            if [ "$remaining" -ne 0 ]; then
+              echo "ERROR: Failed to remove x-casaos from $compose"
+              exit 1
+            fi
+
+            echo "FIXED: $app"
+
+            fixed=$((fixed + 1))
           done
 
-          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo
+          echo "================================"
+          echo "Apps fixed: $fixed"
+          echo "================================"
 
-      - name: Validate YAML
+          if [ "$found" -eq 0 ]; then
+            echo "No legacy service-level x-casaos found."
+          fi
+
+      - name: Validate YAML files
+        shell: bash
         run: |
           set -euo pipefail
 
           for compose in Apps/*/docker-compose.yml; do
+
             [ -f "$compose" ] || continue
 
-            echo "Checking $compose"
+            echo "Validating: $compose"
 
             yq eval '.' "$compose" >/dev/null
 
@@ -82,28 +117,46 @@ jobs:
               ' "$compose"
             )"
 
-            if [ "$remaining" != "0" ]; then
-              echo "ERROR: service-level x-casaos remains in $compose"
+            if [ "$remaining" -ne 0 ]; then
+              echo "ERROR: service-level x-casaos still exists:"
+              echo "$compose"
               exit 1
             fi
+
           done
 
+          echo
+          echo "All Compose files are valid."
+
       - name: Run CasaOS V2 validator
+        shell: bash
         run: |
+          set -euo pipefail
+
+          if [ ! -f ".github/scripts/lint-casaos-v2.sh" ]; then
+            echo "ERROR: lint-casaos-v2.sh not found."
+            exit 1
+          fi
+
           chmod +x .github/scripts/lint-casaos-v2.sh
+
           .github/scripts/lint-casaos-v2.sh
 
       - name: Show changes
         run: |
           git status --short
-          git diff -- Apps/
 
-      - name: Commit changes
+          echo
+          echo "Changed files:"
+          git diff --name-only -- Apps/
+
+      - name: Commit and push
+        shell: bash
         run: |
           set -euo pipefail
 
           if git diff --quiet -- Apps/; then
-            echo "No changes needed."
+            echo "No changes to commit."
             exit 0
           fi
 

@@ -47,5 +47,5 @@ x-casaos:
     en_US: IPTV stream management platform for channels, streams, EPG and DVR.
   tagline:
     en_US: IPTV Stream Management and DVR
-  version: "0.30.0"
+  version: "0.31.0"
   repo: https://github.com/Dispatcharr/Dispatcharr

@@ -17,7 +17,7 @@
   "tagline": "Video surveillance for your cameras",
   "repo": "https://github.com/motioneye-project/motioneye",
   "title": "MotionEye",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.motioneye-beta",
   "version": "0.43.1",
   "categories": [

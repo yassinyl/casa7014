@@ -14,7 +14,7 @@
   "tagline": "Automatically rotate WLAN passwords for FRITZ!Box",
   "repo": "https://github.com/phipzzz/fritzbox-wlan-password-rotator",
   "title": "FritzBox WLAN Password Rotator",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.fritzbox-wlan-password-rotator",
   "version": "1.4.1",
   "categories": [

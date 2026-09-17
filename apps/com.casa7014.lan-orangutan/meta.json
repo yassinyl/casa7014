@@ -20,7 +20,7 @@
   "docs": "https://github.com/291-Group/LAN-Orangutan#readme",
   "title": "LAN Orangutan",
   "release_note": "LAN Orangutan 3.3.8 improves LAN device discovery, device identification,\nnetwork scanning, security information, and the web interface.",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.lan-orangutan",
   "version": "3.3.8",
   "categories": [

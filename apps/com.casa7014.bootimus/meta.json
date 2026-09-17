@@ -22,7 +22,7 @@
     "after_install": "Bootimus has been installed.\n\nPXE requires an additional macvlan network.\n\nCreate the macvlan network:\n\nsudo docker network create -d macvlan \\\n  --subnet=192.168.178.0/24 \\\n  --gateway=192.168.178.1 \\\n  --ip-range=192.168.178.111/32 \\\n  -o parent=eth0 \\\n  bootimus_lan\n\nConnect it to Bootimus:\n\nsudo docker network connect \\\n  --ip 192.168.178.111 \\\n  bootimus_lan \\\n  bootimus-server\n\nRestart Bootimus:\n\nsudo docker restart bootimus-server\n\nWeb UI:\n\nhttp://192.168.178.111:8081\n\nReplace 192.168.178.111 with the unused LAN IP\nassigned to your Bootimus macvlan network.\n"
   },
   "title": "Bootimus",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.bootimus",
   "version": "0.1.76",
   "categories": [

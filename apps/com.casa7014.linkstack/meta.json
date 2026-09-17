@@ -18,7 +18,7 @@
   "repo": "https://github.com/LinkStackOrg/linkstack-docker",
   "docs": "https://docs.linkstack.org/",
   "title": "LinkStack",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.linkstack",
   "version": "1.0.0",
   "categories": [

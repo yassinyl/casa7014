@@ -18,7 +18,7 @@
   "repo": "https://github.com/P3TERX/Aria2-Pro-Docker",
   "docs": "https://p3terx.com/archives/docker-aria2-pro.html",
   "title": "Aria2 Pro",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.aria2-pro",
   "version": "1.0.0",
   "categories": [

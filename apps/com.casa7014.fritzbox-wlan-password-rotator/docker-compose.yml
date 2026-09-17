@@ -41,5 +41,5 @@ x-casaos:
   scheme: http
   title:
     en_US: FritzBox WLAN Password Rotator
-  icon: https://yassinyl.github.io/casa7014/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.png
   version: "1.4.1"

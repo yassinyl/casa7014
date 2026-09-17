@@ -15,7 +15,7 @@
   "tagline": "IPTV Stream Management and DVR",
   "repo": "https://github.com/Dispatcharr/Dispatcharr",
   "title": "Dispatcharr",
-  "base_url": "https://yassinyl.github.io/casa7014",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.dispatcharr",
   "version": "0.31.0",
   "categories": [

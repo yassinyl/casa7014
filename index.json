@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-17T20:26:29Z",
+  "updated_at": "2026-09-17T23:52:09Z",
   "app_count": 11,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -53,9 +53,9 @@
       "id": "com.casa7014.bootimus",
       "title": "Bootimus",
       "tagline": "Modern PXE and HTTP Boot Server",
-      "category": "Utilities",
+      "category": "Developer",
       "categories": [
-        "utilities"
+        "developer"
       ],
       "author": "yassinyl",
       "developer": "garybowers",
@@ -67,7 +67,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.bootimus/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.bootimus/meta.json",
-      "content_hash": "513cd74a",
+      "content_hash": "08c205fd",
       "version": "0.1.76"
     },
     {

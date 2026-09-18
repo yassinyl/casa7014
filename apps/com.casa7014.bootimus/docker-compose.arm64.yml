@@ -30,7 +30,7 @@ services:
 
   bootimus:
     container_name: bootimus-server
-    image: garybowers/bootimus:latest@sha256:22c07d0c7ece2363c8c86bde9ce4fb61649a9aaf6f8cb33cdfeffeac29c0cd66
+    image: garybowers/bootimus:0.1.76@sha256:22c07d0c7ece2363c8c86bde9ce4fb61649a9aaf6f8cb33cdfeffeac29c0cd66
     restart: unless-stopped
 
     depends_on:

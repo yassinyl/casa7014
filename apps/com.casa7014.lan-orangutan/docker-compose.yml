@@ -1,5 +1,4 @@
 name: lan-orangutan
-
 services:
   lan-orangutan:
     image: ghcr.io/291-group/lan-orangutan:3.3.8

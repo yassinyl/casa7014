@@ -1,24 +1,19 @@
 name: portracker
-
 services:
   portracker:
     image: mostafawahied/portracker:1.3.13
     container_name: portracker
     restart: unless-stopped
     pid: host
-
     cap_add:
       - SYS_PTRACE
       - SYS_ADMIN
-
     security_opt:
       - apparmor:unconfined
-
     ports:
       - target: 4999
         published: "4999"
         protocol: tcp
-
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID
@@ -27,7 +22,6 @@ services:
         source: /var/run/docker.sock
         target: /var/run/docker.sock
         read_only: true
-
     healthcheck:
       test:
         - CMD
@@ -40,7 +34,6 @@ services:
       timeout: 10s
       start_period: 30s
       retries: 3
-
 x-casaos:
   id: com.casa7014.portracker
   main: portracker

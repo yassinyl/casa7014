@@ -93,3 +93,21 @@ If you have any suggestions, bug reports, or ideas for improving
 ## 📄 License
 
 See the repository for licensing information.
+
+<!-- APPS_START -->
+
+## 📦 Applications
+
+- **Aria2 Pro** — v1.0.0
+- **Aria2** — v1.36.0
+- **Bootimus** — v0.1.76
+- **Portainer-Business-Edition** — v2.45.1
+- **dispatcharr** — v0.31.0
+- **fing-agent** — v1.1.1
+- **fritzbox-wlan-password-rotator** — v1.4.1
+- **lan-orangutan** — v3.3.8
+- **linkstack** — v1.0.0
+- **motioneye beta** — v0.43.1
+- **portracker** — v1.3.13
+
+<!-- APPS_END -->

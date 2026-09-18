@@ -1,0 +1,68 @@
+name: Fix CasaOS V2 Compose
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yq
+        env:
+          YQ_VERSION: v4.44.3
+          YQ_SHA256: a2c097180dd884a8d50c956ee16a9cec070f30a7947cf4ebf87d5f36213e9ed7
+        run: |
+          set -euo pipefail
+          wget -qO /tmp/yq "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+          echo "${YQ_SHA256}  /tmp/yq" | sha256sum -c -
+          sudo install -m 0755 /tmp/yq /usr/local/bin/yq
+
+      - name: Remove legacy service-level x-casaos
+        run: |
+          set -euo pipefail
+          fixed=0
+
+          for compose in Apps/*/docker-compose.yml; do
+            [[ -f "$compose" ]] || continue
+
+            count="$(yq eval '[.services[]? | select(has("x-casaos"))] | length' "$compose")"
+
+            if [[ "$count" -gt 0 ]]; then
+              echo "FIX: $compose ($count legacy block(s))"
+              yq eval -i '.services |= with_entries(.value |= del(."x-casaos"))' "$compose"
+              fixed=$((fixed + 1))
+            fi
+          done
+
+          echo "Apps fixed: $fixed"
+
+      - name: Validate and lint
+        run: |
+          set -euo pipefail
+          for compose in Apps/*/docker-compose.yml; do
+            docker compose -f "$compose" config -q
+          done
+          bash .github/scripts/lint-casaos-v2.sh
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- Apps/; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Apps/*/docker-compose.yml
+          git commit -m "fix: remove legacy service-level x-casaos"
+          git push

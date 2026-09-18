@@ -1,0 +1,71 @@
+name: Docker Image Update Bot
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install updater dependencies
+        run: python -m pip install --disable-pip-version-check requests pyyaml packaging
+
+      - name: Check for existing Docker update PR
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          count="$(gh pr list \
+            --state open \
+            --search 'head:automation/docker-updates-' \
+            --json number \
+            --jq 'length')"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Run Docker image updater
+        if: steps.existing.outputs.count == '0'
+        run: python .github/update_docker_images.py
+
+      - name: Create update branch and PR
+        if: steps.existing.outputs.count == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f .github/PR_BODY.md ]]; then
+            echo "No updates detected."
+            exit 0
+          fi
+
+          branch="automation/docker-updates-${GITHUB_RUN_ID}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$branch"
+          git add Apps/*/docker-compose.yml
+          git commit -m "chore: update Docker images"
+          git push --set-upstream origin "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "chore: update Docker images" \
+            --body-file .github/PR_BODY.md \
+            --label automerge

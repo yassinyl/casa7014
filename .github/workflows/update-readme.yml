@@ -1,0 +1,37 @@
+name: Update README
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Apps/**/docker-compose.yml"
+      - ".github/scripts/update-readme.sh"
+      - ".github/workflows/update-readme.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update README
+        run: bash .github/scripts/update-readme.sh
+
+      - name: Commit changes
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "README is already up to date."
+          else
+            git add README.md
+            git commit -m "chore: update README"
+            git push
+          fi

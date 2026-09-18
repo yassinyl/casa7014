@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-18T10:01:12Z",
+  "updated_at": "2026-09-18T20:49:16Z",
   "app_count": 11,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -46,7 +46,7 @@
       "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
-      "content_hash": "81a266e9",
+      "content_hash": "d45da3a0",
       "version": "1.0.0"
     },
     {

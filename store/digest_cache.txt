@@ -1,3 +1,4 @@
+docker.io/motrixapp/motrix-server:2.0.0-beta.39 sha256:56f890e3a99232b11d1b1c97434723919f70648035e4696a94188c82dd5ff4da
 fing/fing-agent:1.1.1 sha256:fc8594058fd0583fbb3142049aa5d67f26b63d329d93eb18961e0ba5516f646d
 garybowers/bootimus:0.1.76 sha256:db5aa15bebc2a7a1a8d1afdc19b3d42293b2912470d4753ceded8dda9020affa
 ghcr.io/291-group/lan-orangutan:3.3.8 sha256:c90d0d9c2610949293d2e75d7b8e420d1aed038eacd9e0c83f12f31ef14f30bf
@@ -10,4 +11,4 @@ p3terx/aria2-pro:202209060423 sha256:41eb2a91901b7b612f7eb87a617ad05aa02e3f7ed0b
 p3terx/ariang:latest sha256:bfebce37079f3bf01e4a37ed192b5e80cbeaaa407f7eebd42c20a078a114ad67
 phipzzz/fritzbox-wlan-password-rotator:1.4.1 sha256:ad41c08f4c55adbe401cf031144dc99b5a6ce46d21e6adbf37c1616d645c3adf
 portainer/portainer-ee:2.45.1 sha256:f45ccd1c7b22993f0f2be1094c360f65fabf6b8a7c708bcdc0f23b1e1c704be8
-postgres:16 sha256:485935f94cc7165afa896978809c37b592dc07f0a37d2c8f645f12412d0212c8
+postgres:16 sha256:a85daf0dbd5e79586e850e3fe4b21b796799828ad015ce2166aeb98cc24da61c

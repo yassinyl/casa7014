@@ -1,0 +1,30 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "agalwood",
+  "category": "Others",
+  "description": "Motrix Server is a headless download manager for HTTP, FTP, BitTorrent and magnet links, with a browser-based interface.",
+  "tagline": "Powerful download manager for your NAS",
+  "repo": "https://github.com/agalwood/Motrix",
+  "docs": "https://motrix.app/manual/docker/",
+  "website": "https://motrix.app/",
+  "support": "https://github.com/agalwood/Motrix/issues",
+  "tips": {
+    "before_install": "Motrix Server runs as UID/GID 1000. On first start, open /DATA/AppData/<AppID>/data and copy operator-token into the Web UI. Direct HTTP operator access is enabled for trusted-LAN use; do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801. Ensure the data and downloads folders are writable by UID/GID 1000."
+  },
+  "title": "Motrix",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.motrix",
+  "version": "2.0.0-beta.39",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 80604989,
+    "arm64": 81363052
+  }
+}

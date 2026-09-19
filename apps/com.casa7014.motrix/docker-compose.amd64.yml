@@ -1,0 +1,44 @@
+name: motrix
+
+services:
+  server:
+    image: docker.io/motrixapp/motrix-server:2.0.0-beta.39@sha256:56f890e3a99232b11d1b1c97434723919f70648035e4696a94188c82dd5ff4da
+    init: true
+    read_only: true
+    user: "1000:1000"
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    stop_grace_period: 2m
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
+    environment:
+      MOTRIX_DATA_DIR: /data
+      MOTRIX_TEMP_DIR: /data/tmp
+      MOTRIX_PLUGIN_DIR: /data/plugins
+      MOTRIX_DEFAULT_SAVE_DIR: /downloads
+      MOTRIX_ALLOWED_SAVE_DIRS: /downloads
+      MOTRIX_ARIA2_RPC_LISTEN_ALL: "false"
+      MOTRIX_MDXP_HOST: 0.0.0.0
+      MOTRIX_MDXP_PORT: 16801
+      MOTRIX_PUBLIC_URL: ""
+      MOTRIX_REMOTE_EXTENSION_ENABLED: "false"
+      MOTRIX_REMOTE_EXTENSION_PUBLIC_URL: ""
+      MOTRIX_ALLOW_INSECURE_OPERATOR_HTTP: "true"
+    ports:
+      - "8080:8080"
+      - "16801:16801"
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+      - /DATA/Downloads/Motrix:/downloads
+
+x-casaos:
+  id: com.casa7014.motrix
+  main: server
+  port_map: "8080"
+  index: /
+  scheme: http
+  title:
+    en_US: Motrix
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.motrix/assets/icon.png
+  version: "2.0.0-beta.39"

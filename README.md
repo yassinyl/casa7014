@@ -101,6 +101,7 @@ See the repository for licensing information.
 - **Aria2 Pro** — v1.0.0
 - **Aria2** — v1.36.0
 - **Bootimus** — v0.1.76
+- **Motrix** — v2.0.0-beta.39
 - **Portainer-Business-Edition** — v2.45.1
 - **dispatcharr** — v0.31.0
 - **fing-agent** — v1.1.1

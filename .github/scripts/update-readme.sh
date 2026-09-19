@@ -1,60 +1,85 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-README="README.md"
-APPS_DIR="Apps"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$ROOT_DIR"
 
-START_MARKER="<!-- APPS_START -->"
-END_MARKER="<!-- APPS_END -->"
+ruby <<'RUBY'
+require 'yaml'
 
-[[ -d "$APPS_DIR" ]] || { echo "Error: $APPS_DIR directory not found."; exit 1; }
-[[ -f "$README" ]] || { echo "Error: $README not found."; exit 1; }
+readme_path = 'README.md'
+start_marker = '<!-- apps:start -->'
+end_marker = '<!-- apps:end -->'
 
-TMP_FILE="$(mktemp)"
-trap 'rm -f "$TMP_FILE"' EXIT
+apps = Dir.glob('Apps/*/docker-compose.yml').filter_map do |compose_path|
+  begin
+    data = YAML.load_file(compose_path, aliases: true) || {}
+    casa = data['x-casaos'] || {}
 
-{
-  echo "$START_MARKER"
-  echo
-  echo "## 📦 Applications"
-  echo
+    next unless casa['id']
 
-  while IFS= read -r -d '' compose; do
-    app_dir="$(dirname "$compose")"
-    app_name="$(basename "$app_dir")"
-    [[ "$app_name" == .* ]] && continue
+    title = casa['title']
+    title = title['en_US'] if title.is_a?(Hash)
+    title = File.basename(File.dirname(compose_path)) if title.nil? || title.to_s.empty?
 
-    version="$(sed -n 's/^  version: *//p' "$compose" | head -n 1 || true)"
-    version="${version%\"}"
-    version="${version#\"}"
+    description = casa['description']
+    description = description['en_US'] if description.is_a?(Hash)
+    description = description.to_s.gsub(/\s+/, ' ').strip
 
-    echo "- **${app_name}**${version:+ — v${version}}"
-  done < <(find "$APPS_DIR" -mindepth 2 -maxdepth 2 -type f -name "docker-compose.yml" -print0 | sort -z)
+    version = casa['version'].to_s
 
-  echo
-  echo "$END_MARKER"
-} > "$TMP_FILE"
+    icon = casa['icon']
+    if icon.nil? || icon.to_s.empty?
+      app_dir = File.dirname(compose_path).sub(%r{^Apps/}, '')
+      icon = "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/#{app_dir.gsub(' ', '%20')}/icon.png"
+    end
 
-python3 - "$README" "$TMP_FILE" "$START_MARKER" "$END_MARKER" <<'PY'
-import sys
+    {
+      title: title.to_s,
+      version: version,
+      description: description,
+      icon: icon.to_s
+    }
+  rescue StandardError => e
+    warn "Skipping #{compose_path}: #{e.message}"
+    nil
+  end
+end
 
-readme, generated, start, end = sys.argv[1:]
+apps.sort_by! { |app| app[:title].downcase }
 
-content = open(readme, encoding="utf-8").read()
-replacement = open(generated, encoding="utf-8").read().rstrip()
+rows = apps.map do |app|
+  description = app[:description].gsub('|', '\|')
 
-start_pos = content.find(start)
-end_pos = content.find(end)
+  "| <img src=\"#{app[:icon]}\" width=\"48\" height=\"48\"> | **#{app[:title]}** | `#{app[:version]}` | #{description} |"
+end
 
-if start_pos != -1 and end_pos != -1 and end_pos > start_pos:
-    end_pos += len(end)
-    content = content[:start_pos] + replacement + content[end_pos:]
-else:
-    if not content.endswith("\n"):
-        content += "\n"
-    content += "\n" + replacement + "\n"
+table = <<~TABLE.chomp
+  <!-- apps:start -->
 
-open(readme, "w", encoding="utf-8").write(content)
-PY
+  | Icon | Application | Version | Description |
+  |:---:|---|:---:|---|
+  #{rows.join("\n")}
 
-echo "README updated successfully."
+  <!-- apps:end -->
+TABLE
+
+readme = File.read(readme_path)
+
+abort "Missing #{start_marker}" unless readme.include?(start_marker)
+abort "Missing #{end_marker}" unless readme.include?(end_marker)
+
+readme = readme.sub(
+  /\[!\[Apps\]\(https:\/\/img\.shields\.io\/badge\/Apps-[^-]+-orange\)\]/,
+  "[![Apps](https://img.shields.io/badge/Apps-#{apps.length}-orange)]"
+)
+
+readme = readme.sub(
+  /#{Regexp.escape(start_marker)}.*?#{Regexp.escape(end_marker)}/m,
+  table
+)
+
+File.write(readme_path, readme)
+
+puts "Updated README app table: #{apps.length} apps"
+RUBY

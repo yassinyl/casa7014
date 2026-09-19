@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-readme
+  cancel-in-progress: false
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -28,10 +32,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --quiet; then
+          if git diff --quiet -- README.md; then
             echo "README is already up to date."
-          else
-            git add README.md
-            git commit -m "chore: update README"
-            git push
+            exit 0
           fi
+
+          git add README.md
+          git diff --cached --check
+          git commit -m "chore: update README"
+          git push origin HEAD:main

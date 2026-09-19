@@ -6,10 +6,34 @@ cd "$ROOT_DIR"
 
 ruby <<'RUBY'
 require 'yaml'
+require 'uri'
 
-readme_path = 'README.md'
-start_marker = '<!-- apps:start -->'
-end_marker = '<!-- apps:end -->'
+README_PATH = 'README.md'
+START_MARKER = '<!-- apps:start -->'
+END_MARKER = '<!-- apps:end -->'
+
+def localized(value)
+  return value['en_US'] if value.is_a?(Hash)
+
+  value
+end
+
+def markdown_escape(value)
+  value.to_s
+       .gsub(/\s+/, ' ')
+       .strip
+       .gsub('|', '\|')
+end
+
+def fallback_icon(compose_path)
+  app_dir = File.dirname(compose_path).sub(%r{\AApps/}, '')
+
+  encoded_path = app_dir.split('/').map do |part|
+    URI::DEFAULT_PARSER.escape(part)
+  end.join('/')
+
+  "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/#{encoded_path}/icon.png"
+end
 
 apps = Dir.glob('Apps/*/docker-compose.yml').filter_map do |compose_path|
   begin
@@ -18,27 +42,20 @@ apps = Dir.glob('Apps/*/docker-compose.yml').filter_map do |compose_path|
 
     next unless casa['id']
 
-    title = casa['title']
-    title = title['en_US'] if title.is_a?(Hash)
-    title = File.basename(File.dirname(compose_path)) if title.nil? || title.to_s.empty?
+    title = localized(casa['title'])
+    title = File.basename(File.dirname(compose_path)) if title.nil? || title.to_s.strip.empty?
 
-    description = casa['description']
-    description = description['en_US'] if description.is_a?(Hash)
-    description = description.to_s.gsub(/\s+/, ' ').strip
-
-    version = casa['version'].to_s
+    description = localized(casa['description'])
+    version = casa['version']
 
     icon = casa['icon']
-    if icon.nil? || icon.to_s.empty?
-      app_dir = File.dirname(compose_path).sub(%r{^Apps/}, '')
-      icon = "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@main/Apps/#{app_dir.gsub(' ', '%20')}/icon.png"
-    end
+    icon = fallback_icon(compose_path) if icon.nil? || icon.to_s.strip.empty?
 
     {
-      title: title.to_s,
-      version: version,
-      description: description,
-      icon: icon.to_s
+      title: markdown_escape(title),
+      version: markdown_escape(version),
+      description: markdown_escape(description),
+      icon: icon.to_s.strip
     }
   rescue StandardError => e
     warn "Skipping #{compose_path}: #{e.message}"
@@ -49,37 +66,41 @@ end
 apps.sort_by! { |app| app[:title].downcase }
 
 rows = apps.map do |app|
-  description = app[:description].gsub('|', '\|')
-
-  "| <img src=\"#{app[:icon]}\" width=\"48\" height=\"48\"> | **#{app[:title]}** | `#{app[:version]}` | #{description} |"
+  "| <img src=\"#{app[:icon]}\" width=\"48\" height=\"48\"> | **#{app[:title]}** | `#{app[:version]}` | #{app[:description]} |"
 end
 
-table = <<~TABLE.chomp
-  <!-- apps:start -->
+table = [
+  START_MARKER,
+  '',
+  '| Icon | Application | Version | Description |',
+  '|:---:|---|:---:|---|',
+  rows.join("\n"),
+  '',
+  END_MARKER
+].join("\n")
 
-  | Icon | Application | Version | Description |
-  |:---:|---|:---:|---|
-  #{rows.join("\n")}
+readme = File.read(README_PATH)
 
-  <!-- apps:end -->
-TABLE
+abort "Missing #{START_MARKER}" unless readme.include?(START_MARKER)
+abort "Missing #{END_MARKER}" unless readme.include?(END_MARKER)
 
-readme = File.read(readme_path)
+unless readme.index(START_MARKER) < readme.index(END_MARKER)
+  abort 'README app markers are in the wrong order.'
+end
 
-abort "Missing #{start_marker}" unless readme.include?(start_marker)
-abort "Missing #{end_marker}" unless readme.include?(end_marker)
-
-readme = readme.sub(
-  /\[!\[Apps\]\(https:\/\/img\.shields\.io\/badge\/Apps-[^-]+-orange\)\]/,
-  "[![Apps](https://img.shields.io/badge/Apps-#{apps.length}-orange)]"
+# Update the application count in the existing Shields.io badge.
+readme.sub!(
+  /Apps-\d+-orange/,
+  "Apps-#{apps.length}-orange"
 )
 
-readme = readme.sub(
-  /#{Regexp.escape(start_marker)}.*?#{Regexp.escape(end_marker)}/m,
+# Replace only the generated application table.
+readme.sub!(
+  /#{Regexp.escape(START_MARKER)}.*?#{Regexp.escape(END_MARKER)}/m,
   table
 )
 
-File.write(readme_path, readme)
+File.write(README_PATH, readme)
 
 puts "Updated README app table: #{apps.length} apps"
 RUBY

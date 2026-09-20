@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build CasaOS V2 Store
         uses: IceWhaleTech/build-appstore-action@v1
@@ -38,7 +38,7 @@ jobs:
           install-system-deps: "true"
 
       - name: Upload V2 build report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: casa7014-v2-build-report
           path: out/build-v2-report.json

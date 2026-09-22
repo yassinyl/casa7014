@@ -303,6 +303,7 @@
       "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
       "content_hash": "7910191c"
+      "version": "2025.08.0"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

@@ -43,14 +43,26 @@ x-casaos:
   scheme: http
   title:
     en_US: Motrix
+    ar_SA: Motrix
+    de_DE: Motrix
+    es_ES: Motrix
+    fr_FR: Motrix
   author: yassinyl
   developer: agalwood
   category: Others
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Motrix/icon.png
   description:
     en_US: Motrix Server is a headless download manager for HTTP, FTP, BitTorrent and magnet links, with a browser-based interface.
+    ar_SA: Motrix Server مدير تنزيلات بلا واجهة سطح مكتب لـ HTTP وFTP وBitTorrent وروابط magnet، مع واجهة عبر المتصفح.
+    de_DE: Motrix Server ist ein Download-Manager ohne Desktopoberfläche für HTTP, FTP, BitTorrent und Magnet-Links mit browserbasierter Oberfläche.
+    es_ES: Motrix Server es un gestor de descargas sin interfaz de escritorio para HTTP, FTP, BitTorrent y enlaces magnet, con interfaz web.
+    fr_FR: Motrix Server est un gestionnaire de téléchargements sans interface de bureau pour HTTP, FTP, BitTorrent et liens magnet, avec une interface web.
   tagline:
     en_US: Powerful download manager for your NAS
+    ar_SA: مدير تنزيلات قوي لجهاز NAS الخاص بك.
+    de_DE: Leistungsstarker Download-Manager für Ihr NAS.
+    es_ES: Potente gestor de descargas para tu NAS.
+    fr_FR: Gestionnaire de téléchargements puissant pour votre NAS.
   version: "2.0.0-beta.39"
   repo: https://github.com/agalwood/Motrix
   docs: https://motrix.app/manual/docker/

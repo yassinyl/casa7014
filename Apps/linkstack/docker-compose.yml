@@ -27,6 +27,10 @@ x-casaos:
   scheme: http
   title:
     en_US: LinkStack
+    ar_SA: LinkStack
+    de_DE: LinkStack
+    es_ES: LinkStack
+    fr_FR: LinkStack
   author: yassinyl
   developer: LinkStackOrg
   category: Others
@@ -38,8 +42,16 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/screenshot-3.png
   description:
     en_US: Highly customizable link-sharing platform with an intuitive user interface.
+    ar_SA: منصة قابلة للتخصيص بدرجة عالية لمشاركة الروابط بواجهة استخدام سهلة.
+    de_DE: Hochgradig anpassbare Plattform zum Teilen von Links mit intuitiver Benutzeroberfläche.
+    es_ES: Plataforma de enlaces muy personalizable con una interfaz intuitiva.
+    fr_FR: Plateforme de partage de liens très personnalisable avec interface intuitive.
   tagline:
     en_US: The Ultimate Link Management Solution
+    ar_SA: الحل المتكامل لإدارة الروابط.
+    de_DE: Die ultimative Lösung zur Linkverwaltung.
+    es_ES: La solución definitiva para gestionar enlaces.
+    fr_FR: La solution ultime de gestion des liens.
   version: "1.0.0"
   website: https://linkstack.org/
   repo: https://github.com/LinkStackOrg/linkstack-docker

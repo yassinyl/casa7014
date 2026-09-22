@@ -12,27 +12,14 @@ rescue JSON::ParserError => e
   abort "#{path}: invalid JSON: #{e.message}"
 end
 
-categories = read_json(File.join(root, 'category-list.json'))
-recommendations = read_json(File.join(root, 'recommend-list.json'))
 supported_languages = read_json(File.join(root, 'supported-languages.json'))
 store_config = read_json(File.join(root, 'store-config.json'))
-
-unless categories.is_a?(Array) && categories.all? { |category| category.is_a?(Hash) }
-  abort 'category-list.json must contain an array of category objects'
-end
-
-unless recommendations.is_a?(Array) && recommendations.all? { |app| app.is_a?(Hash) }
-  abort 'recommend-list.json must contain an array of recommendation objects'
-end
 
 unless supported_languages.is_a?(Array) && supported_languages.all? { |language| language.is_a?(String) && !language.empty? }
   abort 'supported-languages.json must contain an array of non-empty language codes'
 end
 
-category_names = categories.map { |category| category['name'].to_s.strip }
 errors = []
-errors << 'category-list.json contains an empty category name' if category_names.any?(&:empty?)
-errors << 'category-list.json contains duplicate category names' if category_names.uniq.length != category_names.length
 errors << 'supported-languages.json contains duplicate language codes' if supported_languages.uniq.length != supported_languages.length
 
 REQUIRED_APP_FIELDS = %w[
@@ -77,13 +64,11 @@ apps = Dir.glob(File.join(root, 'Apps', '*', 'docker-compose.yml')).sort.filter_
   end
 
   id = metadata['id'].to_s.strip
-  category = metadata['category'].to_s.strip
   REQUIRED_APP_FIELDS.each do |field|
     value = metadata[field]
     errors << "#{path}: missing x-casaos.#{field}" if value.nil? || value == ''
   end
   errors << "#{path}: missing x-casaos.id" if id.empty?
-  errors << "#{path}: category #{category.inspect} is not listed in category-list.json" unless category_names.include?(category)
   errors << "#{path}: x-casaos.id must use reverse-domain syntax" unless id.match?(/\A[a-z0-9]+(?:[._-][a-z0-9]+)+\z/)
   errors << "#{path}: x-casaos.scheme must be http or https" unless %w[http https].include?(metadata['scheme'])
   errors << "#{path}: x-casaos.index must start with /" unless metadata['index'].is_a?(String) && metadata['index'].start_with?('/')
@@ -129,18 +114,9 @@ end
 app_ids = apps.map { |app| app[:id] }
 errors << 'App IDs must be unique' if app_ids.uniq.length != app_ids.length
 
-recommended_ids = recommendations.map { |app| app['appid'].to_s.strip }
-errors << 'recommend-list.json contains an empty appid' if recommended_ids.any?(&:empty?)
-errors << 'recommend-list.json contains duplicate app IDs' if recommended_ids.uniq.length != recommended_ids.length
-
-unknown_recommendations = recommended_ids - app_ids
-unless unknown_recommendations.empty?
-  errors << "recommend-list.json references unknown app IDs: #{unknown_recommendations.join(', ')}"
-end
-
 unless errors.empty?
   warn errors.join("\n")
   exit 1
 end
 
-puts "validate-store-catalog: #{apps.length} app(s), #{category_names.length} category(ies), #{recommended_ids.length} recommendation(s) valid"
+puts "validate-store-catalog: #{apps.length} app(s) valid"

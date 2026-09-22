@@ -66,11 +66,6 @@
       "title": "Motrix"
     },
     {
-      "id": "com.casa7014.pi-hole",
-      "tagline": "Netzwerkweite Werbeblockierung",
-      "title": "Pi-hole"
-    },
-    {
       "id": "com.casa7014.portainer-business-edition",
       "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
       "title": "Portainer ( Business Edition )"

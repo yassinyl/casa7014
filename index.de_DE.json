@@ -71,6 +71,11 @@
       "tagline": "Selbst gehostetes TV-Streaming."
     },
     {
+      "id": "com.casa7014.pi-hole",
+      "title": "Pi-hole",
+      "tagline": "Netzwerkweite Werbeblockierung"
+    },
+    {
       "id": "com.casa7014.portainer-business-edition",
       "title": "Portainer ( Business Edition )",
       "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung."

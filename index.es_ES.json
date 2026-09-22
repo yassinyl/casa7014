@@ -71,6 +71,11 @@
       "tagline": "Transmisión de TV autoalojada."
     },
     {
+      "id": "com.casa7014.pi-hole",
+      "title": "Pi-hole",
+      "tagline": "Bloqueo de anuncios en toda la red"
+    },
+    {
       "id": "com.casa7014.portainer-business-edition",
       "title": "Portainer ( Business Edition )",
       "tagline": "Interfaz ligera de gestión de Docker."

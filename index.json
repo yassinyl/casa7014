@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-09-22T11:26:30Z",
-  "app_count": 16,
+  "updated_at": "2026-09-22T11:35:05Z",
+  "app_count": 17,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
     {
@@ -303,6 +303,27 @@
       "meta_url": "/apps/com.casa7014.nodecast-tv/meta.json",
       "content_hash": "75938390",
       "version": "2.1.1"
+    },
+    {
+      "id": "com.casa7014.pi-hole",
+      "title": "Pi-hole",
+      "tagline": "Network-wide ad blocking",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "Pi-hole LLC",
+      "architectures": [
+        "amd64",
+        "arm64",
+        "arm"
+      ],
+      "icon": "/apps/com.casa7014.pi-hole/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
+      "content_hash": "a019e3b7"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

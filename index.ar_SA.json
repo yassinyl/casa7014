@@ -71,6 +71,11 @@
       "tagline": "بث تلفزيوني مستضاف ذاتيًا."
     },
     {
+      "id": "com.casa7014.pi-hole",
+      "title": "Pi-hole",
+      "tagline": "حجب الإعلانات على مستوى الشبكة"
+    },
+    {
       "id": "com.casa7014.portainer-business-edition",
       "title": "Portainer ( Business Edition )",
       "tagline": "واجهة خفيفة لإدارة Docker."

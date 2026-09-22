@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
-  <title id="title">Beszel monitoring dashboard</title>
-  <desc id="description">A server and container monitoring dashboard icon</desc>
-  <rect width="512" height="512" rx="64" fill="#1a192d"/>
-  <rect x="70" y="82" width="372" height="348" rx="30" fill="#2a2b47"/>
-  <rect x="102" y="120" width="308" height="30" rx="12" fill="#59cffa"/>
-  <rect x="102" y="182" width="138" height="148" rx="18" fill="#20213a"/>
-  <rect x="272" y="182" width="138" height="148" rx="18" fill="#20213a"/>
-  <rect x="125" y="258" width="20" height="44" rx="7" fill="#53e298"/>
-  <rect x="157" y="226" width="20" height="76" rx="7" fill="#53e298"/>
-  <rect x="189" y="244" width="20" height="58" rx="7" fill="#53e298"/>
-  <rect x="303" y="234" width="20" height="68" rx="7" fill="#fbbf24"/>
-  <rect x="335" y="265" width="20" height="37" rx="7" fill="#fbbf24"/>
-  <rect x="367" y="214" width="20" height="88" rx="7" fill="#fbbf24"/>
-  <rect x="102" y="360" width="308" height="26" rx="12" fill="#20213a"/>
-  <rect x="102" y="360" width="223" height="26" rx="12" fill="#a855f7"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-labelledby="title description" role="img" viewBox="0 0 512 512"><title id="title">Beszel monitoring dashboard</title><desc id="description">A server and container monitoring dashboard icon</desc><rect width="512" height="512" fill="#1a192d" rx="64"/><rect width="372" height="348" x="70" y="82" fill="#2a2b47" rx="30"/><rect width="308" height="30" x="102" y="120" fill="#59cffa" rx="12"/><rect width="138" height="148" x="102" y="182" fill="#20213a" rx="18"/><rect width="138" height="148" x="272" y="182" fill="#20213a" rx="18"/><rect width="20" height="44" x="125" y="258" fill="#53e298" rx="7"/><rect width="20" height="76" x="157" y="226" fill="#53e298" rx="7"/><rect width="20" height="58" x="189" y="244" fill="#53e298" rx="7"/><rect width="20" height="68" x="303" y="234" fill="#fbbf24" rx="7"/><rect width="20" height="37" x="335" y="265" fill="#fbbf24" rx="7"/><rect width="20" height="88" x="367" y="214" fill="#fbbf24" rx="7"/><rect width="308" height="26" x="102" y="360" fill="#20213a" rx="12"/><rect width="223" height="26" x="102" y="360" fill="#a855f7" rx="12"/></svg>

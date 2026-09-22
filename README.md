@@ -4,7 +4,7 @@
 
 [![CasaOS](https://img.shields.io/badge/CasaOS-V1-blue)](https://www.casaos.io/)
 [![ZimaOS](https://img.shields.io/badge/ZimaOS-V2-green)](https://www.zimaspace.com/)
-[![Apps](https://img.shields.io/badge/Apps-14-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
+[![Apps](https://img.shields.io/badge/Apps-15-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
 
 ---
 
@@ -48,6 +48,7 @@ The application list below is automatically generated from the
 
 | Icon | Application | Version | Description |
 |:---:|---|:---:|---|
+| <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/adguard-home.png" width="48" height="48"> | **AdGuard Home** | `latest` | Network-wide ad and tracker blocking with a private DNS server. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="48" height="48"> | **Aria2** | `1.36.0` | Lightweight multi-protocol and multi-source download utility. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png" width="48" height="48"> | **Aria2 Pro** | `1.0.0` | Powerful Aria2 Docker container with AriaNg WebUI. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Beszel/icon.svg" width="48" height="48"> | **Beszel** | `latest` | Lightweight server and Docker container monitoring with a central dashboard. |

@@ -66,6 +66,11 @@
       "title": "Motrix"
     },
     {
+      "id": "com.casa7014.nodecast-tv",
+      "tagline": "Transmisión de TV autoalojada.",
+      "title": "Nodecast TV"
+    },
+    {
       "id": "com.casa7014.pi-hole",
       "tagline": "Bloqueo de anuncios en toda la red",
       "title": "Pi-hole"

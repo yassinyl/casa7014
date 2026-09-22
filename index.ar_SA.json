@@ -66,6 +66,11 @@
       "title": "Motrix"
     },
     {
+      "id": "com.casa7014.nodecast-tv",
+      "tagline": "بث تلفزيوني مستضاف ذاتيًا.",
+      "title": "Nodecast TV"
+    },
+    {
       "id": "com.casa7014.pi-hole",
       "tagline": "حجب الإعلانات على مستوى الشبكة",
       "title": "Pi-hole"

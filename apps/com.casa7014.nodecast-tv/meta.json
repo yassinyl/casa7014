@@ -1,0 +1,24 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "Technomancer702",
+  "category": "Media",
+  "description": "A self-hosted TV streaming application with a browser-based interface.",
+  "tagline": "Self-hosted TV streaming",
+  "repo": "https://github.com/Technomancer702/nodecast-tv",
+  "title": "Nodecast TV",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.nodecast-tv",
+  "version": "2.1.1",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 493822514,
+    "arm64": 459237636
+  }
+}

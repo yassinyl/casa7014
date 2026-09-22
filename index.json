@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-09-22T10:21:38Z",
-  "app_count": 16,
+  "updated_at": "2026-09-22T10:54:13Z",
+  "app_count": 17,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
     {
@@ -23,7 +23,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.adguard-home/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.adguard-home/meta.json",
-      "content_hash": "4510a2a5",
+      "content_hash": "30327034",
       "version": "0.107.79"
     },
     {
@@ -45,7 +45,7 @@
       "thumbnail": "/apps/com.casa7014.aria2/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2/meta.json",
-      "content_hash": "05a2639f",
+      "content_hash": "e7abf82e",
       "version": "1.36.0"
     },
     {
@@ -68,7 +68,7 @@
       "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
-      "content_hash": "e8fb0bd8",
+      "content_hash": "8a3030c5",
       "version": "1.0.0"
     },
     {
@@ -89,7 +89,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.beszel/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.beszel/meta.json",
-      "content_hash": "5caef75f",
+      "content_hash": "5f10fc0b",
       "version": "0.13.0"
     },
     {
@@ -110,7 +110,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.bootimus/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.bootimus/meta.json",
-      "content_hash": "7f4e7bdf",
+      "content_hash": "ac16c647",
       "version": "0.1.76"
     },
     {
@@ -131,7 +131,7 @@
       "thumbnail": "/apps/com.casa7014.dispatcharr/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.dispatcharr/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.dispatcharr/meta.json",
-      "content_hash": "2593f287",
+      "content_hash": "0a657693",
       "version": "0.31.0"
     },
     {
@@ -152,7 +152,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.fing-agent/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.fing-agent/meta.json",
-      "content_hash": "419e843b",
+      "content_hash": "708076ab",
       "version": "1.1.1"
     },
     {
@@ -173,7 +173,7 @@
       "thumbnail": "/apps/com.casa7014.fritzbox-wlan-password-rotator/assets/icon.webp",
       "compose_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/meta.json",
-      "content_hash": "9ae03a11",
+      "content_hash": "2baa0617",
       "version": "1.4.1"
     },
     {
@@ -194,7 +194,7 @@
       "thumbnail": "/apps/com.casa7014.lan-orangutan/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.lan-orangutan/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.lan-orangutan/meta.json",
-      "content_hash": "0042a6dd",
+      "content_hash": "caeeb03f",
       "version": "3.3.8"
     },
     {
@@ -216,7 +216,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.linkstack/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.linkstack/meta.json",
-      "content_hash": "f8e85024",
+      "content_hash": "1a228231",
       "version": "1.0.0"
     },
     {
@@ -237,7 +237,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.misskey/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.misskey/meta.json",
-      "content_hash": "b19c9185",
+      "content_hash": "0ccbc850",
       "version": "2025.10.0"
     },
     {
@@ -259,7 +259,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.motioneye-beta/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.motioneye-beta/meta.json",
-      "content_hash": "799e2e2b",
+      "content_hash": "2cce65bc",
       "version": "0.43.1"
     },
     {
@@ -280,8 +280,29 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.motrix/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.motrix/meta.json",
-      "content_hash": "252da742",
+      "content_hash": "b6f8b24c",
       "version": "2.0.0-beta.39"
+    },
+    {
+      "id": "com.casa7014.nodecast-tv",
+      "title": "Nodecast TV",
+      "tagline": "Self-hosted TV streaming",
+      "category": "Media",
+      "categories": [
+        "media"
+      ],
+      "author": "yassinyl",
+      "developer": "Technomancer702",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.nodecast-tv/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.nodecast-tv/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.nodecast-tv/meta.json",
+      "content_hash": "38a8ae74",
+      "version": "2.1.1"
     },
     {
       "id": "com.casa7014.pi-hole",
@@ -302,7 +323,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
-      "content_hash": "c4abb821"
+      "content_hash": "03243c4b"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
@@ -324,7 +345,7 @@
       "thumbnail": "/apps/com.casa7014.portainer-business-edition/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.portainer-business-edition/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.portainer-business-edition/meta.json",
-      "content_hash": "31ea37e2",
+      "content_hash": "5d4ad2c7",
       "version": "2.45.1"
     },
     {
@@ -345,7 +366,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.portracker/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.portracker/meta.json",
-      "content_hash": "d595a77e",
+      "content_hash": "aa305021",
       "version": "1.3.13"
     }
   ]

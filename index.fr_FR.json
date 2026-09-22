@@ -66,6 +66,11 @@
       "title": "Motrix"
     },
     {
+      "id": "com.casa7014.nodecast-tv",
+      "tagline": "Diffusion TV auto-hébergée.",
+      "title": "Nodecast TV"
+    },
+    {
       "id": "com.casa7014.pi-hole",
       "tagline": "Blocage des publicités sur tout le réseau",
       "title": "Pi-hole"

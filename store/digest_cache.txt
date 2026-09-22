@@ -6,6 +6,7 @@ garybowers/bootimus:0.1.76 sha256:db5aa15bebc2a7a1a8d1afdc19b3d42293b2912470d475
 ghcr.io/291-group/lan-orangutan:3.3.8 sha256:c90d0d9c2610949293d2e75d7b8e420d1aed038eacd9e0c83f12f31ef14f30bf
 ghcr.io/dispatcharr/dispatcharr:0.31.0 sha256:09162065cac2b9ac2b16214d55fe792f6953eb5a5d009bbdfa48ce26128eb040
 ghcr.io/motioneye-project/motioneye:0.43.1 sha256:f187d072f6d738f84aca95f3d0fe4bdf1de235a7a81e9ec921a0142edc3c716c
+ghcr.io/technomancer702/nodecast-tv:2.1.1 sha256:8ed9786fa50a9fd51e8b9b6a9fdc3edcb7300a3a199d43f641859680e5e8d59f
 henrygd/beszel:0.13.0 sha256:dcd69d620450289b218c1222cefb3c16f63f85d89b2c57abc8985b095faf8e33
 johngong/aria2:1.36.0 sha256:55010207d6653a075f85488ad58169c9b51fa5cf258dd17ecf3e71e97a0f6fb3
 linkstackorg/linkstack:latest sha256:89cca28afb46975512489837c0f81ca881072f67b11baeb57da1187d1e3ce2b4

@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.beszel",
   "title": "Beszel",
-  "description": "Leichtgewichtige Überwachung von Servern und Docker-Containern über ein zentrales Dashboard.",
-  "tagline": "Einfache Server- und Containerüberwachung"
+  "tagline": "Einfache Server- und Containerüberwachung",
+  "description": "Leichtgewichtige Überwachung von Servern und Docker-Containern über ein zentrales Dashboard."
 }

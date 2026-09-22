@@ -2,7 +2,7 @@ name: beszel
 
 services:
   beszel:
-    image: henrygd/beszel:latest@sha256:261794c4b5db9de8e206d1e5b96650397627dec26b293e373b66723ebf85f67a
+    image: henrygd/beszel:0.13.0@sha256:2651556f2c28c94e3cda93069d4f3dc75c4348f84d040031677b6edd00de3492
     container_name: beszel
     restart: unless-stopped
     ports:
@@ -27,4 +27,4 @@ x-casaos:
     es_ES: Beszel
     fr_FR: Beszel
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.beszel/assets/icon.svg
-  version: latest
+  version: 0.13.0

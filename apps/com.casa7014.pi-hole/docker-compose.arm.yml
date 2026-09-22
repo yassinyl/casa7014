@@ -2,7 +2,7 @@ name: pi-hole
 
 services:
   pihole:
-    image: pihole/pihole:latest@sha256:bc614b0af8941dde64e51e92a3ab3c09f42e0a77af351f4e6cb27564be7ac768
+    image: pihole/pihole:2025.08.0@sha256:d94b520e40c8c455e8674b5c6026a9379198dac84baa49892453db4b193540ff
     container_name: pihole
     restart: unless-stopped
     ports:
@@ -36,4 +36,4 @@ x-casaos:
     es_ES: Pi-hole
     fr_FR: Pi-hole
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.pi-hole/assets/icon.svg
-  version: latest
+  version: 2025.08.0

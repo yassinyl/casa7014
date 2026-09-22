@@ -2,7 +2,7 @@ name: adguard-home
 
 services:
   adguard-home:
-    image: adguard/adguardhome:latest@sha256:034ca68030cfba872f355eb65328af3f01763c62e643f462b288c55ae5c7b4ba
+    image: adguard/adguardhome:v0.107.79@sha256:034ca68030cfba872f355eb65328af3f01763c62e643f462b288c55ae5c7b4ba
     container_name: adguard-home
     restart: unless-stopped
     ports:
@@ -36,4 +36,4 @@ x-casaos:
     es_ES: AdGuard Home
     fr_FR: AdGuard Home
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.adguard-home/assets/icon.png
-  version: latest
+  version: v0.107.79

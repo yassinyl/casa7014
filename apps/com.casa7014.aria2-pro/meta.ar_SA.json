@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.aria2-pro",
   "title": "Aria2 Pro",
-  "description": "حاوية Aria2 قوية مع واجهة AriaNg على الويب.",
-  "tagline": "حاوية Docker محسّنة لـ Aria2."
+  "tagline": "حاوية Docker محسّنة لـ Aria2.",
+  "description": "حاوية Aria2 قوية مع واجهة AriaNg على الويب."
 }

@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.lan-orangutan",
   "title": "LAN Orangutan",
-  "description": "LAN Orangutan ist ein selbst gehostetes Tool zur Netzwerkerkennung und Geräteinventarisierung, das Ihr LAN scannt, Geräte identifiziert und bei Organisation und Überwachung hilft.",
-  "tagline": "Netzwerkerkennung und Geräteinventar."
+  "tagline": "Netzwerkerkennung und Geräteinventar.",
+  "description": "LAN Orangutan ist ein selbst gehostetes Tool zur Netzwerkerkennung und Geräteinventarisierung, das Ihr LAN scannt, Geräte identifiziert und bei Organisation und Überwachung hilft."
 }

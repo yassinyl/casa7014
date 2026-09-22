@@ -20,14 +20,14 @@
   "title": "Pi-hole",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.pi-hole",
-  "version": "latest",
+  "version": "2025.08.0",
   "categories": [
     "networking"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 42768410,
-    "arm": 39678563,
-    "arm64": 43739536
+    "amd64": 40637675,
+    "arm": 40108757,
+    "arm64": 41274767
   }
 }

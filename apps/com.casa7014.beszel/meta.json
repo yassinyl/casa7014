@@ -19,13 +19,13 @@
   "title": "Beszel",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.beszel",
-  "version": "latest",
+  "version": "0.13.0",
   "categories": [
     "networking"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 13185180,
-    "arm64": 12340535
+    "amd64": 11900095,
+    "arm64": 11155859
   }
 }

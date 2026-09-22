@@ -1,0 +1,70 @@
+name: adguard-home
+
+services:
+  adguard-home:
+    image: adguard/adguardhome:latest
+    container_name: adguard-home
+    restart: unless-stopped
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: udp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/work
+        target: /opt/adguardhome/work
+      - type: bind
+        source: /DATA/AppData/$AppID/conf
+        target: /opt/adguardhome/conf
+
+x-casaos:
+  id: com.casa7014.adguard-home
+  main: adguard-home
+  architectures: [amd64, arm64, arm]
+  port_map: "3000"
+  index: /
+  scheme: http
+  title:
+    en_US: AdGuard Home
+    ar_SA: AdGuard Home
+    de_DE: AdGuard Home
+    es_ES: AdGuard Home
+    fr_FR: AdGuard Home
+  author: yassinyl
+  developer: AdGuard Software Limited
+  category: Networking
+  icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/adguard-home.png
+  description:
+    en_US: Network-wide ad and tracker blocking with a private DNS server.
+    ar_SA: حجب الإعلانات والمتتبعات على مستوى الشبكة مع خادم DNS خاص.
+    de_DE: Netzwerkweite Werbe- und Tracker-Blockierung mit einem privaten DNS-Server.
+    es_ES: Bloqueo de anuncios y rastreadores en toda la red con un servidor DNS privado.
+    fr_FR: Blocage des publicités et des traqueurs à l’échelle du réseau avec un serveur DNS privé.
+  tagline:
+    en_US: Network-wide ad and tracker blocking
+    ar_SA: حجب الإعلانات والمتتبعات على مستوى الشبكة
+    de_DE: Netzwerkweite Werbe- und Tracker-Blockierung
+    es_ES: Bloqueo de anuncios y rastreadores en toda la red
+    fr_FR: Blocage des publicités et des traqueurs à l’échelle du réseau
+  version: latest
+  website: https://adguard.com/adguard-home/overview.html
+  repo: https://github.com/AdguardTeam/AdGuardHome
+  docs: https://github.com/AdguardTeam/AdGuardHome/wiki/Getting-Started
+  support: https://github.com/AdguardTeam/AdGuardHome/issues
+  tips:
+    before_install:
+      en_US: >-
+        AdGuard Home needs port 53 (TCP and UDP) to serve DNS. Make sure this
+        port is available, and stop or reconfigure any existing DNS service on
+        the host before installing it.
+    after_install:
+      en_US: >-
+        Open the setup wizard on port 3000, choose the web interface and DNS
+        settings, then configure your router or devices to use this server as
+        their DNS resolver. Do not expose the administration interface publicly.

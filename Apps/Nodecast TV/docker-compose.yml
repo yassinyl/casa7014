@@ -1,0 +1,45 @@
+name: nodecast-tv
+
+services:
+  nodecast-tv:
+    image: ghcr.io/technomancer702/nodecast-tv:2.1.1
+    container_name: nodecast-tv
+    restart: unless-stopped
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+
+x-casaos:
+  id: com.casa7014.nodecast-tv
+  main: nodecast-tv
+  architectures:
+    - amd64
+    - arm64
+  port_map: "3000"
+  index: /
+  scheme: http
+  title:
+    en_US: Nodecast TV
+    ar_SA: Nodecast TV
+    de_DE: Nodecast TV
+    es_ES: Nodecast TV
+    fr_FR: Nodecast TV
+  author: yassinyl
+  developer: Technomancer702
+  category: Media
+  icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/tvheadend.png
+  description:
+    en_US: A self-hosted TV streaming application with a browser-based interface.
+    ar_SA: تطبيق بث تلفزيوني مستضاف ذاتيًا بواجهة تعمل عبر المتصفح.
+    de_DE: Eine selbst gehostete TV-Streaming-Anwendung mit browserbasierter Oberfläche.
+    es_ES: Una aplicación de transmisión de TV autoalojada con interfaz basada en navegador.
+    fr_FR: Une application de diffusion TV auto-hébergée avec une interface web.
+  tagline:
+    en_US: Self-hosted TV streaming
+    ar_SA: بث تلفزيوني مستضاف ذاتيًا.
+    de_DE: Selbst gehostetes TV-Streaming.
+    es_ES: Transmisión de TV autoalojada.
+    fr_FR: Diffusion TV auto-hébergée.
+  version: "2.1.1"
+  repo: https://github.com/Technomancer702/nodecast-tv

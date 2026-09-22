@@ -4,7 +4,7 @@
 
 [![CasaOS](https://img.shields.io/badge/CasaOS-V1-blue)](https://www.casaos.io/)
 [![ZimaOS](https://img.shields.io/badge/ZimaOS-V2-green)](https://www.zimaspace.com/)
-[![Apps](https://img.shields.io/badge/Apps-17-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
+[![Apps](https://img.shields.io/badge/Apps-18-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
 
 ---
 
@@ -65,6 +65,7 @@ The application list below is automatically generated from the
 | <img src="https://raw.githubusercontent.com/pi-hole/graphics/master/Vortex/Vortex.svg" width="48" height="48"> | **Pi-hole** | `26.09.0` | Network-wide ad blocking and DNS management for your home network. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Portainer-Business-Edition/icon.png" width="48" height="48"> | **Portainer ( Business Edition )** | `2.45.1` | Lightweight Docker management UI. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/portracker/icon.png" width="48" height="48"> | **Portracker** | `1.3.13` | Portracker is a self-hosted, real-time port monitoring and discovery tool that automatically discovers services, ports, Docker containers, and network services on your systems. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Snikket/icon.svg" width="48" height="48"> | **Snikket** | `latest` | Private, easy-to-use XMPP messaging for your family, friends, or community. |
 
 <!-- apps:end -->
 

@@ -1,0 +1,33 @@
+{
+  "architectures": [
+    "amd64",
+    "arm",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "Snikket Community Interest Company",
+  "category": "Networking",
+  "description": "Private, easy-to-use XMPP messaging for your family, friends, or community.",
+  "tagline": "Your private messaging service",
+  "website": "https://snikket.org/",
+  "repo": "https://github.com/snikket-im/snikket-server",
+  "docs": "https://snikket.org/service/help/admin/installation/docker/",
+  "support": "https://snikket.org/service/help/",
+  "tips": {
+    "before_install": "Set SNIKKET_DOMAIN to the public domain for this server and SNIKKET_ADMIN_EMAIL to the administrator's email before first start. For a production server, change the published HTTP and HTTPS ports to 80 and 443, and ensure 5000, 5222, and 5269 are reachable from the Internet.",
+    "after_install": "Open the web interface, complete the administrator setup, and install the Snikket app on your devices. Persistent server data is stored in /DATA/AppData/<AppID>/data. Do not change SNIKKET_DOMAIN after setup."
+  },
+  "title": "Snikket",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.snikket",
+  "version": "latest",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 0,
+    "arm": 0,
+    "arm64": 0
+  }
+}

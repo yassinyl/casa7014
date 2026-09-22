@@ -20,7 +20,7 @@
   "title": "Pi-hole",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.pi-hole",
-  "version": "",
+  "version": "2026.09.0",
   "categories": [
     "networking"
   ],

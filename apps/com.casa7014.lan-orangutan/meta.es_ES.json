@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.lan-orangutan",
   "title": "LAN Orangutan",
-  "tagline": "Descubrimiento de red e inventario de dispositivos.",
-  "description": "LAN Orangutan es una herramienta autoalojada de descubrimiento de red e inventario de dispositivos que analiza la LAN, identifica dispositivos y ayuda a organizar y supervisar la red."
+  "description": "LAN Orangutan es una herramienta autoalojada de descubrimiento de red e inventario de dispositivos que analiza la LAN, identifica dispositivos y ayuda a organizar y supervisar la red.",
+  "tagline": "Descubrimiento de red e inventario de dispositivos."
 }

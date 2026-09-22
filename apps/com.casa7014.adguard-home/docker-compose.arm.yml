@@ -36,4 +36,4 @@ x-casaos:
     es_ES: AdGuard Home
     fr_FR: AdGuard Home
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.adguard-home/assets/icon.png
-  version: v0.107.79
+  version: "0.107.79"

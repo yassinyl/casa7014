@@ -66,6 +66,11 @@
       "title": "Motrix"
     },
     {
+      "id": "com.casa7014.pi-hole",
+      "tagline": "حجب الإعلانات على مستوى الشبكة",
+      "title": "Pi-hole"
+    },
+    {
       "id": "com.casa7014.portainer-business-edition",
       "tagline": "واجهة خفيفة لإدارة Docker.",
       "title": "Portainer ( Business Edition )"

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-22T11:10:49Z",
+  "updated_at": "2026-09-22T11:16:52Z",
   "app_count": 17,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -238,7 +238,7 @@
       "compose_url": "/apps/com.casa7014.misskey/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.misskey/meta.json",
       "content_hash": "0ccbc850",
-      "version": "25.10.0"
+      "version": "2025.10.0"
     },
     {
       "id": "com.casa7014.motioneye-beta",
@@ -323,7 +323,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
-      "content_hash": "03243c4b"
+      "content_hash": "1402f066"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

@@ -1,6 +1,18 @@
 name: snikket
 
 services:
+  snikket-proxy:
+    image: snikket/snikket-web-proxy:stable@sha256:b9db114e7821561584b7f7fadc7b99c75c79ad0f913763feccafe29ab52343de
+    container_name: snikket-proxy
+    restart: unless-stopped
+    environment:
+      SNIKKET_DOMAIN: chat.example.com
+      SNIKKET_ADMIN_EMAIL: admin@example.com
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /snikket
+
   snikket:
     image: snikket/snikket-server:stable@sha256:12e72092856646d50c9e7272c8ab03e006b9c7a6aa97d8cdffedd54bb24257e3
     container_name: snikket

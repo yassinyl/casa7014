@@ -20,14 +20,14 @@
   "title": "Snikket",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.snikket",
-  "version": "latest",
+  "version": "stable",
   "categories": [
     "networking"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 0,
-    "arm": 0,
-    "arm64": 0
+    "amd64": 71376893,
+    "arm": 62101397,
+    "arm64": 71698085
   }
 }

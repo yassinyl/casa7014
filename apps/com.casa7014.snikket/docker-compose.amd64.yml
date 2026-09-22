@@ -2,7 +2,7 @@ name: snikket
 
 services:
   snikket:
-    image: snikket/snikket-server:latest
+    image: snikket/snikket-server:stable@sha256:12e72092856646d50c9e7272c8ab03e006b9c7a6aa97d8cdffedd54bb24257e3
     container_name: snikket
     restart: unless-stopped
     environment:
@@ -42,4 +42,4 @@ x-casaos:
     es_ES: Snikket
     fr_FR: Snikket
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.snikket/assets/icon.svg
-  version: "latest"
+  version: "stable"

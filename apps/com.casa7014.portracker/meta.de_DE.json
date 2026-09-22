@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.portracker",
   "title": "Portracker",
-  "description": "Portracker ist ein selbst gehostetes Echtzeit-Tool zur Portüberwachung und -erkennung, das Dienste, Ports, Docker-Container und Netzwerkdienste automatisch erkennt.",
-  "tagline": "Portüberwachung und -erkennung in Echtzeit."
+  "tagline": "Portüberwachung und -erkennung in Echtzeit.",
+  "description": "Portracker ist ein selbst gehostetes Echtzeit-Tool zur Portüberwachung und -erkennung, das Dienste, Ports, Docker-Container und Netzwerkdienste automatisch erkennt."
 }

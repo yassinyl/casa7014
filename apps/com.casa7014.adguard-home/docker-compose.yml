@@ -1,0 +1,39 @@
+name: adguard-home
+
+services:
+  adguard-home:
+    image: adguard/adguardhome:latest
+    container_name: adguard-home
+    restart: unless-stopped
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: udp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/work
+        target: /opt/adguardhome/work
+      - type: bind
+        source: /DATA/AppData/$AppID/conf
+        target: /opt/adguardhome/conf
+
+x-casaos:
+  id: com.casa7014.adguard-home
+  main: adguard-home
+  port_map: "3000"
+  index: /
+  scheme: http
+  title:
+    en_US: AdGuard Home
+    ar_SA: AdGuard Home
+    de_DE: AdGuard Home
+    es_ES: AdGuard Home
+    fr_FR: AdGuard Home
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.adguard-home/assets/icon.png
+  version: latest

@@ -1,0 +1,33 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64",
+    "arm"
+  ],
+  "author": "yassinyl",
+  "developer": "AdGuard Software Limited",
+  "category": "Networking",
+  "description": "Network-wide ad and tracker blocking with a private DNS server.",
+  "tagline": "Network-wide ad and tracker blocking",
+  "website": "https://adguard.com/adguard-home/overview.html",
+  "repo": "https://github.com/AdguardTeam/AdGuardHome",
+  "docs": "https://github.com/AdguardTeam/AdGuardHome/wiki/Getting-Started",
+  "support": "https://github.com/AdguardTeam/AdGuardHome/issues",
+  "tips": {
+    "before_install": "AdGuard Home needs port 53 (TCP and UDP) to serve DNS. Make sure this port is available, and stop or reconfigure any existing DNS service on the host before installing it.",
+    "after_install": "Open the setup wizard on port 3000, choose the web interface and DNS settings, then configure your router or devices to use this server as their DNS resolver. Do not expose the administration interface publicly."
+  },
+  "title": "AdGuard Home",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.adguard-home",
+  "version": "latest",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 29493557,
+    "arm": 28257692,
+    "arm64": 27840214
+  }
+}

@@ -1,17 +1,17 @@
 [
   {
-    "appid": "yassinyl-portainer-business-edition"
+    "appid": "com.casa7014.portainer-business-edition"
   },
   {
-    "appid": "linkstack"
+    "appid": "com.casa7014.linkstack"
   },
   {
-    "appid": "Motioneye"
+    "appid": "com.casa7014.motioneye-beta"
   },
   {
-    "appid": "fritzbox-wlan-password-rotator"
+    "appid": "com.casa7014.fritzbox-wlan-password-rotator"
   },
   {
-    "appid": "Aria2 Pro"
+    "appid": "com.casa7014.aria2-pro"
   }
 ]

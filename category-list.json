@@ -1,7 +1,22 @@
 [
   {
-    "name": "Casa7014",
+    "name": "Developer",
     "font": "rocket",
-    "description": ""
+    "description": "Development, server, and infrastructure tools."
+  },
+  {
+    "name": "Media",
+    "font": "film",
+    "description": "Media, streaming, and entertainment applications."
+  },
+  {
+    "name": "Networking",
+    "font": "network",
+    "description": "Network discovery, monitoring, and connectivity tools."
+  },
+  {
+    "name": "Others",
+    "font": "rocket",
+    "description": "Useful applications that do not fit another category."
   }
 ]

@@ -2,10 +2,18 @@
   "version": 2,
   "store_id": "zima7014",
   "name": {
-    "en_US": "Zima7014 AppStore"
+    "en_US": "Zima7014 AppStore",
+    "ar_SA": "متجر Zima7014 للتطبيقات",
+    "de_DE": "Zima7014 AppStore",
+    "es_ES": "Tienda de aplicaciones Zima7014",
+    "fr_FR": "Boutique d'applications Zima7014"
   },
   "description": {
-    "en_US": "casa714"
+    "en_US": "A community-maintained app store for CasaOS and ZimaOS.",
+    "ar_SA": "متجر تطبيقات يديره المجتمع لمنصتي CasaOS وZimaOS.",
+    "de_DE": "Ein von der Community gepflegter App Store für CasaOS und ZimaOS.",
+    "es_ES": "Una tienda de aplicaciones mantenida por la comunidad para CasaOS y ZimaOS.",
+    "fr_FR": "Une boutique d'applications gérée par la communauté pour CasaOS et ZimaOS."
   },
   "maintainer": "yassinyl",
   "url": "https://github.com/yassinyl/casa7014"

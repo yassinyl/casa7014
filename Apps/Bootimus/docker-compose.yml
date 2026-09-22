@@ -108,6 +108,10 @@ x-casaos:
 
   title:
     en_US: Bootimus
+    ar_SA: Bootimus
+    de_DE: Bootimus
+    es_ES: Bootimus
+    fr_FR: Bootimus
 
   author: yassinyl
   developer: garybowers
@@ -122,9 +126,17 @@ x-casaos:
 
   description:
     en_US: Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, Windows SMB deployment, and a web administration interface.
+    ar_SA: Bootimus خادم إقلاع PXE وHTTP حديث يوفّر محمّلات iPXE مدمجة وإقلاع ISO واستخراج النواة وinitrd وإدارة العملاء وأدوات التشخيص ونشر Windows SMB وواجهة إدارة ويب.
+    de_DE: Bootimus ist ein moderner PXE- und HTTP-Bootserver mit integrierten iPXE-Bootloadern, ISO-Boot, automatischer Kernel- und initrd-Extraktion, Clientverwaltung, Diagnosewerkzeugen, Windows-SMB-Bereitstellung und Webverwaltung.
+    es_ES: Bootimus es un servidor de arranque PXE y HTTP moderno con cargadores iPXE integrados, arranque ISO, extracción automática de kernel e initrd, gestión de clientes, diagnóstico, despliegue SMB de Windows e interfaz web.
+    fr_FR: Bootimus est un serveur de démarrage PXE et HTTP moderne avec chargeurs iPXE intégrés, démarrage ISO, extraction automatique du noyau et de l’initrd, gestion des clients, outils de diagnostic, déploiement SMB Windows et interface web.
 
   tagline:
     en_US: Modern PXE and HTTP Boot Server
+    ar_SA: خادم إقلاع PXE وHTTP حديث.
+    de_DE: Moderner PXE- und HTTP-Bootserver.
+    es_ES: Servidor de arranque PXE y HTTP moderno.
+    fr_FR: Serveur de démarrage PXE et HTTP moderne.
 
   version: "0.1.76"
 

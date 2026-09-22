@@ -32,6 +32,10 @@ x-casaos:
   scheme: http
   title:
     en_US: MotionEye
+    ar_SA: MotionEye
+    de_DE: MotionEye
+    es_ES: MotionEye
+    fr_FR: MotionEye
   author: yassinyl
   developer: motioneye-project
   category: Others
@@ -44,7 +48,15 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/motioneye%20beta/screenshot-4.png
   description:
     en_US: Open-source video surveillance application for managing webcams and IP cameras.
+    ar_SA: تطبيق مفتوح المصدر لمراقبة الفيديو وإدارة كاميرات الويب وكاميرات IP.
+    de_DE: Open-Source-Videoüberwachung zur Verwaltung von Webcams und IP-Kameras.
+    es_ES: Aplicación de videovigilancia de código abierto para gestionar cámaras web y cámaras IP.
+    fr_FR: Application de vidéosurveillance open source pour gérer les webcams et les caméras IP.
   tagline:
     en_US: Video surveillance for your cameras
+    ar_SA: مراقبة فيديو لكاميراتك.
+    de_DE: Videoüberwachung für Ihre Kameras.
+    es_ES: Videovigilancia para tus cámaras.
+    fr_FR: Vidéosurveillance pour vos caméras.
   version: "0.43.1"
   repo: https://github.com/motioneye-project/motioneye

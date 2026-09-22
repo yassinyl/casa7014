@@ -2,83 +2,83 @@
   "apps": [
     {
       "id": "com.casa7014.adguard-home",
-      "tagline": "Blocage des publicités et des traqueurs à l’échelle du réseau",
-      "title": "AdGuard Home"
+      "title": "AdGuard Home",
+      "tagline": "Blocage des publicités et des traqueurs à l’échelle du réseau"
     },
     {
       "id": "com.casa7014.aria2",
-      "tagline": "Utilitaire de téléchargement léger et multiprotocole.",
-      "title": "Aria2"
+      "title": "Aria2",
+      "tagline": "Utilitaire de téléchargement léger et multiprotocole."
     },
     {
       "id": "com.casa7014.aria2-pro",
-      "tagline": "Un meilleur conteneur Docker pour Aria2.",
-      "title": "Aria2 Pro"
+      "title": "Aria2 Pro",
+      "tagline": "Un meilleur conteneur Docker pour Aria2."
     },
     {
       "id": "com.casa7014.beszel",
-      "tagline": "Surveillance simple des serveurs et conteneurs",
-      "title": "Beszel"
+      "title": "Beszel",
+      "tagline": "Surveillance simple des serveurs et conteneurs"
     },
     {
       "id": "com.casa7014.bootimus",
-      "tagline": "Serveur de démarrage PXE et HTTP moderne.",
-      "title": "Bootimus"
+      "title": "Bootimus",
+      "tagline": "Serveur de démarrage PXE et HTTP moderne."
     },
     {
       "id": "com.casa7014.dispatcharr",
-      "tagline": "Gestion des flux IPTV et DVR.",
-      "title": "Dispatcharr"
+      "title": "Dispatcharr",
+      "tagline": "Gestion des flux IPTV et DVR."
     },
     {
       "id": "com.casa7014.fing-agent",
-      "tagline": "Agent de surveillance réseau.",
-      "title": "Fing Agent"
+      "title": "Fing Agent",
+      "tagline": "Agent de surveillance réseau."
     },
     {
       "id": "com.casa7014.fritzbox-wlan-password-rotator",
-      "tagline": "Rotation automatique des mots de passe Wi-Fi pour FRITZ!Box.",
-      "title": "FritzBox WLAN Password Rotator"
+      "title": "FritzBox WLAN Password Rotator",
+      "tagline": "Rotation automatique des mots de passe Wi-Fi pour FRITZ!Box."
     },
     {
       "id": "com.casa7014.lan-orangutan",
-      "tagline": "Découverte réseau et inventaire des appareils.",
-      "title": "LAN Orangutan"
+      "title": "LAN Orangutan",
+      "tagline": "Découverte réseau et inventaire des appareils."
     },
     {
       "id": "com.casa7014.linkstack",
-      "tagline": "La solution ultime de gestion des liens.",
-      "title": "LinkStack"
+      "title": "LinkStack",
+      "tagline": "La solution ultime de gestion des liens."
     },
     {
       "id": "com.casa7014.misskey",
-      "tagline": "Une plateforme sociale décentralisée pour le fédivers.",
-      "title": "Misskey"
+      "title": "Misskey",
+      "tagline": "Une plateforme sociale décentralisée pour le fédivers."
     },
     {
       "id": "com.casa7014.motioneye-beta",
-      "tagline": "Vidéosurveillance pour vos caméras.",
-      "title": "MotionEye"
+      "title": "MotionEye",
+      "tagline": "Vidéosurveillance pour vos caméras."
     },
     {
       "id": "com.casa7014.motrix",
-      "tagline": "Gestionnaire de téléchargements puissant pour votre NAS.",
-      "title": "Motrix"
+      "title": "Motrix",
+      "tagline": "Gestionnaire de téléchargements puissant pour votre NAS."
     },
     {
       "id": "com.casa7014.pi-hole",
-      "tagline": "Blocage des publicités sur tout le réseau",
-      "title": "Pi-hole"
+      "title": "Pi-hole",
+      "tagline": "Blocage des publicités sur tout le réseau"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
-      "tagline": "Interface légère de gestion Docker.",
-      "title": "Portainer ( Business Edition )"
+      "title": "Portainer ( Business Edition )",
+      "tagline": "Interface légère de gestion Docker."
     },
     {
       "id": "com.casa7014.portracker",
-      "tagline": "Surveillance et découverte des ports en temps réel.",
-      "title": "Portracker"
+      "title": "Portracker",
+      "tagline": "Surveillance et découverte des ports en temps réel."
     }
   ]
 }

@@ -35,5 +35,5 @@ x-casaos:
     de_DE: Pi-hole
     es_ES: Pi-hole
     fr_FR: Pi-hole
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.pi-hole/assets/icon.svg
   version: "2025.08.0"
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.pi-hole/assets/icon.svg

@@ -2,7 +2,7 @@ name: pi-hole
 
 services:
   pihole:
-    image: pihole/pihole:latest
+    image: pihole/pihole:2025.08.0
     container_name: pihole
     restart: unless-stopped
     ports:
@@ -52,7 +52,7 @@ x-casaos:
     de_DE: Netzwerkweite Werbeblockierung
     es_ES: Bloqueo de anuncios en toda la red
     fr_FR: Blocage des publicités sur tout le réseau
-  version: latest
+  version: 2025.08.0
   website: https://pi-hole.net/
   repo: https://github.com/pi-hole/pi-hole
   docs: https://docs.pi-hole.net/docker/

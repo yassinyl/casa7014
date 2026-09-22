@@ -25,5 +25,9 @@ x-casaos:
   scheme: http
   title:
     en_US: Dispatcharr
+    ar_SA: Dispatcharr
+    de_DE: Dispatcharr
+    es_ES: Dispatcharr
+    fr_FR: Dispatcharr
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.dispatcharr/assets/icon.png
   version: "0.31.0"

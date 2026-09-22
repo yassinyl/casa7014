@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.bootimus",
+  "title": "Bootimus",
+  "tagline": "Moderner PXE- und HTTP-Bootserver.",
+  "description": "Bootimus ist ein moderner PXE- und HTTP-Bootserver mit integrierten iPXE-Bootloadern, ISO-Boot, automatischer Kernel- und initrd-Extraktion, Clientverwaltung, Diagnosewerkzeugen, Windows-SMB-Bereitstellung und Webverwaltung."
+}

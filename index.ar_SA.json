@@ -1,0 +1,64 @@
+{
+  "apps": [
+    {
+      "id": "com.casa7014.aria2",
+      "tagline": "أداة تنزيل خفيفة متعددة البروتوكولات.",
+      "title": "Aria2"
+    },
+    {
+      "id": "com.casa7014.aria2-pro",
+      "tagline": "حاوية Docker محسّنة لـ Aria2.",
+      "title": "Aria2 Pro"
+    },
+    {
+      "id": "com.casa7014.bootimus",
+      "tagline": "خادم إقلاع PXE وHTTP حديث.",
+      "title": "Bootimus"
+    },
+    {
+      "id": "com.casa7014.dispatcharr",
+      "tagline": "إدارة بث IPTV والتسجيل.",
+      "title": "Dispatcharr"
+    },
+    {
+      "id": "com.casa7014.fing-agent",
+      "tagline": "وكيل لمراقبة الشبكة.",
+      "title": "Fing Agent"
+    },
+    {
+      "id": "com.casa7014.fritzbox-wlan-password-rotator",
+      "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا.",
+      "title": "FritzBox WLAN Password Rotator"
+    },
+    {
+      "id": "com.casa7014.lan-orangutan",
+      "tagline": "اكتشاف الشبكة وجرد الأجهزة.",
+      "title": "LAN Orangutan"
+    },
+    {
+      "id": "com.casa7014.linkstack",
+      "tagline": "الحل المتكامل لإدارة الروابط.",
+      "title": "LinkStack"
+    },
+    {
+      "id": "com.casa7014.motioneye-beta",
+      "tagline": "مراقبة فيديو لكاميراتك.",
+      "title": "MotionEye"
+    },
+    {
+      "id": "com.casa7014.motrix",
+      "tagline": "مدير تنزيلات قوي لجهاز NAS الخاص بك.",
+      "title": "Motrix"
+    },
+    {
+      "id": "com.casa7014.portainer-business-edition",
+      "tagline": "واجهة خفيفة لإدارة Docker.",
+      "title": "Portainer ( Business Edition )"
+    },
+    {
+      "id": "com.casa7014.portracker",
+      "tagline": "مراقبة المنافذ واكتشافها لحظيًا.",
+      "title": "Portracker"
+    }
+  ]
+}

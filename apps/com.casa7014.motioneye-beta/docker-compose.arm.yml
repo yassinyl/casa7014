@@ -31,5 +31,9 @@ x-casaos:
   scheme: http
   title:
     en_US: MotionEye
+    ar_SA: MotionEye
+    de_DE: MotionEye
+    es_ES: MotionEye
+    fr_FR: MotionEye
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.motioneye-beta/assets/icon.png
   version: "0.43.1"

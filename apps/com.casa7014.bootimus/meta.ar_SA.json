@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.bootimus",
+  "title": "Bootimus",
+  "tagline": "خادم إقلاع PXE وHTTP حديث.",
+  "description": "Bootimus خادم إقلاع PXE وHTTP حديث يوفّر محمّلات iPXE مدمجة وإقلاع ISO واستخراج النواة وinitrd وإدارة العملاء وأدوات التشخيص ونشر Windows SMB وواجهة إدارة ويب."
+}

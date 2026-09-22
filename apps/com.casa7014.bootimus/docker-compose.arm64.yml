@@ -102,5 +102,9 @@ x-casaos:
   scheme: http
   title:
     en_US: Bootimus
+    ar_SA: Bootimus
+    de_DE: Bootimus
+    es_ES: Bootimus
+    fr_FR: Bootimus
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.bootimus/assets/icon.png
   version: "0.1.76"

@@ -1,0 +1,64 @@
+{
+  "apps": [
+    {
+      "id": "com.casa7014.aria2",
+      "tagline": "Utilitaire de téléchargement léger et multiprotocole.",
+      "title": "Aria2"
+    },
+    {
+      "id": "com.casa7014.aria2-pro",
+      "tagline": "Un meilleur conteneur Docker pour Aria2.",
+      "title": "Aria2 Pro"
+    },
+    {
+      "id": "com.casa7014.bootimus",
+      "tagline": "Serveur de démarrage PXE et HTTP moderne.",
+      "title": "Bootimus"
+    },
+    {
+      "id": "com.casa7014.dispatcharr",
+      "tagline": "Gestion des flux IPTV et DVR.",
+      "title": "Dispatcharr"
+    },
+    {
+      "id": "com.casa7014.fing-agent",
+      "tagline": "Agent de surveillance réseau.",
+      "title": "Fing Agent"
+    },
+    {
+      "id": "com.casa7014.fritzbox-wlan-password-rotator",
+      "tagline": "Rotation automatique des mots de passe Wi-Fi pour FRITZ!Box.",
+      "title": "FritzBox WLAN Password Rotator"
+    },
+    {
+      "id": "com.casa7014.lan-orangutan",
+      "tagline": "Découverte réseau et inventaire des appareils.",
+      "title": "LAN Orangutan"
+    },
+    {
+      "id": "com.casa7014.linkstack",
+      "tagline": "La solution ultime de gestion des liens.",
+      "title": "LinkStack"
+    },
+    {
+      "id": "com.casa7014.motioneye-beta",
+      "tagline": "Vidéosurveillance pour vos caméras.",
+      "title": "MotionEye"
+    },
+    {
+      "id": "com.casa7014.motrix",
+      "tagline": "Gestionnaire de téléchargements puissant pour votre NAS.",
+      "title": "Motrix"
+    },
+    {
+      "id": "com.casa7014.portainer-business-edition",
+      "tagline": "Interface légère de gestion Docker.",
+      "title": "Portainer ( Business Edition )"
+    },
+    {
+      "id": "com.casa7014.portracker",
+      "tagline": "Surveillance et découverte des ports en temps réel.",
+      "title": "Portracker"
+    }
+  ]
+}

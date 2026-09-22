@@ -36,5 +36,9 @@ x-casaos:
   scheme: http
   title:
     en_US: LAN Orangutan
+    ar_SA: LAN Orangutan
+    de_DE: LAN Orangutan
+    es_ES: LAN Orangutan
+    fr_FR: LAN Orangutan
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.lan-orangutan/assets/icon.png
   version: "3.3.8"

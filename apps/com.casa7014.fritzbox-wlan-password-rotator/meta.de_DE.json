@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.fritzbox-wlan-password-rotator",
+  "title": "FritzBox WLAN Password Rotator",
+  "tagline": "WLAN-Passwörter für FRITZ!Box automatisch wechseln.",
+  "description": "Wechselt das Gäste-WLAN-Passwort einer FRITZ!Box automatisch und zeigt Zugangsdaten sowie einen QR-Code an."
+}

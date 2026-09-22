@@ -38,11 +38,15 @@ services:
         target: /config
 x-casaos:
   id: com.casa7014.aria2-pro
-  main: aria2-pro
-  port_map: "6800"
-  index: /#!/downloading
+  main: ariang
+  port_map: "6880"
+  index: /
   scheme: http
   title:
     en_US: Aria2 Pro
+    ar_SA: Aria2 Pro
+    de_DE: Aria2 Pro
+    es_ES: Aria2 Pro
+    fr_FR: Aria2 Pro
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.aria2-pro/assets/icon.png
   version: "1.0.0"

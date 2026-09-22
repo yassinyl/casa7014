@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.fing-agent",
+  "title": "Fing Agent",
+  "tagline": "Netzwerkmonitoring-Agent.",
+  "description": "Netzwerkmonitoring-Agent, der Geräte im lokalen Netzwerk erkennt und überwacht."
+}

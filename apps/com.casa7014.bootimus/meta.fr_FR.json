@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.bootimus",
+  "title": "Bootimus",
+  "tagline": "Serveur de démarrage PXE et HTTP moderne.",
+  "description": "Bootimus est un serveur de démarrage PXE et HTTP moderne avec chargeurs iPXE intégrés, démarrage ISO, extraction automatique du noyau et de l’initrd, gestion des clients, outils de diagnostic, déploiement SMB Windows et interface web."
+}

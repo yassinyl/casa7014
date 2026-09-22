@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Misskey</title>
+  <rect width="256" height="256" rx="56" fill="#86b300"/>
+  <path fill="#fff" d="M52 70h36l40 62 40-62h36v116h-34v-65l-29 45h-26l-29-45v65H52z"/>
+</svg>

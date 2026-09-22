@@ -28,7 +28,7 @@ x-casaos:
   author: yassinyl
   developer: Technomancer702
   category: Media
-  icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/television.png
+  icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/tvheadend.png
   description:
     en_US: A self-hosted TV streaming application with a browser-based interface.
     ar_SA: تطبيق بث تلفزيوني مستضاف ذاتيًا بواجهة تعمل عبر المتصفح.

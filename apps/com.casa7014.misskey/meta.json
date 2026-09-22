@@ -1,0 +1,31 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "MisskeyHQ",
+  "category": "Others",
+  "description": "Decentralized microblogging platform for the fediverse.",
+  "tagline": "A decentralized social platform for the fediverse",
+  "website": "https://misskey.io/",
+  "repo": "https://github.com/misskey-dev/misskey",
+  "docs": "https://misskey-hub.net/en/docs/for-admin/install/docker/",
+  "support": "https://github.com/misskey-dev/misskey/issues",
+  "tips": {
+    "before_install": "Before installing, set MISSKEY_URL in the config service to the public URL that users will use to reach this instance. Set a strong, matching MISSKEY_DB_PASSWORD and POSTGRES_PASSWORD before the first start.",
+    "after_install": "Complete the initial setup in Misskey, then configure HTTPS with a reverse proxy before exposing the instance to the Internet. Configuration, uploads, PostgreSQL data, and Redis data are stored under /DATA/AppData/<AppID>."
+  },
+  "title": "Misskey",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.misskey",
+  "version": "2025.10.0",
+  "categories": [
+    "others"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 1184555471,
+    "arm64": 900886328
+  }
+}

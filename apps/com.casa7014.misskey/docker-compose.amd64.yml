@@ -1,0 +1,101 @@
+name: misskey
+
+services:
+  config:
+    image: alpine:3.22@sha256:3e9b4b680bfc9fb5269227cffbd6d42be39fbf7c0b908123913864aa4447e764
+    container_name: misskey-config
+    restart: "no"
+    environment:
+      MISSKEY_URL: http://localhost:3000
+      MISSKEY_DB_PASSWORD: misskey
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        if [ ! -f /config/default.yml ]; then
+          instance_id=$$(tr -dc 'a-z' </dev/urandom | head -c 16)
+          cat > /config/default.yml <<EOF
+        url: $${MISSKEY_URL}
+        port: 3000
+        db:
+          host: db
+          port: 5432
+          db: misskey
+          user: misskey
+          pass: $${MISSKEY_DB_PASSWORD}
+        redis:
+          host: redis
+          port: 6379
+        id: '$${instance_id}'
+        EOF
+        fi
+
+  db:
+    image: postgres:16-alpine@sha256:1a66d744c1b459e13b05a8fca341da84cb63383e99ce262210efee5a319d4551
+    container_name: misskey-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: misskey
+      POSTGRES_USER: misskey
+      POSTGRES_PASSWORD: misskey
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/postgres
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U misskey -d misskey"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine@sha256:ca0acbb137c1dc3339c8b147a58fd6f42775d4599327b50e7b116c23de501af2
+    container_name: misskey-redis
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/redis
+        target: /data
+
+  misskey:
+    image: misskey/misskey:2025.10.0@sha256:b91e9726130ede7b9c3e36bb7acd757d79d3e7e31015f5b13ef12c6270b7b789
+    container_name: misskey
+    restart: unless-stopped
+    depends_on:
+      config:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - target: 3000
+        published: "3000"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/files
+        target: /misskey/files
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /misskey/.config
+        read_only: true
+
+x-casaos:
+  id: com.casa7014.misskey
+  main: misskey
+  port_map: "3000"
+  index: /
+  scheme: http
+  title:
+    en_US: Misskey
+    ar_SA: Misskey
+    de_DE: Misskey
+    es_ES: Misskey
+    fr_FR: Misskey
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.misskey/assets/icon.svg
+  version: "2025.10.0"

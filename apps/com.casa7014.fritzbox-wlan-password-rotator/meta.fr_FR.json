@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.fritzbox-wlan-password-rotator",
   "title": "FritzBox WLAN Password Rotator",
-  "description": "Change automatiquement le mot de passe Wi-Fi invité d’une FRITZ!Box et affiche les identifiants et un code QR.",
-  "tagline": "Rotation automatique des mots de passe Wi-Fi pour FRITZ!Box."
+  "tagline": "Rotation automatique des mots de passe Wi-Fi pour FRITZ!Box.",
+  "description": "Change automatiquement le mot de passe Wi-Fi invité d’une FRITZ!Box et affiche les identifiants et un code QR."
 }

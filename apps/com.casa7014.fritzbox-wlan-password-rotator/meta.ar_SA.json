@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.fritzbox-wlan-password-rotator",
   "title": "FritzBox WLAN Password Rotator",
-  "description": "يغيّر تلقائيًا كلمة مرور شبكة الضيوف في FRITZ!Box ويعرض بيانات الدخول ورمز QR.",
-  "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا."
+  "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا.",
+  "description": "يغيّر تلقائيًا كلمة مرور شبكة الضيوف في FRITZ!Box ويعرض بيانات الدخول ورمز QR."
 }

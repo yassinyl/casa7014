@@ -4,7 +4,7 @@
 
 [![CasaOS](https://img.shields.io/badge/CasaOS-V1-blue)](https://www.casaos.io/)
 [![ZimaOS](https://img.shields.io/badge/ZimaOS-V2-green)](https://www.zimaspace.com/)
-[![Apps](https://img.shields.io/badge/Apps-12-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
+[![Apps](https://img.shields.io/badge/Apps-13-orange)](https://github.com/yassinyl/casa7014/tree/main/Apps)
 
 ---
 
@@ -50,6 +50,7 @@ The application list below is automatically generated from the
 |:---:|---|:---:|---|
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/icon.png" width="48" height="48"> | **Aria2** | `1.36.0` | Lightweight multi-protocol and multi-source download utility. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/icon.png" width="48" height="48"> | **Aria2 Pro** | `1.0.0` | Powerful Aria2 Docker container with AriaNg WebUI. |
+| <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Beszel/icon.svg" width="48" height="48"> | **Beszel** | `latest` | Lightweight server and Docker container monitoring with a central dashboard. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Bootimus/icon.png" width="48" height="48"> | **Bootimus** | `0.1.76` | Bootimus is a modern PXE and HTTP boot server with embedded iPXE bootloaders, ISO booting, automatic kernel and initrd extraction, client management, diagnostic tools, Windows SMB deployment, and a web administration interface. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/dispatcharr/icon.png" width="48" height="48"> | **Dispatcharr** | `0.31.0` | IPTV stream management platform for channels, streams, EPG and DVR. |
 | <img src="https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png" width="48" height="48"> | **Fing Agent** | `1.1.1` | Network monitoring agent that discovers and monitors devices on your local network. |

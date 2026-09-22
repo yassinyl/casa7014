@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.beszel",
+  "title": "Beszel",
+  "tagline": "Monitorización sencilla de servidores y contenedores",
+  "description": "Monitorización ligera de servidores y contenedores Docker con un panel central."
+}

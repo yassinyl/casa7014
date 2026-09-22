@@ -1,0 +1,31 @@
+{
+  "architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "author": "yassinyl",
+  "developer": "Henry Giese",
+  "category": "Networking",
+  "description": "Lightweight server and Docker container monitoring with a central dashboard.",
+  "tagline": "Simple server and container monitoring",
+  "website": "https://beszel.dev/",
+  "repo": "https://github.com/henrygd/beszel",
+  "docs": "https://beszel.dev/guide/getting-started",
+  "support": "https://github.com/henrygd/beszel/issues",
+  "tips": {
+    "before_install": "Beszel installs the Hub dashboard. After installation, create your first account, then add an Agent to each server you want to monitor. Keep this dashboard on your trusted network and do not expose it directly to the Internet.",
+    "after_install": "Open Beszel, create an account, and follow the in-app instructions to add a monitored system. The Hub data is stored in /DATA/AppData/<AppID>/data."
+  },
+  "title": "Beszel",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.beszel",
+  "version": "latest",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 13185180,
+    "arm64": 12340535
+  }
+}

@@ -1,0 +1,30 @@
+name: beszel
+
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - target: 8090
+        published: "8090"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /beszel_data
+
+x-casaos:
+  id: com.casa7014.beszel
+  main: beszel
+  port_map: "8090"
+  index: /
+  scheme: http
+  title:
+    en_US: Beszel
+    ar_SA: Beszel
+    de_DE: Beszel
+    es_ES: Beszel
+    fr_FR: Beszel
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.beszel/assets/icon.svg
+  version: latest

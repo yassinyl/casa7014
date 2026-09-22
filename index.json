@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-09-22T02:44:49Z",
-  "app_count": 12,
+  "updated_at": "2026-09-22T02:45:14Z",
+  "app_count": 14,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
     {
@@ -48,6 +48,26 @@
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
       "content_hash": "8a3030c5",
       "version": "1.0.0"
+    },
+    {
+      "id": "com.casa7014.beszel",
+      "title": "Beszel",
+      "tagline": "Simple server and container monitoring",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "Henry Giese",
+      "architectures": [
+        "amd64",
+        "arm64"
+      ],
+      "icon": "/apps/com.casa7014.beszel/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.beszel/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.beszel/meta.json",
+      "content_hash": "ebf94293"
     },
     {
       "id": "com.casa7014.bootimus",
@@ -218,6 +238,27 @@
       "meta_url": "/apps/com.casa7014.motrix/meta.json",
       "content_hash": "b6f8b24c",
       "version": "2.0.0-beta.39"
+    },
+    {
+      "id": "com.casa7014.pi-hole",
+      "title": "Pi-hole",
+      "tagline": "Network-wide ad blocking",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "Pi-hole LLC",
+      "architectures": [
+        "amd64",
+        "arm64",
+        "arm"
+      ],
+      "icon": "/apps/com.casa7014.pi-hole/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
+      "content_hash": "1b5ada7a"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

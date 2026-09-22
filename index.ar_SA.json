@@ -2,63 +2,73 @@
   "apps": [
     {
       "id": "com.casa7014.aria2",
-      "title": "Aria2",
-      "tagline": "أداة تنزيل خفيفة متعددة البروتوكولات."
+      "tagline": "أداة تنزيل خفيفة متعددة البروتوكولات.",
+      "title": "Aria2"
     },
     {
       "id": "com.casa7014.aria2-pro",
-      "title": "Aria2 Pro",
-      "tagline": "حاوية Docker محسّنة لـ Aria2."
+      "tagline": "حاوية Docker محسّنة لـ Aria2.",
+      "title": "Aria2 Pro"
+    },
+    {
+      "id": "com.casa7014.beszel",
+      "tagline": "مراقبة بسيطة للخوادم والحاويات",
+      "title": "Beszel"
     },
     {
       "id": "com.casa7014.bootimus",
-      "title": "Bootimus",
-      "tagline": "خادم إقلاع PXE وHTTP حديث."
+      "tagline": "خادم إقلاع PXE وHTTP حديث.",
+      "title": "Bootimus"
     },
     {
       "id": "com.casa7014.dispatcharr",
-      "title": "Dispatcharr",
-      "tagline": "إدارة بث IPTV والتسجيل."
+      "tagline": "إدارة بث IPTV والتسجيل.",
+      "title": "Dispatcharr"
     },
     {
       "id": "com.casa7014.fing-agent",
-      "title": "Fing Agent",
-      "tagline": "وكيل لمراقبة الشبكة."
+      "tagline": "وكيل لمراقبة الشبكة.",
+      "title": "Fing Agent"
     },
     {
       "id": "com.casa7014.fritzbox-wlan-password-rotator",
-      "title": "FritzBox WLAN Password Rotator",
-      "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا."
+      "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا.",
+      "title": "FritzBox WLAN Password Rotator"
     },
     {
       "id": "com.casa7014.lan-orangutan",
-      "title": "LAN Orangutan",
-      "tagline": "اكتشاف الشبكة وجرد الأجهزة."
+      "tagline": "اكتشاف الشبكة وجرد الأجهزة.",
+      "title": "LAN Orangutan"
     },
     {
       "id": "com.casa7014.linkstack",
-      "title": "LinkStack",
-      "tagline": "الحل المتكامل لإدارة الروابط."
+      "tagline": "الحل المتكامل لإدارة الروابط.",
+      "title": "LinkStack"
     },
     {
       "id": "com.casa7014.motioneye-beta",
-      "title": "MotionEye",
-      "tagline": "مراقبة فيديو لكاميراتك."
+      "tagline": "مراقبة فيديو لكاميراتك.",
+      "title": "MotionEye"
     },
     {
       "id": "com.casa7014.motrix",
-      "title": "Motrix",
-      "tagline": "مدير تنزيلات قوي لجهاز NAS الخاص بك."
+      "tagline": "مدير تنزيلات قوي لجهاز NAS الخاص بك.",
+      "title": "Motrix"
+    },
+    {
+      "id": "com.casa7014.pi-hole",
+      "tagline": "حجب الإعلانات على مستوى الشبكة",
+      "title": "Pi-hole"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
-      "title": "Portainer ( Business Edition )",
-      "tagline": "واجهة خفيفة لإدارة Docker."
+      "tagline": "واجهة خفيفة لإدارة Docker.",
+      "title": "Portainer ( Business Edition )"
     },
     {
       "id": "com.casa7014.portracker",
-      "title": "Portracker",
-      "tagline": "مراقبة المنافذ واكتشافها لحظيًا."
+      "tagline": "مراقبة المنافذ واكتشافها لحظيًا.",
+      "title": "Portracker"
     }
   ]
 }

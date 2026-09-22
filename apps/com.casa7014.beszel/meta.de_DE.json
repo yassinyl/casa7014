@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.beszel",
+  "title": "Beszel",
+  "tagline": "Einfache Server- und Containerüberwachung",
+  "description": "Leichtgewichtige Überwachung von Servern und Docker-Containern über ein zentrales Dashboard."
+}

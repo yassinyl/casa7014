@@ -1,6 +1,18 @@
 name: snikket
 
 services:
+  snikket-proxy:
+    image: snikket/snikket-web-proxy:stable
+    container_name: snikket-proxy
+    restart: unless-stopped
+    environment:
+      SNIKKET_DOMAIN: chat.example.com
+      SNIKKET_ADMIN_EMAIL: admin@example.com
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /snikket
+
   snikket:
     image: snikket/snikket-server:stable
     container_name: snikket
@@ -46,6 +58,8 @@ x-casaos:
   developer: Snikket Community Interest Company
   category: Networking
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Snikket/icon.svg
+  screenshot_link:
+    - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Snikket/screenshot.png
   description:
     en_US: Private, easy-to-use XMPP messaging for your family, friends, or community.
     ar_SA: مراسلة XMPP خاصة وسهلة الاستخدام لعائلتك وأصدقائك أو مجتمعك.

@@ -39,6 +39,7 @@ x-casaos:
   author: yassinyl
   developer: Pi-hole LLC
   category: Networking
+  version: "2025.08.0"
   icon: https://raw.githubusercontent.com/pi-hole/graphics/master/Vortex/Vortex.svg
   description:
     en_US: Network-wide ad blocking and DNS management for your home network.
@@ -52,7 +53,6 @@ x-casaos:
     de_DE: Netzwerkweite Werbeblockierung
     es_ES: Bloqueo de anuncios en toda la red
     fr_FR: Blocage des publicités sur tout le réseau
-  version: "2025.08.0"
   website: https://pi-hole.net/
   repo: https://github.com/pi-hole/pi-hole
   docs: https://docs.pi-hole.net/docker/

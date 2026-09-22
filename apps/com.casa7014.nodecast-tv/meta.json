@@ -6,6 +6,12 @@
   "author": "yassinyl",
   "developer": "Technomancer702",
   "category": "Media",
+  "screenshot_link": [
+    "/apps/com.casa7014.nodecast-tv/assets/screenshot-1.webp",
+    "/apps/com.casa7014.nodecast-tv/assets/screenshot-2.webp",
+    "/apps/com.casa7014.nodecast-tv/assets/screenshot-3.webp",
+    "/apps/com.casa7014.nodecast-tv/assets/screenshot-4.webp"
+  ],
   "description": "A self-hosted TV streaming application with a browser-based interface.",
   "tagline": "Self-hosted TV streaming",
   "repo": "https://github.com/Technomancer702/nodecast-tv",

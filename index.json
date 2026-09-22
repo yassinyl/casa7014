@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-22T11:09:10Z",
+  "updated_at": "2026-09-22T11:10:49Z",
   "app_count": 17,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -301,7 +301,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.nodecast-tv/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.nodecast-tv/meta.json",
-      "content_hash": "38a8ae74",
+      "content_hash": "e92b2171",
       "version": "2.1.1"
     },
     {

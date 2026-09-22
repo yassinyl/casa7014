@@ -43,6 +43,10 @@ x-casaos:
   scheme: http
   title:
     en_US: Aria2
+    ar_SA: Aria2
+    de_DE: Aria2
+    es_ES: Aria2
+    fr_FR: Aria2
   author: yassinyl
   developer: johngong
   category: Others
@@ -53,8 +57,16 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2/screenshot-2.png
   description:
     en_US: Lightweight multi-protocol and multi-source download utility.
+    ar_SA: أداة تنزيل خفيفة تدعم عدة بروتوكولات ومصادر.
+    de_DE: Leichtgewichtiger Download-Client für mehrere Protokolle und Quellen.
+    es_ES: Utilidad ligera de descargas multiprotocolo y multifuente.
+    fr_FR: Utilitaire de téléchargement léger, multiprotocole et multisource.
   tagline:
     en_US: Lightweight multi-protocol download utility
+    ar_SA: أداة تنزيل خفيفة متعددة البروتوكولات.
+    de_DE: Leichtgewichtiger Download-Client für mehrere Protokolle.
+    es_ES: Utilidad ligera de descargas multiprotocolo.
+    fr_FR: Utilitaire de téléchargement léger et multiprotocole.
   version: "1.36.0"
   repo: https://github.com/johngong/aria2
   docs: https://aria2.github.io/

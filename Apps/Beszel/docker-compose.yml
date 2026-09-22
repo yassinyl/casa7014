@@ -1,0 +1,60 @@
+name: beszel
+
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - target: 8090
+        published: "8090"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /beszel_data
+
+x-casaos:
+  id: com.casa7014.beszel
+  main: beszel
+  architectures: [amd64, arm64]
+  port_map: "8090"
+  index: /
+  scheme: http
+  title:
+    en_US: Beszel
+    ar_SA: Beszel
+    de_DE: Beszel
+    es_ES: Beszel
+    fr_FR: Beszel
+  author: yassinyl
+  developer: Henry Giese
+  category: Networking
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Beszel/icon.svg
+  description:
+    en_US: Lightweight server and Docker container monitoring with a central dashboard.
+    ar_SA: مراقبة خفيفة للخوادم وحاويات Docker عبر لوحة تحكم مركزية.
+    de_DE: Leichtgewichtige Überwachung von Servern und Docker-Containern über ein zentrales Dashboard.
+    es_ES: Monitorización ligera de servidores y contenedores Docker con un panel central.
+    fr_FR: Surveillance légère des serveurs et conteneurs Docker avec un tableau de bord central.
+  tagline:
+    en_US: Simple server and container monitoring
+    ar_SA: مراقبة بسيطة للخوادم والحاويات
+    de_DE: Einfache Server- und Containerüberwachung
+    es_ES: Monitorización sencilla de servidores y contenedores
+    fr_FR: Surveillance simple des serveurs et conteneurs
+  version: latest
+  website: https://beszel.dev/
+  repo: https://github.com/henrygd/beszel
+  docs: https://beszel.dev/guide/getting-started
+  support: https://github.com/henrygd/beszel/issues
+  tips:
+    before_install:
+      en_US: >-
+        Beszel installs the Hub dashboard. After installation, create your first
+        account, then add an Agent to each server you want to monitor. Keep this
+        dashboard on your trusted network and do not expose it directly to the Internet.
+    after_install:
+      en_US: >-
+        Open Beszel, create an account, and follow the in-app instructions to add
+        a monitored system. The Hub data is stored in /DATA/AppData/<AppID>/data.

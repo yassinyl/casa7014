@@ -41,6 +41,10 @@ x-casaos:
   scheme: http
   title:
     en_US: LAN Orangutan
+    ar_SA: LAN Orangutan
+    de_DE: LAN Orangutan
+    es_ES: LAN Orangutan
+    fr_FR: LAN Orangutan
   author: yassinyl
   developer: 291 Group
   category: Networking
@@ -51,8 +55,16 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/lan-orangutan/screenshot-2.png
   description:
     en_US: LAN Orangutan is a self-hosted network discovery and device inventory tool that scans your LAN, identifies devices, and helps you organize and monitor your network.
+    ar_SA: LAN Orangutan أداة مستضافة ذاتيًا لاكتشاف الشبكة وجرد الأجهزة، تفحص الشبكة المحلية وتتعرف على الأجهزة وتساعدك على تنظيم الشبكة ومراقبتها.
+    de_DE: LAN Orangutan ist ein selbst gehostetes Tool zur Netzwerkerkennung und Geräteinventarisierung, das Ihr LAN scannt, Geräte identifiziert und bei Organisation und Überwachung hilft.
+    es_ES: LAN Orangutan es una herramienta autoalojada de descubrimiento de red e inventario de dispositivos que analiza la LAN, identifica dispositivos y ayuda a organizar y supervisar la red.
+    fr_FR: LAN Orangutan est un outil auto-hébergé de découverte réseau et d’inventaire des appareils, qui analyse le réseau local, identifie les appareils et aide à organiser et surveiller le réseau.
   tagline:
     en_US: Network discovery and device inventory
+    ar_SA: اكتشاف الشبكة وجرد الأجهزة.
+    de_DE: Netzwerkerkennung und Geräteinventar.
+    es_ES: Descubrimiento de red e inventario de dispositivos.
+    fr_FR: Découverte réseau et inventaire des appareils.
   version: "3.3.8"
   update_at: "2026-09-16"
   release_notes:

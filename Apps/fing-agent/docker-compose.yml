@@ -6,10 +6,6 @@ services:
     network_mode: host
     cap_add: [NET_ADMIN]
     restart: always
-    ports:
-      - target: 44444
-        published: "44444"
-        protocol: tcp
     volumes:
       - type: bind
         source: /DATA/AppData/$AppID/data
@@ -23,13 +19,25 @@ x-casaos:
   scheme: http
   title:
     en_US: Fing Agent
+    ar_SA: Fing Agent
+    de_DE: Fing Agent
+    es_ES: Fing Agent
+    fr_FR: Fing Agent
   author: yassinyl
   developer: Fing
   category: Networking
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/fing-agent/icon.png
   description:
     en_US: Network monitoring agent that discovers and monitors devices on your local network.
+    ar_SA: وكيل لمراقبة الشبكة يكتشف الأجهزة على شبكتك المحلية ويراقبها.
+    de_DE: Netzwerkmonitoring-Agent, der Geräte im lokalen Netzwerk erkennt und überwacht.
+    es_ES: Agente de monitorización de red que descubre y supervisa dispositivos de la red local.
+    fr_FR: Agent de surveillance réseau qui détecte et surveille les appareils du réseau local.
   tagline:
     en_US: Network monitoring agent
+    ar_SA: وكيل لمراقبة الشبكة.
+    de_DE: Netzwerkmonitoring-Agent.
+    es_ES: Agente de monitorización de red.
+    fr_FR: Agent de surveillance réseau.
   version: "1.1.1"
   website: https://www.fing.com/products/fing-agent

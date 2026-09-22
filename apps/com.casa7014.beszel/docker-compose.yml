@@ -27,4 +27,4 @@ x-casaos:
     es_ES: Beszel
     fr_FR: Beszel
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.beszel/assets/icon.svg
-  version: 0.13.0
+  version: "0.13.0"

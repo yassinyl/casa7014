@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.snikket",
   "title": "Snikket",
-  "description": "Messagerie XMPP privée et facile à utiliser pour votre famille, vos amis ou votre communauté.",
-  "tagline": "Votre service de messagerie privé"
+  "tagline": "Votre service de messagerie privé",
+  "description": "Messagerie XMPP privée et facile à utiliser pour votre famille, vos amis ou votre communauté."
 }

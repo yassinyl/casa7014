@@ -43,7 +43,7 @@ x-casaos:
     de_DE: Einfache Server- und Containerüberwachung
     es_ES: Monitorización sencilla de servidores y contenedores
     fr_FR: Surveillance simple des serveurs et conteneurs
-  version: 0.13.0
+  version: "0.13.0"
   website: https://beszel.dev/
   repo: https://github.com/henrygd/beszel
   docs: https://beszel.dev/guide/getting-started

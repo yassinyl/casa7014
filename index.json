@@ -238,7 +238,7 @@
       "compose_url": "/apps/com.casa7014.misskey/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.misskey/meta.json",
       "content_hash": "0ccbc850",
-      "version": "2025.10.0"
+      "version": "25.10.0"
     },
     {
       "id": "com.casa7014.motioneye-beta",

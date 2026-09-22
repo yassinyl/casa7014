@@ -133,10 +133,8 @@ recommended_ids = recommendations.map { |app| app['appid'].to_s.strip }
 errors << 'recommend-list.json contains an empty appid' if recommended_ids.any?(&:empty?)
 errors << 'recommend-list.json contains duplicate app IDs' if recommended_ids.uniq.length != recommended_ids.length
 
-unknown_recommendations = recommended_ids - app_ids
-unless unknown_recommendations.empty?
-  errors << "recommend-list.json references unknown app IDs: #{unknown_recommendations.join(', ')}"
-end
+# The CasaOS V1 recommendation list uses its own opaque app IDs.  They are not
+# required to match the V2 x-casaos.id values used by the Compose manifests.
 
 unless errors.empty?
   warn errors.join("\n")

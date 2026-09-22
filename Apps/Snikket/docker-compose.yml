@@ -2,7 +2,7 @@ name: snikket
 
 services:
   snikket:
-    image: snikket/snikket-server:latest
+    image: snikket/snikket-server:stable
     container_name: snikket
     restart: unless-stopped
     environment:
@@ -58,7 +58,7 @@ x-casaos:
     de_DE: Ihr privater Nachrichtendienst
     es_ES: Tu servicio de mensajería privado
     fr_FR: Votre service de messagerie privé
-  version: "latest"
+  version: "stable"
   website: https://snikket.org/
   repo: https://github.com/snikket-im/snikket-server
   docs: https://snikket.org/service/help/admin/installation/docker/

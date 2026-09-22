@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.adguard-home",
   "title": "AdGuard Home",
-  "description": "Blocage des publicités et des traqueurs à l’échelle du réseau avec un serveur DNS privé.",
-  "tagline": "Blocage des publicités et des traqueurs à l’échelle du réseau"
+  "tagline": "Blocage des publicités et des traqueurs à l’échelle du réseau",
+  "description": "Blocage des publicités et des traqueurs à l’échelle du réseau avec un serveur DNS privé."
 }

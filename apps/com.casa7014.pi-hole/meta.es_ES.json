@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.pi-hole",
   "title": "Pi-hole",
-  "description": "Bloqueo de anuncios y gestión de DNS para toda tu red doméstica.",
-  "tagline": "Bloqueo de anuncios en toda la red"
+  "tagline": "Bloqueo de anuncios en toda la red",
+  "description": "Bloqueo de anuncios y gestión de DNS para toda tu red doméstica."
 }

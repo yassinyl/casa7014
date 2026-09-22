@@ -26,6 +26,10 @@ x-casaos:
   scheme: http
   title:
     en_US: Dispatcharr
+    ar_SA: Dispatcharr
+    de_DE: Dispatcharr
+    es_ES: Dispatcharr
+    fr_FR: Dispatcharr
   author: yassinyl
   developer: Dispatcharr
   category: Media
@@ -36,7 +40,15 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/dispatcharr/screenshot-2.png
   description:
     en_US: IPTV stream management platform for channels, streams, EPG and DVR.
+    ar_SA: منصة لإدارة بث IPTV للقنوات والبث ودليل البرامج والتسجيل.
+    de_DE: IPTV-Verwaltungsplattform für Kanäle, Streams, EPG und DVR.
+    es_ES: Plataforma de gestión IPTV para canales, transmisiones, EPG y DVR.
+    fr_FR: Plateforme de gestion IPTV pour chaînes, flux, EPG et DVR.
   tagline:
     en_US: IPTV Stream Management and DVR
+    ar_SA: إدارة بث IPTV والتسجيل.
+    de_DE: IPTV-Streamverwaltung und DVR.
+    es_ES: Gestión de transmisiones IPTV y DVR.
+    fr_FR: Gestion des flux IPTV et DVR.
   version: "0.31.0"
   repo: https://github.com/Dispatcharr/Dispatcharr

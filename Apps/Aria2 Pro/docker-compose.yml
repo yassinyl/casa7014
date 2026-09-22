@@ -38,13 +38,18 @@ services:
         target: /config
 x-casaos:
   id: com.casa7014.aria2-pro
-  main: aria2-pro
+  # AriaNg is the browser interface; aria2-pro only exposes its RPC service.
+  main: ariang
   architectures: [amd64, arm64, arm, "386"]
-  port_map: "6800"
-  index: /#!/downloading
+  port_map: "6880"
+  index: /
   scheme: http
   title:
     en_US: Aria2 Pro
+    ar_SA: Aria2 Pro
+    de_DE: Aria2 Pro
+    es_ES: Aria2 Pro
+    fr_FR: Aria2 Pro
   author: yassinyl
   developer: P3TERX
   category: Others
@@ -55,8 +60,16 @@ x-casaos:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Aria2%20Pro/screenshot-2.png
   description:
     en_US: Powerful Aria2 Docker container with AriaNg WebUI.
+    ar_SA: حاوية Aria2 قوية مع واجهة AriaNg على الويب.
+    de_DE: Leistungsstarker Aria2-Container mit AriaNg-Weboberfläche.
+    es_ES: Potente contenedor Aria2 con interfaz web AriaNg.
+    fr_FR: Conteneur Aria2 puissant avec interface web AriaNg.
   tagline:
     en_US: A better Aria2 Docker container
+    ar_SA: حاوية Docker محسّنة لـ Aria2.
+    de_DE: Ein besserer Aria2-Docker-Container.
+    es_ES: Un contenedor Docker de Aria2 mejorado.
+    fr_FR: Un meilleur conteneur Docker pour Aria2.
   version: "1.0.0"
   repo: https://github.com/P3TERX/Aria2-Pro-Docker
   docs: https://p3terx.com/archives/docker-aria2-pro.html

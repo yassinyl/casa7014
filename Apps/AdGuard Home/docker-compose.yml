@@ -2,7 +2,7 @@ name: adguard-home
 
 services:
   adguard-home:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome:v0.107.79
     container_name: adguard-home
     restart: unless-stopped
     ports:
@@ -52,7 +52,7 @@ x-casaos:
     de_DE: Netzwerkweite Werbe- und Tracker-Blockierung
     es_ES: Bloqueo de anuncios y rastreadores en toda la red
     fr_FR: Blocage des publicités et des traqueurs à l’échelle du réseau
-  version: latest
+  version: v0.107.79
   website: https://adguard.com/adguard-home/overview.html
   repo: https://github.com/AdguardTeam/AdGuardHome
   docs: https://github.com/AdguardTeam/AdGuardHome/wiki/Getting-Started

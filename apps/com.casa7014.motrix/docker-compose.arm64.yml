@@ -3,16 +3,9 @@ name: motrix
 services:
   server:
     image: docker.io/motrixapp/motrix-server:2.0.0-beta.39@sha256:2cc75a343b99ff5d1f0552e7837dc88fa5311e5019cb0a9b7b32d8388811040a
-    init: true
-    read_only: true
-    user: "1000:1000"
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    stop_grace_period: 2m
-    tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
     environment:
+      PUID: "1000"
+      PGID: "1000"
       MOTRIX_DATA_DIR: /data
       MOTRIX_TEMP_DIR: /data/tmp
       MOTRIX_PLUGIN_DIR: /data/plugins

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-23T13:43:19Z",
+  "updated_at": "2026-09-23T19:57:28Z",
   "app_count": 18,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -280,7 +280,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.motrix/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.motrix/meta.json",
-      "content_hash": "252da742",
+      "content_hash": "e379610f",
       "version": "2.0.0-beta.39"
     },
     {

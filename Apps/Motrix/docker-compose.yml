@@ -3,16 +3,9 @@ name: motrix
 services:
   server:
     image: docker.io/motrixapp/motrix-server:2.0.0-beta.39
-    init: true
-    read_only: true
-    user: "1000:1000"
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    stop_grace_period: 2m
-    tmpfs:
-      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
     environment:
+      PUID: "1000"
+      PGID: "1000"
       MOTRIX_DATA_DIR: /data
       MOTRIX_TEMP_DIR: /data/tmp
       MOTRIX_PLUGIN_DIR: /data/plugins
@@ -70,4 +63,28 @@ x-casaos:
   support: https://github.com/agalwood/Motrix/issues
   tips:
     before_install:
-      en_US: "Motrix Server runs as UID/GID 1000. On first start, open /DATA/AppData/<AppID>/data and copy operator-token into the Web UI. Direct HTTP operator access is enabled for trusted-LAN use; do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801. Ensure the data and downloads folders are writable by UID/GID 1000."
+      en_US: |-
+        Motrix Server uses UID/GID 1000:1000. Ensure that the host download directory is writable by this user.
+
+        To prepare a download directory on your HDD, replace /YOUR/HDD/PATH/Motrix with the actual directory path and run:
+
+        sudo mkdir -p "/YOUR/HDD/PATH/Motrix"
+        sudo chown 1000:1000 "/YOUR/HDD/PATH/Motrix"
+        sudo chmod 775 "/YOUR/HDD/PATH/Motrix"
+
+        On first launch, open /DATA/AppData/<AppID>/data and copy the operator-token into the Web UI. Direct HTTP operator access is enabled for trusted-LAN use. Do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801.
+
+        If you want to change the HDD or download directory after installation, stop Motrix first. Create the new download directory and apply the ownership and permission commands above. Then update the download volume mapping so the new host directory maps to /downloads. Save the configuration and start Motrix again. Keep the existing data directory unchanged to preserve your settings and operator token.
+
+      fr_FR: |-
+        Motrix Server utilise l'UID/GID 1000:1000. Assurez-vous que cet utilisateur dispose des droits d'écriture sur le dossier de téléchargement de l'hôte.
+
+        Pour préparer un dossier de téléchargement sur votre disque dur, remplacez /YOUR/HDD/PATH/Motrix par le chemin réel du dossier, puis exécutez :
+
+        sudo mkdir -p "/YOUR/HDD/PATH/Motrix"
+        sudo chown 1000:1000 "/YOUR/HDD/PATH/Motrix"
+        sudo chmod 775 "/YOUR/HDD/PATH/Motrix"
+
+        Lors du premier démarrage, ouvrez /DATA/AppData/<AppID>/data et copiez le operator-token dans l'interface Web. L'accès HTTP direct à l'opérateur est activé pour un réseau local de confiance. N'exposez pas le port 8080 à Internet. Pour l'appairage à distance, configurez MOTRIX_PUBLIC_URL avec l'URL accessible de l'interface Web. MDXP utilise le port 16801.
+
+        Pour changer de disque dur ou de dossier de téléchargement après l'installation, arrêtez d'abord Motrix. Créez le nouveau dossier de téléchargement et appliquez les commandes de propriétaire et de permissions ci-dessus. Modifiez ensuite le volume de téléchargement afin que le nouveau dossier hôte soit associé à /downloads. Enregistrez la configuration, puis redémarrez Motrix. Conservez le dossier de données existant pour préserver vos paramètres et votre operator token.

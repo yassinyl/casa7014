@@ -10,6 +10,7 @@ for s in detect-v2-migration.sh lint-casaos-v2.sh; do
 done
 
 ruby -c "$ROOT/.github/scripts/validate-store-catalog.rb"
+ruby -c "$ROOT/.github/scripts/verify-v2-build.rb"
 ruby "$ROOT/.github/scripts/validate-store-catalog.rb" "$ROOT"
 
 command -v yq >/dev/null

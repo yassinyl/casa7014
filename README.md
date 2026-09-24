@@ -91,6 +91,8 @@ If you have any suggestions, bug reports, or ideas for improving
 
 - CasaOS V1 uses the ZIP AppStore format.
 - ZimaOS V2 uses the V2 JSON store format.
+- The V2 catalog publishes one store-level `updated_at` timestamp; it does not
+  publish `update_at` or `updated_at` separately for each application.
 - Application metadata is defined in each application's
   `docker-compose.yml`.
 - The application table above is automatically updated by GitHub Actions.

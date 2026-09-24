@@ -72,7 +72,9 @@ x-casaos:
     de_DE: Ihr privater Nachrichtendienst
     es_ES: Tu servicio de mensajería privado
     fr_FR: Votre service de messagerie privé
-  version: "stable"
+  # The upstream image is intentionally tracked through its moving `stable` tag.
+  # Keep the catalog value semantic so the V2 store generator publishes it.
+  version: "0.0.0-stable"
   website: https://snikket.org/
   repo: https://github.com/snikket-im/snikket-server
   docs: https://snikket.org/service/help/admin/installation/docker/

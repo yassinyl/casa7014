@@ -44,6 +44,9 @@ jobs:
           path: out/build-v2-report.json
           if-no-files-found: ignore
 
+      - name: Verify published V2 catalog metadata
+        run: ruby .github/scripts/verify-v2-build.rb . dist
+
       - name: Build CasaOS V1 ZIP
         run: |
           set -euo pipefail

@@ -27,6 +27,7 @@ REQUIRED_APP_FIELDS = %w[
   description tagline version
 ].freeze
 VALID_ARCHITECTURES = %w[amd64 arm arm64 386 ppc64le riscv64 s390x].freeze
+UNPUBLISHED_APP_FIELDS = %w[update_at updated_at].freeze
 
 def published_ports(service)
   Array(service['ports']).filter_map do |port|
@@ -41,6 +42,14 @@ end
 
 def valid_http_url?(value)
   value.is_a?(String) && value.match?(%r{\Ahttps?://[^\s]+\z})
+end
+
+# The V2 store generator omits versions that are not semantic versions. Validate
+# them here so an otherwise valid compose file cannot publish incomplete metadata.
+def semantic_version?(value)
+  value.is_a?(String) && value.match?(
+    /\A(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?\z/
+  )
 end
 
 %w[name description].each do |field|
@@ -73,6 +82,10 @@ apps = Dir.glob(File.join(root, 'Apps', '*', 'docker-compose.yml')).sort.filter_
   errors << "#{path}: x-casaos.scheme must be http or https" unless %w[http https].include?(metadata['scheme'])
   errors << "#{path}: x-casaos.index must start with /" unless metadata['index'].is_a?(String) && metadata['index'].start_with?('/')
   errors << "#{path}: x-casaos.port_map must be a numeric port" unless metadata['port_map'].to_s.match?(/\A[1-9]\d{0,4}\z/)
+  errors << "#{path}: x-casaos.version must be a semantic version" unless semantic_version?(metadata['version'])
+  UNPUBLISHED_APP_FIELDS.each do |field|
+    errors << "#{path}: x-casaos.#{field} is not published per app; the V2 catalog only has a store-level updated_at" if metadata.key?(field)
+  end
 
   architectures = metadata['architectures']
   unless architectures.is_a?(Array) && !architectures.empty? && architectures.all? { |architecture| VALID_ARCHITECTURES.include?(architecture.to_s) }

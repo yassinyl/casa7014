@@ -68,7 +68,6 @@ x-casaos:
     es_ES: Monitorización y descubrimiento de puertos en tiempo real.
     fr_FR: Surveillance et découverte des ports en temps réel.
   version: "1.3.13"
-  update_at: "2026-09-17"
   release_notes:
     en_US: |-
       Portracker 1.3.13 provides real-time port monitoring and discovery,

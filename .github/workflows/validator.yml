@@ -51,6 +51,9 @@ jobs:
           python-version: "3.11"
           install-system-deps: "true"
 
+      - name: Verify published V2 catalog metadata
+        run: ruby .github/scripts/verify-v2-build.rb . /tmp/casa7014-dist
+
       - name: Upload V2 validation report
         if: always()
         uses: actions/upload-artifact@v4

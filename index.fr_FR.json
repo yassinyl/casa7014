@@ -81,7 +81,8 @@
     {
       "id": "com.casa7014.portainer-business-edition",
       "tagline": "Interface légère de gestion Docker.",
-      "title": "Portainer ( Business Edition )"
+      "title": "Portainer ( Business Edition )",
+      "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.portracker",

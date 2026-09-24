@@ -2,5 +2,6 @@
   "id": "com.casa7014.portainer-business-edition",
   "title": "Portainer ( Business Edition )",
   "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
-  "description": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung."
+  "description": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
+  "update_at": "2026-09-17"
 }

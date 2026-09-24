@@ -14,6 +14,7 @@
   ],
   "description": "Lightweight Docker management UI.",
   "tagline": "Lightweight Docker management UI",
+  "update_at": "2026-09-17",
   "website": "https://www.portainer.io/",
   "repo": "https://github.com/portainer/portainer",
   "docs": "https://docs.portainer.io/",

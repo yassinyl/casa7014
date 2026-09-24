@@ -81,7 +81,8 @@
     {
       "id": "com.casa7014.portainer-business-edition",
       "tagline": "واجهة خفيفة لإدارة Docker.",
-      "title": "Portainer ( Business Edition )"
+      "title": "Portainer ( Business Edition )",
+      "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.portracker",

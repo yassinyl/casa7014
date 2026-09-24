@@ -36,4 +36,4 @@ x-casaos:
     es_ES: Pi-hole
     fr_FR: Pi-hole
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.pi-hole/assets/icon.svg
-  version: "26.09"
+  version: "2026.9.0"

@@ -20,7 +20,7 @@
   "title": "Snikket",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.snikket",
-  "version": "stable",
+  "version": "0.0.0-stable",
   "categories": [
     "networking"
   ],

@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.fing-agent",
   "title": "Fing Agent",
-  "tagline": "Agente de monitorización de red.",
-  "description": "Agente de monitorización de red que descubre y supervisa dispositivos de la red local."
+  "description": "Agente de monitorización de red que descubre y supervisa dispositivos de la red local.",
+  "tagline": "Agente de monitorización de red."
 }

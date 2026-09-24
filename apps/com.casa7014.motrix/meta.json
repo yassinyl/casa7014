@@ -8,7 +8,7 @@
   "category": "Others",
   "description": "Motrix Server is a headless download manager for HTTP, FTP, BitTorrent and magnet links, with a browser-based interface.",
   "tagline": "Powerful download manager for your NAS",
-  "update_at": "20-9-2026",
+  "update_at": "2026-09-20",
   "repo": "https://github.com/agalwood/Motrix",
   "docs": "https://motrix.app/manual/docker/",
   "website": "https://motrix.app/",

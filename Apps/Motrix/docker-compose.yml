@@ -2,7 +2,7 @@ name: motrix
 
 services:
   server:
-    image: docker.io/motrixapp/motrix-server:2.0.0-beta.39
+    image: docker.io/motrixapp/motrix-server:2.0.0-beta.40
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -44,6 +44,8 @@ x-casaos:
   developer: agalwood
   category: Others
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Motrix/icon.png
+  #screenshot_link:
+   # - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/Motrix/screenshot.png
   description:
     en_US: Motrix Server is a headless download manager for HTTP, FTP, BitTorrent and magnet links, with a browser-based interface.
     ar_SA: Motrix Server مدير تنزيلات بلا واجهة سطح مكتب لـ HTTP وFTP وBitTorrent وروابط magnet، مع واجهة عبر المتصفح.
@@ -56,7 +58,8 @@ x-casaos:
     de_DE: Leistungsstarker Download-Manager für Ihr NAS.
     es_ES: Potente gestor de descargas para tu NAS.
     fr_FR: Gestionnaire de téléchargements puissant pour votre NAS.
-  version: "2.0.0-beta.39"
+  version: "2.0.0-beta.40"
+  update_at: "20.9.2026
   repo: https://github.com/agalwood/Motrix
   docs: https://motrix.app/manual/docker/
   website: https://motrix.app/
@@ -72,7 +75,9 @@ x-casaos:
         sudo chown 1000:1000 "/YOUR/HDD/PATH/Motrix"
         sudo chmod 775 "/YOUR/HDD/PATH/Motrix"
 
-        On first launch, open /DATA/AppData/<AppID>/data and copy the operator-token into the Web UI. Direct HTTP operator access is enabled for trusted-LAN use. Do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801.
+        After starting Motrix for the first time, the Web UI will ask for an operator token. You can find it in /AppData/motrix/data, in a file named operator-token (without any file extension). Open this file as a plain text file to view and copy the token, then paste it into the Motrix Web UI. Do not add a file extension to operator-token.
+
+        Direct HTTP operator access is enabled for trusted-LAN use. Do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801.
 
         If you want to change the HDD or download directory after installation, stop Motrix first. Create the new download directory and apply the ownership and permission commands above. Then update the download volume mapping so the new host directory maps to /downloads. Save the configuration and start Motrix again. Keep the existing data directory unchanged to preserve your settings and operator token.
 
@@ -85,6 +90,8 @@ x-casaos:
         sudo chown 1000:1000 "/YOUR/HDD/PATH/Motrix"
         sudo chmod 775 "/YOUR/HDD/PATH/Motrix"
 
-        Lors du premier démarrage, ouvrez /DATA/AppData/<AppID>/data et copiez le operator-token dans l'interface Web. L'accès HTTP direct à l'opérateur est activé pour un réseau local de confiance. N'exposez pas le port 8080 à Internet. Pour l'appairage à distance, configurez MOTRIX_PUBLIC_URL avec l'URL accessible de l'interface Web. MDXP utilise le port 16801.
+        Après le premier démarrage de Motrix, l'interface Web vous demandera un operator token. Vous le trouverez dans /AppData/motrix/data, dans un fichier nommé operator-token (sans extension). Ouvrez ce fichier comme un fichier texte brut pour afficher et copier le token, puis collez-le dans l'interface Web de Motrix. N'ajoutez aucune extension au fichier operator-token.
+
+        L'accès HTTP direct à l'opérateur est activé pour un réseau local de confiance. N'exposez pas le port 8080 à Internet. Pour l'appairage à distance, configurez MOTRIX_PUBLIC_URL avec l'URL accessible de l'interface Web. MDXP utilise le port 16801.
 
         Pour changer de disque dur ou de dossier de téléchargement après l'installation, arrêtez d'abord Motrix. Créez le nouveau dossier de téléchargement et appliquez les commandes de propriétaire et de permissions ci-dessus. Modifiez ensuite le volume de téléchargement afin que le nouveau dossier hôte soit associé à /downloads. Enregistrez la configuration, puis redémarrez Motrix. Conservez le dossier de données existant pour préserver vos paramètres et votre operator token.

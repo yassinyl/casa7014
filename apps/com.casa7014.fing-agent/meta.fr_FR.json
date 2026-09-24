@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.fing-agent",
   "title": "Fing Agent",
-  "description": "Agent de surveillance réseau qui détecte et surveille les appareils du réseau local.",
-  "tagline": "Agent de surveillance réseau."
+  "tagline": "Agent de surveillance réseau.",
+  "description": "Agent de surveillance réseau qui détecte et surveille les appareils du réseau local."
 }

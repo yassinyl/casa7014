@@ -2,5 +2,6 @@
   "id": "com.casa7014.lan-orangutan",
   "title": "LAN Orangutan",
   "tagline": "Découverte réseau et inventaire des appareils.",
-  "description": "LAN Orangutan est un outil auto-hébergé de découverte réseau et d’inventaire des appareils, qui analyse le réseau local, identifie les appareils et aide à organiser et surveiller le réseau."
+  "description": "LAN Orangutan est un outil auto-hébergé de découverte réseau et d’inventaire des appareils, qui analyse le réseau local, identifie les appareils et aide à organiser et surveiller le réseau.",
+  "update_at": "2026-09-16"
 }

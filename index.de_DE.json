@@ -3,7 +3,8 @@
     {
       "id": "com.casa7014.adguard-home",
       "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung",
-      "title": "AdGuard Home"
+      "title": "AdGuard Home",
+      "update_at": "2026-09-01"
     },
     {
       "id": "com.casa7014.aria2",
@@ -43,7 +44,8 @@
     {
       "id": "com.casa7014.lan-orangutan",
       "tagline": "Netzwerkerkennung und Geräteinventar.",
-      "title": "LAN Orangutan"
+      "title": "LAN Orangutan",
+      "update_at": "2026-09-16"
     },
     {
       "id": "com.casa7014.linkstack",
@@ -63,7 +65,8 @@
     {
       "id": "com.casa7014.motrix",
       "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
-      "title": "Motrix"
+      "title": "Motrix",
+      "update_at": "2026-09-20"
     },
     {
       "id": "com.casa7014.nodecast-tv",
@@ -83,7 +86,8 @@
     {
       "id": "com.casa7014.portracker",
       "tagline": "Portüberwachung und -erkennung in Echtzeit.",
-      "title": "Portracker"
+      "title": "Portracker",
+      "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.snikket",

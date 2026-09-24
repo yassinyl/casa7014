@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.adguard-home",
   "title": "AdGuard Home",
-  "description": "Netzwerkweite Werbe- und Tracker-Blockierung mit einem privaten DNS-Server.",
-  "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung"
+  "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung",
+  "description": "Netzwerkweite Werbe- und Tracker-Blockierung mit einem privaten DNS-Server."
 }

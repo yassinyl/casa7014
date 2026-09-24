@@ -2,7 +2,7 @@ name: motrix
 
 services:
   server:
-    image: docker.io/motrixapp/motrix-server:2.0.0-beta.39@sha256:56f890e3a99232b11d1b1c97434723919f70648035e4696a94188c82dd5ff4da
+    image: docker.io/motrixapp/motrix-server:2.0.0-beta.40@sha256:bd78abe7f6e881c223a1e96e3c794868d138a4245d4f9014528fb0607057039f
     environment:
       PUID: "1000"
       PGID: "1000"
@@ -38,4 +38,4 @@ x-casaos:
     es_ES: Motrix
     fr_FR: Motrix
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.motrix/assets/icon.png
-  version: "2.0.0-beta.39"
+  version: "2.0.0-beta.40"

@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.motioneye-beta",
   "title": "MotionEye",
-  "description": "Application de vidéosurveillance open source pour gérer les webcams et les caméras IP.",
-  "tagline": "Vidéosurveillance pour vos caméras."
+  "tagline": "Vidéosurveillance pour vos caméras.",
+  "description": "Application de vidéosurveillance open source pour gérer les webcams et les caméras IP."
 }

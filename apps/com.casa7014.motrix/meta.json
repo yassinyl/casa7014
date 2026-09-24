@@ -8,23 +8,24 @@
   "category": "Others",
   "description": "Motrix Server is a headless download manager for HTTP, FTP, BitTorrent and magnet links, with a browser-based interface.",
   "tagline": "Powerful download manager for your NAS",
+  "update_at": "20-9-2026",
   "repo": "https://github.com/agalwood/Motrix",
   "docs": "https://motrix.app/manual/docker/",
   "website": "https://motrix.app/",
   "support": "https://github.com/agalwood/Motrix/issues",
   "tips": {
-    "before_install": "Motrix Server uses UID/GID 1000:1000. Ensure that the host download directory is writable by this user.\n\nTo prepare a download directory on your HDD, replace /YOUR/HDD/PATH/Motrix with the actual directory path and run:\n\nsudo mkdir -p \"/YOUR/HDD/PATH/Motrix\"\nsudo chown 1000:1000 \"/YOUR/HDD/PATH/Motrix\"\nsudo chmod 775 \"/YOUR/HDD/PATH/Motrix\"\n\nOn first launch, open /DATA/AppData/<AppID>/data and copy the operator-token into the Web UI. Direct HTTP operator access is enabled for trusted-LAN use. Do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801.\n\nIf you want to change the HDD or download directory after installation, stop Motrix first. Create the new download directory and apply the ownership and permission commands above. Then update the download volume mapping so the new host directory maps to /downloads. Save the configuration and start Motrix again. Keep the existing data directory unchanged to preserve your settings and operator token."
+    "before_install": "Motrix Server uses UID/GID 1000:1000. Ensure that the host download directory is writable by this user.\n\nTo prepare a download directory on your HDD, replace /YOUR/HDD/PATH/Motrix with the actual directory path and run:\n\nsudo mkdir -p \"/YOUR/HDD/PATH/Motrix\"\nsudo chown 1000:1000 \"/YOUR/HDD/PATH/Motrix\"\nsudo chmod 775 \"/YOUR/HDD/PATH/Motrix\"\n\nAfter starting Motrix for the first time, the Web UI will ask for an operator token. You can find it in /AppData/motrix/data, in a file named operator-token (without any file extension). Open this file as a plain text file to view and copy the token, then paste it into the Motrix Web UI. Do not add a file extension to operator-token.\n\nDirect HTTP operator access is enabled for trusted-LAN use. Do not expose port 8080 to the Internet. For remote pairing, configure MOTRIX_PUBLIC_URL with the reachable Web UI URL. MDXP uses port 16801.\n\nIf you want to change the HDD or download directory after installation, stop Motrix first. Create the new download directory and apply the ownership and permission commands above. Then update the download volume mapping so the new host directory maps to /downloads. Save the configuration and start Motrix again. Keep the existing data directory unchanged to preserve your settings and operator token."
   },
   "title": "Motrix",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.motrix",
-  "version": "2.0.0-beta.39",
+  "version": "2.0.0-beta.40",
   "categories": [
     "others"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 80604989,
-    "arm64": 81363052
+    "amd64": 80649426,
+    "arm64": 81401611
   }
 }

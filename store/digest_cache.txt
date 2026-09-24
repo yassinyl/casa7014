@@ -1,6 +1,6 @@
 adguard/adguardhome:v0.107.79 sha256:abadc6ec47f8ca385cb38f2abfeb11ca6a2b0277964967b1954c63e11b517f4f
 alpine:3.22 sha256:3e9b4b680bfc9fb5269227cffbd6d42be39fbf7c0b908123913864aa4447e764
-docker.io/motrixapp/motrix-server:2.0.0-beta.39 sha256:56f890e3a99232b11d1b1c97434723919f70648035e4696a94188c82dd5ff4da
+docker.io/motrixapp/motrix-server:2.0.0-beta.40 sha256:bd78abe7f6e881c223a1e96e3c794868d138a4245d4f9014528fb0607057039f
 fing/fing-agent:1.1.1 sha256:fc8594058fd0583fbb3142049aa5d67f26b63d329d93eb18961e0ba5516f646d
 garybowers/bootimus:0.1.76 sha256:db5aa15bebc2a7a1a8d1afdc19b3d42293b2912470d4753ceded8dda9020affa
 ghcr.io/291-group/lan-orangutan:3.3.8 sha256:c90d0d9c2610949293d2e75d7b8e420d1aed038eacd9e0c83f12f31ef14f30bf

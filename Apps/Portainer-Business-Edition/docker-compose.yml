@@ -55,7 +55,7 @@ x-casaos:
     es_ES: Interfaz ligera de gestión de Docker.
     fr_FR: Interface légère de gestion Docker.
   version: "2.45.1"
-  update_at: "2026-90-17"
+  update_at: "2026-09-17"
   website: https://www.portainer.io/
   repo: https://github.com/portainer/portainer
   docs: https://docs.portainer.io/

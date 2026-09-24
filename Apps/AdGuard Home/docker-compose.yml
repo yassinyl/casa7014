@@ -53,7 +53,7 @@ x-casaos:
     es_ES: Bloqueo de anuncios y rastreadores en toda la red
     fr_FR: Blocage des publicités et des traqueurs à l’échelle du réseau
   version: "0.107.79"
-  update_at: "2026-9-1"
+  update_at: "2026-09-01"
   website: https://adguard.com/adguard-home/overview.html
   repo: https://github.com/AdguardTeam/AdGuardHome
   docs: https://github.com/AdguardTeam/AdGuardHome/wiki/Getting-Started

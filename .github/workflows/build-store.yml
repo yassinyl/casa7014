@@ -37,6 +37,9 @@ jobs:
           python-version: "3.11"
           install-system-deps: "true"
 
+      - name: Preserve update dates in published metadata
+        run: ruby .github/scripts/sync-update-at-metadata.rb . dist
+
       - name: Upload V2 build report
         uses: actions/upload-artifact@v5
         with:

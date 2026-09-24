@@ -52,7 +52,8 @@ x-casaos:
     de_DE: Netzwerkweite Werbeblockierung
     es_ES: Bloqueo de anuncios en toda la red
     fr_FR: Blocage des publicités sur tout le réseau
-  version: "26.09"
+  # Normalize the image's calendar tag (2026.09.0) to a semantic version.
+  version: "2026.9.0"
   website: https://pi-hole.net/
   repo: https://github.com/pi-hole/pi-hole
   docs: https://docs.pi-hole.net/docker/

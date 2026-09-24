@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-24T22:28:40Z",
+  "updated_at": "2026-09-24T22:56:26Z",
   "app_count": 18,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -23,7 +23,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.adguard-home/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.adguard-home/meta.json",
-      "content_hash": "4510a2a5",
+      "content_hash": "a549bcb0",
       "version": "0.107.79"
     },
     {

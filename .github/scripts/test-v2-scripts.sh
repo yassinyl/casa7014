@@ -11,6 +11,7 @@ done
 
 ruby -c "$ROOT/.github/scripts/validate-store-catalog.rb"
 ruby "$ROOT/.github/scripts/validate-store-catalog.rb" "$ROOT"
+ruby "$ROOT/.github/scripts/test-sync-update-at-metadata.rb"
 
 command -v yq >/dev/null
 bash "$ROOT/.github/scripts/lint-casaos-v2.sh" "$ROOT"

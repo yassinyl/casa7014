@@ -3,6 +3,7 @@
 
 require 'json'
 require 'yaml'
+require 'date'
 
 root = ARGV.fetch(0, File.expand_path('../..', __dir__))
 
@@ -82,6 +83,16 @@ apps = Dir.glob(File.join(root, 'Apps', '*', 'docker-compose.yml')).sort.filter_
   errors << "#{path}: x-casaos.index must start with /" unless metadata['index'].is_a?(String) && metadata['index'].start_with?('/')
   errors << "#{path}: x-casaos.port_map must be a numeric port" unless metadata['port_map'].to_s.match?(/\A[1-9]\d{0,4}\z/)
   errors << "#{path}: x-casaos.version must be a semantic version" unless semantic_version?(metadata['version'])
+
+  if metadata.key?('update_at')
+    update_at = metadata['update_at']
+    begin
+      valid_update_at = update_at.is_a?(String) && Date.iso8601(update_at).iso8601 == update_at
+    rescue Date::Error
+      valid_update_at = false
+    end
+    errors << "#{path}: x-casaos.update_at must be an ISO 8601 date (YYYY-MM-DD)" unless valid_update_at
+  end
 
   architectures = metadata['architectures']
   unless architectures.is_a?(Array) && !architectures.empty? && architectures.all? { |architecture| VALID_ARCHITECTURES.include?(architecture.to_s) }

@@ -59,7 +59,7 @@ x-casaos:
     es_ES: Potente gestor de descargas para tu NAS.
     fr_FR: Gestionnaire de téléchargements puissant pour votre NAS.
   version: "2.0.0-beta.40"
-  update_at: "20-9-2026
+  update_at: "20-9-2026"
   repo: https://github.com/agalwood/Motrix
   docs: https://motrix.app/manual/docker/
   website: https://motrix.app/

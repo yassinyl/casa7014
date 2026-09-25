@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-24T23:53:40Z",
+  "updated_at": "2026-09-25T00:01:56Z",
   "app_count": 18,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -326,8 +326,9 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.pi-hole/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.pi-hole/meta.json",
-      "content_hash": "51ba0c29",
-      "version": "2026.9.0"
+      "content_hash": "ca6c6f80",
+      "version": "2026.9.0",
+      "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

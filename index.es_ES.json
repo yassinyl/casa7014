@@ -76,7 +76,8 @@
     {
       "id": "com.casa7014.pi-hole",
       "tagline": "Bloqueo de anuncios en toda la red",
-      "title": "Pi-hole"
+      "title": "Pi-hole",
+      "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

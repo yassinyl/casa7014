@@ -9,6 +9,7 @@
   "category": "Networking",
   "description": "Network-wide ad blocking and DNS management for your home network.",
   "tagline": "Network-wide ad blocking",
+  "update_at": "2026-09-19",
   "website": "https://pi-hole.net/",
   "repo": "https://github.com/pi-hole/pi-hole",
   "docs": "https://docs.pi-hole.net/docker/",

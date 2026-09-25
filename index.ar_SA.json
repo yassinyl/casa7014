@@ -76,7 +76,8 @@
     {
       "id": "com.casa7014.pi-hole",
       "tagline": "حجب الإعلانات على مستوى الشبكة",
-      "title": "Pi-hole"
+      "title": "Pi-hole",
+      "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",

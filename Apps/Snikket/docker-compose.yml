@@ -14,7 +14,7 @@ services:
         target: /snikket
 
   snikket:
-    image: snikket/snikket-server:stable
+    image: snikket/snikket-server:stable.20260611
     container_name: snikket
     restart: unless-stopped
     environment:
@@ -74,7 +74,8 @@ x-casaos:
     fr_FR: Votre service de messagerie privé
   # The upstream image is intentionally tracked through its moving `stable` tag.
   # Keep the catalog value semantic so the V2 store generator publishes it.
-  version: "0.0.0-stable"
+  version: "stable.20260611"
+  update_at: "2026-06-11"
   website: https://snikket.org/
   repo: https://github.com/snikket-im/snikket-server
   docs: https://snikket.org/service/help/admin/installation/docker/

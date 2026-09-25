@@ -39,7 +39,7 @@ jobs:
           done
 
       - name: Build V2 store for validation
-        uses: IceWhaleTech/build-appstore-action@v1
+        uses: IceWhaleTech/build-appstore-action@c9bb47fad5b32d7928a07978fad68801f52e910f
         with:
           source: .
           output: /tmp/casa7014-dist

@@ -15,6 +15,8 @@ end
 
 supported_languages = read_json(File.join(root, 'supported-languages.json'))
 store_config = read_json(File.join(root, 'store-config.json'))
+categories = read_json(File.join(root, 'category-list.json'))
+recommendations = read_json(File.join(root, 'recommend-list.json'))
 
 unless supported_languages.is_a?(Array) && supported_languages.all? { |language| language.is_a?(String) && !language.empty? }
   abort 'supported-languages.json must contain an array of non-empty language codes'
@@ -22,6 +24,38 @@ end
 
 errors = []
 errors << 'supported-languages.json contains duplicate language codes' if supported_languages.uniq.length != supported_languages.length
+
+unless store_config['version'] == 2
+  errors << 'store-config.json: version must be 2 for the ZimaOS/CasaOS V2 catalog'
+end
+
+%w[store_id maintainer url].each do |field|
+  value = store_config[field]
+  errors << "store-config.json: missing #{field}" unless value.is_a?(String) && !value.strip.empty?
+end
+
+unless store_config['url'].is_a?(String) && store_config['url'].match?(%r{\Ahttps?://[^\s]+\z})
+  errors << 'store-config.json: url must be an HTTP(S) URL'
+end
+
+unless categories.is_a?(Array) && !categories.empty?
+  errors << 'category-list.json must contain at least one category'
+  categories = []
+end
+
+category_names = categories.filter_map do |category|
+  unless category.is_a?(Hash)
+    errors << 'category-list.json entries must be objects'
+    next
+  end
+
+  %w[name font description].each do |field|
+    value = category[field]
+    errors << "category-list.json: category #{field} must be a non-empty string" unless value.is_a?(String) && !value.strip.empty?
+  end
+  category['name']
+end
+errors << 'category-list.json contains duplicate category names' if category_names.compact.uniq.length != category_names.compact.length
 
 REQUIRED_APP_FIELDS = %w[
   id main architectures port_map index scheme title author developer category icon
@@ -127,11 +161,35 @@ apps = Dir.glob(File.join(root, 'Apps', '*', 'docker-compose.yml')).sort.filter_
     missing = supported_languages.reject { |language| localized[language].is_a?(String) && !localized[language].strip.empty? }
     errors << "#{path}: x-casaos.#{field} is missing translations for #{missing.join(', ')}" unless missing.empty?
   end
-  { path: path, id: id }
+  { path: path, id: id, category: metadata['category'] }
 end
 
 app_ids = apps.map { |app| app[:id] }
 errors << 'App IDs must be unique' if app_ids.uniq.length != app_ids.length
+
+unknown_categories = apps.map { |app| app[:category] }.compact - category_names
+errors << "Apps use categories absent from category-list.json: #{unknown_categories.uniq.join(', ')}" unless unknown_categories.empty?
+
+unless recommendations.is_a?(Array)
+  errors << 'recommend-list.json must contain an array'
+  recommendations = []
+end
+
+recommended_ids = recommendations.filter_map do |recommendation|
+  unless recommendation.is_a?(Hash) && recommendation.keys == ['appid']
+    errors << 'recommend-list.json entries must contain only a non-empty appid'
+    next
+  end
+
+  appid = recommendation['appid']
+  errors << 'recommend-list.json entries must contain only a non-empty appid' unless appid.is_a?(String) && !appid.strip.empty?
+  appid
+end
+errors << 'recommend-list.json contains duplicate app IDs' if recommended_ids.compact.uniq.length != recommended_ids.compact.length
+unknown_recommendations = recommended_ids.compact - app_ids
+unless unknown_recommendations.empty?
+  errors << "recommend-list.json references apps absent from Apps/: #{unknown_recommendations.uniq.join(', ')}"
+end
 
 unless errors.empty?
   warn errors.join("\n")

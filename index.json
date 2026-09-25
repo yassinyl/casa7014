@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-09-25T00:13:39Z",
+  "updated_at": "2026-09-25T00:18:40Z",
   "app_count": 18,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -395,7 +395,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.snikket/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.snikket/meta.json",
-      "content_hash": "76041cc5",
+      "content_hash": "2b3b3675",
       "update_at": "2026-06-11"
     }
   ]

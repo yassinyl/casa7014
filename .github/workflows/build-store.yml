@@ -24,6 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Validate source catalog
+        run: ruby .github/scripts/validate-store-catalog.rb .
+
       - name: Build CasaOS V2 Store
         uses: IceWhaleTech/build-appstore-action@c9bb47fad5b32d7928a07978fad68801f52e910f
         with:

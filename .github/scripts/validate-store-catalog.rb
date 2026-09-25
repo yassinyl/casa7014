@@ -44,12 +44,11 @@ def valid_http_url?(value)
   value.is_a?(String) && value.match?(%r{\Ahttps?://[^\s]+\z})
 end
 
-# The V2 store generator omits versions that are not semantic versions. Validate
-# them here so an otherwise valid compose file cannot publish incomplete metadata.
-def semantic_version?(value)
-  value.is_a?(String) && value.match?(
-    /\A(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?\z/
-  )
+# CasaOS metadata can use either a semantic version or the Docker image tag
+# supplied by an upstream project. Docker tags such as `stable.20260611` are
+# valid release identifiers even though they are not Semantic Versioning values.
+def valid_version?(value)
+  value.is_a?(String) && value.match?(/\A[A-Za-z0-9_][A-Za-z0-9_.-]{0,127}\z/)
 end
 
 %w[name description].each do |field|
@@ -82,7 +81,7 @@ apps = Dir.glob(File.join(root, 'Apps', '*', 'docker-compose.yml')).sort.filter_
   errors << "#{path}: x-casaos.scheme must be http or https" unless %w[http https].include?(metadata['scheme'])
   errors << "#{path}: x-casaos.index must start with /" unless metadata['index'].is_a?(String) && metadata['index'].start_with?('/')
   errors << "#{path}: x-casaos.port_map must be a numeric port" unless metadata['port_map'].to_s.match?(/\A[1-9]\d{0,4}\z/)
-  errors << "#{path}: x-casaos.version must be a semantic version" unless semantic_version?(metadata['version'])
+  errors << "#{path}: x-casaos.version must be a semantic version or valid Docker tag" unless valid_version?(metadata['version'])
 
   if metadata.key?('update_at')
     update_at = metadata['update_at']

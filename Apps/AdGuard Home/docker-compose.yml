@@ -54,6 +54,13 @@ x-casaos:
     fr_FR: Blocage des publicités et des traqueurs à l’échelle du réseau
   version: "0.107.79"
   update_at: "2026-09-01"
+  release_notes:
+    en_US: |-
+      - DNS64 treating unresolved CNAME/DNAME answers as the end of resolution chain
+      - Blocked requests without an EDNS(0) OPT record
+      fr_FR: |-
+      - DNS64 considère les réponses CNAME/DNAME non résolues comme la fin de la chaîne de résolution
+      - Requêtes bloquées sans enregistrement OPT EDNS(0)
   website: https://adguard.com/adguard-home/overview.html
   repo: https://github.com/AdguardTeam/AdGuardHome
   docs: https://github.com/AdguardTeam/AdGuardHome/wiki/Getting-Started

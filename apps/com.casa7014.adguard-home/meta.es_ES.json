@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.adguard-home",
   "title": "AdGuard Home",
-  "description": "Bloqueo de anuncios y rastreadores en toda la red con un servidor DNS privado.",
   "tagline": "Bloqueo de anuncios y rastreadores en toda la red",
+  "description": "Bloqueo de anuncios y rastreadores en toda la red con un servidor DNS privado.",
   "update_at": "2026-09-01"
 }

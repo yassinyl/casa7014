@@ -2,99 +2,99 @@
   "apps": [
     {
       "id": "com.casa7014.adguard-home",
-      "title": "AdGuard Home",
       "tagline": "حجب الإعلانات والمتتبعات على مستوى الشبكة",
+      "title": "AdGuard Home",
       "update_at": "2026-09-01"
     },
     {
       "id": "com.casa7014.aria2",
-      "title": "Aria2",
-      "tagline": "أداة تنزيل خفيفة متعددة البروتوكولات."
+      "tagline": "أداة تنزيل خفيفة متعددة البروتوكولات.",
+      "title": "Aria2"
     },
     {
       "id": "com.casa7014.aria2-pro",
-      "title": "Aria2 Pro",
-      "tagline": "حاوية Docker محسّنة لـ Aria2."
+      "tagline": "حاوية Docker محسّنة لـ Aria2.",
+      "title": "Aria2 Pro"
     },
     {
       "id": "com.casa7014.beszel",
-      "title": "Beszel",
-      "tagline": "مراقبة بسيطة للخوادم والحاويات"
+      "tagline": "مراقبة بسيطة للخوادم والحاويات",
+      "title": "Beszel"
     },
     {
       "id": "com.casa7014.bootimus",
-      "title": "Bootimus",
-      "tagline": "خادم إقلاع PXE وHTTP حديث."
+      "tagline": "خادم إقلاع PXE وHTTP حديث.",
+      "title": "Bootimus"
     },
     {
       "id": "com.casa7014.dispatcharr",
-      "title": "Dispatcharr",
-      "tagline": "إدارة بث IPTV والتسجيل."
+      "tagline": "إدارة بث IPTV والتسجيل.",
+      "title": "Dispatcharr"
     },
     {
       "id": "com.casa7014.fing-agent",
-      "title": "Fing Agent",
-      "tagline": "وكيل لمراقبة الشبكة."
+      "tagline": "وكيل لمراقبة الشبكة.",
+      "title": "Fing Agent"
     },
     {
       "id": "com.casa7014.fritzbox-wlan-password-rotator",
-      "title": "FritzBox WLAN Password Rotator",
-      "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا."
+      "tagline": "تغيير كلمات مرور WLAN لـ FRITZ!Box تلقائيًا.",
+      "title": "FritzBox WLAN Password Rotator"
     },
     {
       "id": "com.casa7014.lan-orangutan",
-      "title": "LAN Orangutan",
       "tagline": "اكتشاف الشبكة وجرد الأجهزة.",
+      "title": "LAN Orangutan",
       "update_at": "2026-09-16"
     },
     {
       "id": "com.casa7014.linkstack",
-      "title": "LinkStack",
-      "tagline": "الحل المتكامل لإدارة الروابط."
+      "tagline": "الحل المتكامل لإدارة الروابط.",
+      "title": "LinkStack"
     },
     {
       "id": "com.casa7014.misskey",
-      "title": "Misskey",
-      "tagline": "منصة اجتماعية لامركزية لشبكة الفيديفرس."
+      "tagline": "منصة اجتماعية لامركزية لشبكة الفيديفرس.",
+      "title": "Misskey"
     },
     {
       "id": "com.casa7014.motioneye-beta",
-      "title": "MotionEye",
-      "tagline": "مراقبة فيديو لكاميراتك."
+      "tagline": "مراقبة فيديو لكاميراتك.",
+      "title": "MotionEye"
     },
     {
       "id": "com.casa7014.motrix",
-      "title": "Motrix",
       "tagline": "مدير تنزيلات قوي لجهاز NAS الخاص بك.",
+      "title": "Motrix",
       "update_at": "2026-09-20"
     },
     {
       "id": "com.casa7014.nodecast-tv",
-      "title": "Nodecast TV",
-      "tagline": "بث تلفزيوني مستضاف ذاتيًا."
+      "tagline": "بث تلفزيوني مستضاف ذاتيًا.",
+      "title": "Nodecast TV"
     },
     {
       "id": "com.casa7014.pi-hole",
-      "title": "Pi-hole",
       "tagline": "حجب الإعلانات على مستوى الشبكة",
+      "title": "Pi-hole",
       "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
-      "title": "Portainer ( Business Edition )",
       "tagline": "واجهة خفيفة لإدارة Docker.",
+      "title": "Portainer ( Business Edition )",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.portracker",
-      "title": "Portracker",
       "tagline": "مراقبة المنافذ واكتشافها لحظيًا.",
+      "title": "Portracker",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.snikket",
-      "title": "سنيكيت",
       "tagline": "خدمة المراسلة الخاصة بك",
+      "title": "سنيكيت",
       "update_at": "2026-06-11"
     }
   ]

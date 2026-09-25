@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.motrix",
   "title": "Motrix",
-  "description": "Motrix Server مدير تنزيلات بلا واجهة سطح مكتب لـ HTTP وFTP وBitTorrent وروابط magnet، مع واجهة عبر المتصفح.",
   "tagline": "مدير تنزيلات قوي لجهاز NAS الخاص بك.",
+  "description": "Motrix Server مدير تنزيلات بلا واجهة سطح مكتب لـ HTTP وFTP وBitTorrent وروابط magnet، مع واجهة عبر المتصفح.",
   "update_at": "2026-09-20"
 }

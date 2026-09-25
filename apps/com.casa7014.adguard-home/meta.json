@@ -19,6 +19,7 @@
     "after_install": "Open the setup wizard on port 3000, choose the web interface and DNS settings, then configure your router or devices to use this server as their DNS resolver. Do not expose the administration interface publicly."
   },
   "title": "AdGuard Home",
+  "release_note": "- DNS64 treating unresolved CNAME/DNAME answers as the end of resolution chain\n- Blocked requests without an EDNS(0) OPT record\nfr_FR: |-\n- DNS64 considère les réponses CNAME/DNAME non résolues comme la fin de la chaîne de résolution\n- Requêtes bloquées sans enregistrement OPT EDNS(0)",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.adguard-home",
   "version": "0.107.79",

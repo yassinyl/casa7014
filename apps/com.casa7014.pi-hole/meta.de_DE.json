@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.pi-hole",
   "title": "Pi-hole",
-  "description": "Netzwerkweite Werbeblockierung und DNS-Verwaltung für Ihr Heimnetzwerk.",
   "tagline": "Netzwerkweite Werbeblockierung",
+  "description": "Netzwerkweite Werbeblockierung und DNS-Verwaltung für Ihr Heimnetzwerk.",
   "update_at": "2026-09-19"
 }

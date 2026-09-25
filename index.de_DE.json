@@ -2,99 +2,99 @@
   "apps": [
     {
       "id": "com.casa7014.adguard-home",
-      "title": "AdGuard Home",
       "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung",
+      "title": "AdGuard Home",
       "update_at": "2026-09-01"
     },
     {
       "id": "com.casa7014.aria2",
-      "title": "Aria2",
-      "tagline": "Leichtgewichtiger Download-Client für mehrere Protokolle."
+      "tagline": "Leichtgewichtiger Download-Client für mehrere Protokolle.",
+      "title": "Aria2"
     },
     {
       "id": "com.casa7014.aria2-pro",
-      "title": "Aria2 Pro",
-      "tagline": "Ein besserer Aria2-Docker-Container."
+      "tagline": "Ein besserer Aria2-Docker-Container.",
+      "title": "Aria2 Pro"
     },
     {
       "id": "com.casa7014.beszel",
-      "title": "Beszel",
-      "tagline": "Einfache Server- und Containerüberwachung"
+      "tagline": "Einfache Server- und Containerüberwachung",
+      "title": "Beszel"
     },
     {
       "id": "com.casa7014.bootimus",
-      "title": "Bootimus",
-      "tagline": "Moderner PXE- und HTTP-Bootserver."
+      "tagline": "Moderner PXE- und HTTP-Bootserver.",
+      "title": "Bootimus"
     },
     {
       "id": "com.casa7014.dispatcharr",
-      "title": "Dispatcharr",
-      "tagline": "IPTV-Streamverwaltung und DVR."
+      "tagline": "IPTV-Streamverwaltung und DVR.",
+      "title": "Dispatcharr"
     },
     {
       "id": "com.casa7014.fing-agent",
-      "title": "Fing Agent",
-      "tagline": "Netzwerkmonitoring-Agent."
+      "tagline": "Netzwerkmonitoring-Agent.",
+      "title": "Fing Agent"
     },
     {
       "id": "com.casa7014.fritzbox-wlan-password-rotator",
-      "title": "FritzBox WLAN Password Rotator",
-      "tagline": "WLAN-Passwörter für FRITZ!Box automatisch wechseln."
+      "tagline": "WLAN-Passwörter für FRITZ!Box automatisch wechseln.",
+      "title": "FritzBox WLAN Password Rotator"
     },
     {
       "id": "com.casa7014.lan-orangutan",
-      "title": "LAN Orangutan",
       "tagline": "Netzwerkerkennung und Geräteinventar.",
+      "title": "LAN Orangutan",
       "update_at": "2026-09-16"
     },
     {
       "id": "com.casa7014.linkstack",
-      "title": "LinkStack",
-      "tagline": "Die ultimative Lösung zur Linkverwaltung."
+      "tagline": "Die ultimative Lösung zur Linkverwaltung.",
+      "title": "LinkStack"
     },
     {
       "id": "com.casa7014.misskey",
-      "title": "Misskey",
-      "tagline": "Eine dezentrale soziale Plattform für das Fediverse."
+      "tagline": "Eine dezentrale soziale Plattform für das Fediverse.",
+      "title": "Misskey"
     },
     {
       "id": "com.casa7014.motioneye-beta",
-      "title": "MotionEye",
-      "tagline": "Videoüberwachung für Ihre Kameras."
+      "tagline": "Videoüberwachung für Ihre Kameras.",
+      "title": "MotionEye"
     },
     {
       "id": "com.casa7014.motrix",
-      "title": "Motrix",
       "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
+      "title": "Motrix",
       "update_at": "2026-09-20"
     },
     {
       "id": "com.casa7014.nodecast-tv",
-      "title": "Nodecast TV",
-      "tagline": "Selbst gehostetes TV-Streaming."
+      "tagline": "Selbst gehostetes TV-Streaming.",
+      "title": "Nodecast TV"
     },
     {
       "id": "com.casa7014.pi-hole",
-      "title": "Pi-hole",
       "tagline": "Netzwerkweite Werbeblockierung",
+      "title": "Pi-hole",
       "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
-      "title": "Portainer ( Business Edition )",
       "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
+      "title": "Portainer ( Business Edition )",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.portracker",
-      "title": "Portracker",
       "tagline": "Portüberwachung und -erkennung in Echtzeit.",
+      "title": "Portracker",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.snikket",
-      "title": "Snikket",
       "tagline": "Ihr privater Nachrichtendienst",
+      "title": "Snikket",
       "update_at": "2026-06-11"
     }
   ]

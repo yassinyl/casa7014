@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.motrix",
   "title": "Motrix",
-  "description": "Motrix Server es un gestor de descargas sin interfaz de escritorio para HTTP, FTP, BitTorrent y enlaces magnet, con interfaz web.",
   "tagline": "Potente gestor de descargas para tu NAS.",
+  "description": "Motrix Server es un gestor de descargas sin interfaz de escritorio para HTTP, FTP, BitTorrent y enlaces magnet, con interfaz web.",
   "update_at": "2026-09-20"
 }

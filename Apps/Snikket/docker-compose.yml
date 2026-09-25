@@ -74,7 +74,7 @@ x-casaos:
     fr_FR: Votre service de messagerie privé
   # The upstream image is intentionally tracked through its moving `stable` tag.
   # Keep the catalog value semantic so the V2 store generator publishes it.
-  version: "stable.20260611"
+  version: "20260611"
   update_at: "2026-06-11"
   website: https://snikket.org/
   repo: https://github.com/snikket-im/snikket-server

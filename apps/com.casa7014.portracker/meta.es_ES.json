@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.portracker",
   "title": "Portracker",
-  "tagline": "Monitorización y descubrimiento de puertos en tiempo real.",
   "description": "Portracker es una herramienta autoalojada de monitorización y descubrimiento de puertos en tiempo real que detecta automáticamente servicios, puertos, contenedores Docker y servicios de red.",
+  "tagline": "Monitorización y descubrimiento de puertos en tiempo real.",
   "update_at": "2026-09-17"
 }

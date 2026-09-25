@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.beszel",
   "title": "Beszel",
-  "tagline": "Surveillance simple des serveurs et conteneurs",
-  "description": "Surveillance légère des serveurs et conteneurs Docker avec un tableau de bord central."
+  "description": "Surveillance légère des serveurs et conteneurs Docker avec un tableau de bord central.",
+  "tagline": "Surveillance simple des serveurs et conteneurs"
 }

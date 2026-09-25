@@ -9,6 +9,7 @@
   "category": "Networking",
   "description": "Private, easy-to-use XMPP messaging for your family, friends, or community.",
   "tagline": "Your private messaging service",
+  "update_at": "2026-06-11",
   "website": "https://snikket.org/",
   "repo": "https://github.com/snikket-im/snikket-server",
   "docs": "https://snikket.org/service/help/admin/installation/docker/",
@@ -20,7 +21,7 @@
   "title": "Snikket",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.snikket",
-  "version": "0.0.0-stable",
+  "version": "stable.20260611",
   "categories": [
     "networking"
   ],

@@ -1,7 +1,7 @@
 {
   "id": "com.casa7014.motrix",
   "title": "Motrix",
-  "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
   "description": "Motrix Server ist ein Download-Manager ohne Desktopoberfläche für HTTP, FTP, BitTorrent und Magnet-Links mit browserbasierter Oberfläche.",
+  "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
   "update_at": "2026-09-20"
 }

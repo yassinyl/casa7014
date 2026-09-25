@@ -2,99 +2,100 @@
   "apps": [
     {
       "id": "com.casa7014.adguard-home",
-      "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung",
       "title": "AdGuard Home",
+      "tagline": "Netzwerkweite Werbe- und Tracker-Blockierung",
       "update_at": "2026-09-01"
     },
     {
       "id": "com.casa7014.aria2",
-      "tagline": "Leichtgewichtiger Download-Client für mehrere Protokolle.",
-      "title": "Aria2"
+      "title": "Aria2",
+      "tagline": "Leichtgewichtiger Download-Client für mehrere Protokolle."
     },
     {
       "id": "com.casa7014.aria2-pro",
-      "tagline": "Ein besserer Aria2-Docker-Container.",
-      "title": "Aria2 Pro"
+      "title": "Aria2 Pro",
+      "tagline": "Ein besserer Aria2-Docker-Container."
     },
     {
       "id": "com.casa7014.beszel",
-      "tagline": "Einfache Server- und Containerüberwachung",
-      "title": "Beszel"
+      "title": "Beszel",
+      "tagline": "Einfache Server- und Containerüberwachung"
     },
     {
       "id": "com.casa7014.bootimus",
-      "tagline": "Moderner PXE- und HTTP-Bootserver.",
-      "title": "Bootimus"
+      "title": "Bootimus",
+      "tagline": "Moderner PXE- und HTTP-Bootserver."
     },
     {
       "id": "com.casa7014.dispatcharr",
-      "tagline": "IPTV-Streamverwaltung und DVR.",
-      "title": "Dispatcharr"
+      "title": "Dispatcharr",
+      "tagline": "IPTV-Streamverwaltung und DVR."
     },
     {
       "id": "com.casa7014.fing-agent",
-      "tagline": "Netzwerkmonitoring-Agent.",
-      "title": "Fing Agent"
+      "title": "Fing Agent",
+      "tagline": "Netzwerkmonitoring-Agent."
     },
     {
       "id": "com.casa7014.fritzbox-wlan-password-rotator",
-      "tagline": "WLAN-Passwörter für FRITZ!Box automatisch wechseln.",
-      "title": "FritzBox WLAN Password Rotator"
+      "title": "FritzBox WLAN Password Rotator",
+      "tagline": "WLAN-Passwörter für FRITZ!Box automatisch wechseln."
     },
     {
       "id": "com.casa7014.lan-orangutan",
-      "tagline": "Netzwerkerkennung und Geräteinventar.",
       "title": "LAN Orangutan",
+      "tagline": "Netzwerkerkennung und Geräteinventar.",
       "update_at": "2026-09-16"
     },
     {
       "id": "com.casa7014.linkstack",
-      "tagline": "Die ultimative Lösung zur Linkverwaltung.",
-      "title": "LinkStack"
+      "title": "LinkStack",
+      "tagline": "Die ultimative Lösung zur Linkverwaltung."
     },
     {
       "id": "com.casa7014.misskey",
-      "tagline": "Eine dezentrale soziale Plattform für das Fediverse.",
-      "title": "Misskey"
+      "title": "Misskey",
+      "tagline": "Eine dezentrale soziale Plattform für das Fediverse."
     },
     {
       "id": "com.casa7014.motioneye-beta",
-      "tagline": "Videoüberwachung für Ihre Kameras.",
-      "title": "MotionEye"
+      "title": "MotionEye",
+      "tagline": "Videoüberwachung für Ihre Kameras."
     },
     {
       "id": "com.casa7014.motrix",
-      "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
       "title": "Motrix",
+      "tagline": "Leistungsstarker Download-Manager für Ihr NAS.",
       "update_at": "2026-09-20"
     },
     {
       "id": "com.casa7014.nodecast-tv",
-      "tagline": "Selbst gehostetes TV-Streaming.",
-      "title": "Nodecast TV"
+      "title": "Nodecast TV",
+      "tagline": "Selbst gehostetes TV-Streaming."
     },
     {
       "id": "com.casa7014.pi-hole",
-      "tagline": "Netzwerkweite Werbeblockierung",
       "title": "Pi-hole",
+      "tagline": "Netzwerkweite Werbeblockierung",
       "update_at": "2026-09-19"
     },
     {
       "id": "com.casa7014.portainer-business-edition",
-      "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
       "title": "Portainer ( Business Edition )",
+      "tagline": "Leichtgewichtige Benutzeroberfläche zur Docker-Verwaltung.",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.portracker",
-      "tagline": "Portüberwachung und -erkennung in Echtzeit.",
       "title": "Portracker",
+      "tagline": "Portüberwachung und -erkennung in Echtzeit.",
       "update_at": "2026-09-17"
     },
     {
       "id": "com.casa7014.snikket",
+      "title": "Snikket",
       "tagline": "Ihr privater Nachrichtendienst",
-      "title": "Snikket"
+      "update_at": "2026-06-11"
     }
   ]
 }

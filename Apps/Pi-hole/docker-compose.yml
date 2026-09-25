@@ -54,6 +54,7 @@ x-casaos:
     fr_FR: Blocage des publicités sur tout le réseau
   # Normalize the image's calendar tag (2026.09.0) to a semantic version.
   version: "2026.9.0"
+  update_at: "2026-09-19"
   website: https://pi-hole.net/
   repo: https://github.com/pi-hole/pi-hole
   docs: https://docs.pi-hole.net/docker/

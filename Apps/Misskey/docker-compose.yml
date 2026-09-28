@@ -1,39 +1,24 @@
 name: misskey
-
 services:
   config:
-    image: alpine:3.22
+    image: alpine:20260805
     container_name: misskey-config
-    restart: "no"
+    restart: 'no'
     environment:
       MISSKEY_URL: http://localhost:3000
       MISSKEY_DB_PASSWORD: misskey
     volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/config
-        target: /config
+    - type: bind
+      source: /DATA/AppData/$AppID/config
+      target: /config
     command:
-      - /bin/sh
-      - -ec
-      - |
-        if [ ! -f /config/default.yml ]; then
-          instance_id=$$(tr -dc 'a-z' </dev/urandom | head -c 16)
-          cat > /config/default.yml <<EOF
-        url: $${MISSKEY_URL}
-        port: 3000
-        db:
-          host: db
-          port: 5432
-          db: misskey
-          user: misskey
-          pass: $${MISSKEY_DB_PASSWORD}
-        redis:
-          host: redis
-          port: 6379
-        id: '$${instance_id}'
-        EOF
-        fi
-
+    - /bin/sh
+    - -ec
+    - "if [ ! -f /config/default.yml ]; then\n  instance_id=$$(tr -dc 'a-z' </dev/urandom\
+      \ | head -c 16)\n  cat > /config/default.yml <<EOF\nurl: $${MISSKEY_URL}\nport:\
+      \ 3000\ndb:\n  host: db\n  port: 5432\n  db: misskey\n  user: misskey\n  pass:\
+      \ $${MISSKEY_DB_PASSWORD}\nredis:\n  host: redis\n  port: 6379\nid: '$${instance_id}'\n\
+      EOF\nfi\n"
   db:
     image: postgres:16-alpine
     container_name: misskey-db
@@ -43,26 +28,26 @@ services:
       POSTGRES_USER: misskey
       POSTGRES_PASSWORD: misskey
     volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/postgres
-        target: /var/lib/postgresql/data
+    - type: bind
+      source: /DATA/AppData/$AppID/postgres
+      target: /var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U misskey -d misskey"]
+      test:
+      - CMD-SHELL
+      - pg_isready -U misskey -d misskey
       interval: 10s
       timeout: 5s
       retries: 5
-
   redis:
     image: redis:7-alpine
     container_name: misskey-redis
     restart: unless-stopped
     volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/redis
-        target: /data
-
+    - type: bind
+      source: /DATA/AppData/$AppID/redis
+      target: /data
   misskey:
-    image: misskey/misskey:2025.10.0
+    image: misskey/misskey:2026.9.1
     container_name: misskey
     restart: unless-stopped
     depends_on:
@@ -73,23 +58,24 @@ services:
       redis:
         condition: service_started
     ports:
-      - target: 3000
-        published: "3000"
-        protocol: tcp
+    - target: 3000
+      published: '3000'
+      protocol: tcp
     volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/files
-        target: /misskey/files
-      - type: bind
-        source: /DATA/AppData/$AppID/config
-        target: /misskey/.config
-        read_only: true
-
+    - type: bind
+      source: /DATA/AppData/$AppID/files
+      target: /misskey/files
+    - type: bind
+      source: /DATA/AppData/$AppID/config
+      target: /misskey/.config
+      read_only: true
 x-casaos:
   id: com.casa7014.misskey
   main: misskey
-  architectures: [amd64, arm64]
-  port_map: "3000"
+  architectures:
+  - amd64
+  - arm64
+  port_map: '3000'
   index: /
   scheme: http
   title:
@@ -114,19 +100,17 @@ x-casaos:
     de_DE: Eine dezentrale soziale Plattform für das Fediverse.
     es_ES: Una plataforma social descentralizada para el fediverso.
     fr_FR: Une plateforme sociale décentralisée pour le fédivers.
-  version: "2025.10.0"
+  version: 2026.9.1
   website: https://misskey.io/
   repo: https://github.com/misskey-dev/misskey
   docs: https://misskey-hub.net/en/docs/for-admin/install/docker/
   support: https://github.com/misskey-dev/misskey/issues
   tips:
     before_install:
-      en_US: >-
-        Before installing, set MISSKEY_URL in the config service to the public URL
-        that users will use to reach this instance. Set a strong, matching
-        MISSKEY_DB_PASSWORD and POSTGRES_PASSWORD before the first start.
+      en_US: Before installing, set MISSKEY_URL in the config service to the public
+        URL that users will use to reach this instance. Set a strong, matching MISSKEY_DB_PASSWORD
+        and POSTGRES_PASSWORD before the first start.
     after_install:
-      en_US: >-
-        Complete the initial setup in Misskey, then configure HTTPS with a reverse
+      en_US: Complete the initial setup in Misskey, then configure HTTPS with a reverse
         proxy before exposing the instance to the Internet. Configuration, uploads,
         PostgreSQL data, and Redis data are stored under /DATA/AppData/<AppID>.

@@ -67,5 +67,4 @@ jobs:
             --base main \
             --head "$branch" \
             --title "chore: update Docker images" \
-            --body-file .github/PR_BODY.md \
-            --label automerge
+            --body-file .github/PR_BODY.md

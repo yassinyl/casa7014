@@ -3,7 +3,7 @@
 import re
 import sys
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, urljoin, urlparse
 
 import requests
 import yaml
@@ -426,7 +426,10 @@ def registry_tags(registry, repository):
                 )
 
                 if match:
-                    next_url = match.group(1)
+                    # Registries commonly return a relative pagination URL,
+                    # for example ``</v2/library/alpine/tags/list?...>``.
+                    # requests requires an absolute URL for the next request.
+                    next_url = urljoin(response.url, match.group(1))
 
             url = next_url
 

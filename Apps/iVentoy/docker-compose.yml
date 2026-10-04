@@ -7,6 +7,9 @@ services:
     restart: always
     privileged: true
 
+    ports:
+      - "26000:26000"
+
     environment:
       AUTO_START_PXE: "true"
 
@@ -64,7 +67,7 @@ x-casaos:
   developer: iVentoy
   category: Networking
 
-  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/iVentoy/icon.svg
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/iVentoy/icon.png
 
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/iVentoy/screenshot-1.png
@@ -73,7 +76,7 @@ x-casaos:
   description:
     en_US: iVentoy is a PXE network boot server that allows computers to boot and install operating systems over the network using ISO images.
     ar_SA: iVentoy هو خادم إقلاع شبكي PXE يسمح للحواسيب بالإقلاع وتثبيت أنظمة التشغيل عبر الشبكة باستعمال ملفات ISO.
-    de_DE: iVentoy ist ein PXE-Netzwerk-Bootserver, mit dem Computer Betriebssysteme über das Netzwerk mithilfe von ISO-Images starten und installieren können.
+    de_DE: iVentoy ist ein PXE-Netzwerk-Bootserver, mit dem Computer Betriebssysteme über das Netzwerk mithilfe von ISO-Images starten können.
     es_ES: iVentoy es un servidor de arranque PXE que permite iniciar e instalar sistemas operativos mediante la red utilizando imágenes ISO.
     fr_FR: iVentoy est un serveur de démarrage réseau PXE permettant de démarrer et d’installer des systèmes d’exploitation via le réseau à l’aide d’images ISO.
 
@@ -82,7 +85,7 @@ x-casaos:
     ar_SA: خادم إقلاع شبكي PXE
     de_DE: PXE-Netzwerk-Bootserver
     es_ES: Servidor de arranque PXE
-    fr_FR: Serveur de démarrage réseau PXE
+    fr_FR: Serveur de démarrage PXE
 
   version: "1.0.44"
 
@@ -132,10 +135,14 @@ x-casaos:
 
         IMPORTANT:
 
-        Do NOT add a ports section to the Compose file.
+        Port 26000 is published for the Web interface.
 
-        iVentoy uses macvlan and receives its own IP address
-        directly on the local network.
+        The remaining iVentoy PXE services use the macvlan
+        network directly.
+
+        If your network configuration is different from the
+        example above, change the macvlan network settings
+        before installation.
 
     after_install:
       en_US: |

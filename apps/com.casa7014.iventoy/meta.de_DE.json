@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.iventoy",
+  "title": "iVentoy",
+  "tagline": "PXE-Netzwerk-Bootserver",
+  "description": "iVentoy ist ein PXE-Netzwerk-Bootserver, mit dem Computer Betriebssysteme über das Netzwerk mithilfe von ISO-Images starten können."
+}

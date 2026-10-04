@@ -42,6 +42,11 @@
       "title": "FritzBox WLAN Password Rotator"
     },
     {
+      "id": "com.casa7014.iventoy",
+      "tagline": "Serveur de démarrage PXE",
+      "title": "iVentoy"
+    },
+    {
       "id": "com.casa7014.lan-orangutan",
       "tagline": "Découverte réseau et inventaire des appareils.",
       "title": "LAN Orangutan",

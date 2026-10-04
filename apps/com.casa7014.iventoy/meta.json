@@ -1,0 +1,33 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "yassinyl",
+  "developer": "iVentoy",
+  "category": "Networking",
+  "screenshot_link": [
+    "/apps/com.casa7014.iventoy/assets/screenshot-1.webp",
+    "/apps/com.casa7014.iventoy/assets/screenshot-2.webp"
+  ],
+  "description": "iVentoy is a PXE network boot server that allows computers to boot and install operating systems over the network using ISO images.",
+  "tagline": "PXE Network Boot Server",
+  "website": "https://www.iventoy.com",
+  "repo": "https://github.com/ventoy/PXE",
+  "support": "https://www.iventoy.com/en/contact.html",
+  "docs": "https://www.iventoy.com/en/doc_start.html",
+  "tips": {
+    "before_install": "IMPORTANT - NETWORK CONFIGURATION\n\niVentoy uses a macvlan network and requires a dedicated\nIP address on your local network.\n\nThe macvlan network is created automatically during\ninstallation.\n\nIMPORTANT:\n\nBefore installing iVentoy, check the network settings\nin the Docker Compose configuration.\n\nThe following values must match your local network:\n\n- parent: your physical LAN interface\n- subnet: your local IPv4 subnet\n- gateway: your router IP\n- ipv4_address: an unused IP address on your LAN\n- ip_range: an unused IP range on your LAN\n\nExample:\n\nparent: eth0\n\nsubnet: 192.168.1.0/24\n\ngateway: 192.168.1.1\n\nipv4_address: 192.168.1.170\n\nip_range: 192.168.1.160/28\n\nMake sure that the selected iVentoy IP address is not\nalready used by another device.\n\nIMPORTANT:\n\nPort 26000 is published for the Web interface.\n\nThe remaining iVentoy PXE services use the macvlan\nnetwork directly.\n\nIf your network configuration is different from the\nexample above, change the macvlan network settings\nbefore installation.\n",
+    "after_install": "IMPORTANT - COMPLETE iVentoy SETUP\n\nAfter the installation is complete:\n\n1. Download the latest Linux Free Edition from:\n\nhttps://github.com/ventoy/PXE/releases\n\n2. Extract the downloaded archive.\n\n3. Open the extracted \"data\" directory.\n\n4. Copy these two files:\n\niventoy.dat\nmac.db\n\n5. Copy both files to:\n\n/DATA/AppData/iVentoy/data/\n\nThe final structure must be:\n\n/DATA/AppData/iVentoy/data/iventoy.dat\n/DATA/AppData/iVentoy/data/mac.db\n\n6. Restart the iVentoy container.\n\nAfter restarting, open the Web interface using:\n\nhttp://<iVentoy-IP>:26000\n\nIf your router already provides DHCP, use iVentoy\nProxyNet mode.\n\nDo NOT enable iVentoy Internal DHCP.\n"
+  },
+  "title": "iVentoy",
+  "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
+  "id": "com.casa7014.iventoy",
+  "version": "1.0.44",
+  "categories": [
+    "networking"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 54564494
+  }
+}

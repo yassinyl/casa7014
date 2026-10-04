@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "updated_at": "2026-09-25T00:46:30Z",
-  "app_count": 18,
+  "updated_at": "2026-10-04T21:47:22Z",
+  "app_count": 19,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
     {
@@ -69,7 +69,7 @@
       "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
-      "content_hash": "8a3030c5",
+      "content_hash": "26dc7b27",
       "version": "1.0.0"
     },
     {
@@ -176,6 +176,26 @@
       "meta_url": "/apps/com.casa7014.fritzbox-wlan-password-rotator/meta.json",
       "content_hash": "2baa0617",
       "version": "1.4.1"
+    },
+    {
+      "id": "com.casa7014.iventoy",
+      "title": "iVentoy",
+      "tagline": "PXE Network Boot Server",
+      "category": "Networking",
+      "categories": [
+        "networking"
+      ],
+      "author": "yassinyl",
+      "developer": "iVentoy",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/com.casa7014.iventoy/assets/icon.png",
+      "thumbnail": "",
+      "compose_url": "/apps/com.casa7014.iventoy/docker-compose.yml",
+      "meta_url": "/apps/com.casa7014.iventoy/meta.json",
+      "content_hash": "0e64ec62",
+      "version": "1.0.44"
     },
     {
       "id": "com.casa7014.lan-orangutan",

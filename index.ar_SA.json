@@ -42,6 +42,11 @@
       "title": "FritzBox WLAN Password Rotator"
     },
     {
+      "id": "com.casa7014.iventoy",
+      "tagline": "خادم إقلاع شبكي PXE",
+      "title": "iVentoy"
+    },
+    {
       "id": "com.casa7014.lan-orangutan",
       "tagline": "اكتشاف الشبكة وجرد الأجهزة.",
       "title": "LAN Orangutan",

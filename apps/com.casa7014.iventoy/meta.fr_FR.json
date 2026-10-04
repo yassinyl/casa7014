@@ -1,0 +1,6 @@
+{
+  "id": "com.casa7014.iventoy",
+  "title": "iVentoy",
+  "tagline": "Serveur de démarrage PXE",
+  "description": "iVentoy est un serveur de démarrage réseau PXE permettant de démarrer et d’installer des systèmes d’exploitation via le réseau à l’aide d’images ISO."
+}

@@ -1,0 +1,61 @@
+name: iventoy
+
+services:
+  iventoy:
+    image: ziggyds/iventoy:latest
+    container_name: iventoy
+    restart: always
+    privileged: true
+
+    ports:
+      - "26000:26000"
+
+    environment:
+      AUTO_START_PXE: "true"
+
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/iso
+        target: /app/iso
+
+      - type: bind
+        source: /DATA/AppData/$AppID/data
+        target: /app/data
+
+      - type: bind
+        source: /DATA/AppData/$AppID/log
+        target: /app/log
+
+    networks:
+      iventoy_macvlan:
+        ipv4_address: 192.168.1.170
+
+
+networks:
+  iventoy_macvlan:
+    driver: macvlan
+
+    driver_opts:
+      parent: eth0
+
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          ip_range: 192.168.1.160/28
+
+
+x-casaos:
+  id: com.casa7014.iventoy
+  main: iventoy
+  port_map: "26000"
+  index: /
+  scheme: http
+  title:
+    en_US: iVentoy
+    ar_SA: iVentoy
+    de_DE: iVentoy
+    es_ES: iVentoy
+    fr_FR: iVentoy
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.iventoy/assets/icon.png
+  version: "1.0.44"

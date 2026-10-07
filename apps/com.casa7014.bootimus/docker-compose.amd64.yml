@@ -3,7 +3,7 @@ name: bootimus
 services:
   bootimus-db:
     container_name: bootimus-db
-    image: postgres:16@sha256:a85daf0dbd5e79586e850e3fe4b21b796799828ad015ce2166aeb98cc24da61c
+    image: postgres:16@sha256:75adc2a65806c96bc0e59030230bfe3f1c1b0d6d8f8181a8913e2b8b53bdc166
     restart: unless-stopped
 
     environment:

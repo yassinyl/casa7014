@@ -1,7 +1,7 @@
 name: dispatcharr
 services:
   dispatcharr:
-    image: ghcr.io/dispatcharr/dispatcharr:0.31.0
+    image: ghcr.io/dispatcharr/dispatcharr:0.32.0
     container_name: dispatcharr
     restart: unless-stopped
     ports:
@@ -50,5 +50,5 @@ x-casaos:
     de_DE: IPTV-Streamverwaltung und DVR.
     es_ES: Gestión de transmisiones IPTV y DVR.
     fr_FR: Gestion des flux IPTV et DVR.
-  version: "0.31.0"
+  version: "0.32.0"
   repo: https://github.com/Dispatcharr/Dispatcharr

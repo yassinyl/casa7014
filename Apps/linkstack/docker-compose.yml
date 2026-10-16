@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     container_name: linkstack
     network_mode: bridge
+
 x-casaos:
   id: com.casa7014.linkstack
   main: linkstack
@@ -35,7 +36,7 @@ x-casaos:
   developer: LinkStackOrg
   category: Others
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png
-  #  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/thumbnail.png
+  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/thumbnail.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/screenshot-2.png

@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.aria2-pro",
   "title": "Aria2 Pro",
-  "tagline": "Un contenedor Docker de Aria2 mejorado.",
-  "description": "Potente contenedor Aria2 con interfaz web AriaNg."
+  "description": "Potente contenedor Aria2 con interfaz web AriaNg.",
+  "tagline": "Un contenedor Docker de Aria2 mejorado."
 }

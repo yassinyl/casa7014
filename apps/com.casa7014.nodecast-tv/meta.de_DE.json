@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.nodecast-tv",
   "title": "Nodecast TV",
-  "tagline": "Selbst gehostetes TV-Streaming.",
-  "description": "Eine selbst gehostete TV-Streaming-Anwendung mit browserbasierter Oberfläche."
+  "description": "Eine selbst gehostete TV-Streaming-Anwendung mit browserbasierter Oberfläche.",
+  "tagline": "Selbst gehostetes TV-Streaming."
 }

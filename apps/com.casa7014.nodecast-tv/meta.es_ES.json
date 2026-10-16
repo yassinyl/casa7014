@@ -1,6 +1,6 @@
 {
   "id": "com.casa7014.nodecast-tv",
   "title": "Nodecast TV",
-  "tagline": "Transmisión de TV autoalojada.",
-  "description": "Una aplicación de transmisión de TV autoalojada con interfaz basada en navegador."
+  "description": "Una aplicación de transmisión de TV autoalojada con interfaz basada en navegador.",
+  "tagline": "Transmisión de TV autoalojada."
 }

@@ -1,8 +1,8 @@
 {
   "id": "com.casa7014.motrix",
   "title": "Motrix",
-  "tagline": "Gestionnaire de téléchargements puissant pour votre NAS.",
   "description": "Motrix Server est un gestionnaire de téléchargements sans interface de bureau pour HTTP, FTP, BitTorrent et liens magnet, avec une interface web.",
+  "tagline": "Gestionnaire de téléchargements puissant pour votre NAS.",
   "tips": {
     "before_install": "Motrix Server utilise l'UID/GID 1000:1000. Assurez-vous que cet utilisateur dispose des droits d'écriture sur le dossier de téléchargement de l'hôte.\n\nPour préparer un dossier de téléchargement sur votre disque dur, remplacez /YOUR/HDD/PATH/Motrix par le chemin réel du dossier, puis exécutez :\n\nsudo mkdir -p \"/YOUR/HDD/PATH/Motrix\"\nsudo chown 1000:1000 \"/YOUR/HDD/PATH/Motrix\"\nsudo chmod 775 \"/YOUR/HDD/PATH/Motrix\"\n\nAprès le premier démarrage de Motrix, l'interface Web vous demandera un operator token. Vous le trouverez dans /AppData/motrix/data, dans un fichier nommé operator-token (sans extension). Ouvrez ce fichier comme un fichier texte brut pour afficher et copier le token, puis collez-le dans l'interface Web de Motrix. N'ajoutez aucune extension au fichier operator-token.\n\nL'accès HTTP direct à l'opérateur est activé pour un réseau local de confiance. N'exposez pas le port 8080 à Internet. Pour l'appairage à distance, configurez MOTRIX_PUBLIC_URL avec l'URL accessible de l'interface Web. MDXP utilise le port 16801.\n\nPour changer de disque dur ou de dossier de téléchargement après l'installation, arrêtez d'abord Motrix. Créez le nouveau dossier de téléchargement et appliquez les commandes de propriétaire et de permissions ci-dessus. Modifiez ensuite le volume de téléchargement afin que le nouveau dossier hôte soit associé à /downloads. Enregistrez la configuration, puis redémarrez Motrix. Conservez le dossier de données existant pour préserver vos paramètres et votre operator token."
   },

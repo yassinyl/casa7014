@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     container_name: linkstack
     network_mode: bridge
+
 x-casaos:
   id: com.casa7014.linkstack
   main: linkstack

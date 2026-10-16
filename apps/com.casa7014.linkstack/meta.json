@@ -1,6 +1,8 @@
 {
   "architectures": [
-    "amd64"
+    "amd64",
+    "arm",
+    "arm64"
   ],
   "author": "yassinyl",
   "developer": "LinkStackOrg",
@@ -18,12 +20,14 @@
   "title": "LinkStack",
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "id": "com.casa7014.linkstack",
-  "version": "4.8.6",
+  "version": "1.0.0",
   "categories": [
     "others"
   ],
   "min_memory": 0,
   "min_image_size": {
-    "amd64": 46988727
+    "amd64": 84874427,
+    "arm": 81208896,
+    "arm64": 85725146
   }
 }

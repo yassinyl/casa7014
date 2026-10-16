@@ -2,7 +2,7 @@ name: linkstack
 services:
   linkstack:
     hostname: linkstack
-    image: sc4ndium90/linkstack:v4.8.6
+    image: linkstackorg/linkstack:latest
     environment:
       TZ: $TZ
       SERVER_ADMIN: admin@example.com
@@ -15,10 +15,6 @@ services:
       - target: 80
         published: "8081"
         protocol: tcp
-    volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/htdocs
-        target: /htdocs
     restart: unless-stopped
     container_name: linkstack
     network_mode: bridge
@@ -35,4 +31,4 @@ x-casaos:
     es_ES: LinkStack
     fr_FR: LinkStack
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.linkstack/assets/icon.png
-  version: "4.8.6"
+  version: "1.0.0"

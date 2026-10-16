@@ -1,0 +1,34 @@
+name: linkstack
+services:
+  linkstack:
+    hostname: linkstack
+    image: linkstackorg/linkstack:latest@sha256:5d24b9dcb3908fcde6ed18c49c9176ba8d8bc4d2c2a439bc1dd4066f328488d2
+    environment:
+      TZ: $TZ
+      SERVER_ADMIN: admin@example.com
+      HTTP_SERVER_NAME: example.com
+      HTTPS_SERVER_NAME: example.com
+      LOG_LEVEL: info
+      PHP_MEMORY_LIMIT: 256M
+      UPLOAD_MAX_FILESIZE: 8M
+    ports:
+      - target: 80
+        published: "8081"
+        protocol: tcp
+    restart: unless-stopped
+    container_name: linkstack
+    network_mode: bridge
+x-casaos:
+  id: com.casa7014.linkstack
+  main: linkstack
+  port_map: "8081"
+  index: /
+  scheme: http
+  title:
+    en_US: LinkStack
+    ar_SA: LinkStack
+    de_DE: LinkStack
+    es_ES: LinkStack
+    fr_FR: LinkStack
+  icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.linkstack/assets/icon.png
+  version: "1.0.0"

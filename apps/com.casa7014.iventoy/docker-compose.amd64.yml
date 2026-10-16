@@ -2,7 +2,7 @@ name: iventoy
 
 services:
   iventoy:
-    image: ziggyds/iventoy:latest@sha256:c14d4b0abf35bc7f680b7ef0096879d13c8bd3ddcc5c32e2dd3bbb5bd8a7bccf
+    image: ziggyds/iventoy:latest@sha256:7b16ae4839edf4e3934869aa57365aaf91efe8ea5ddb5c942ec746960867c5ba
     container_name: iventoy
     restart: always
     privileged: true

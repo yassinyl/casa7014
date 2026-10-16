@@ -2,7 +2,7 @@ name: linkstack
 services:
   linkstack:
     hostname: linkstack
-    image: sc4ndium90/linkstack:v4.8.6
+    image: linkstackorg/linkstack:latest
     environment:
       TZ: $TZ
       SERVER_ADMIN: admin@example.com
@@ -15,27 +15,13 @@ services:
       - target: 80
         published: "8081"
         protocol: tcp
-    volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/htdocs
-        target: /htdocs
     restart: unless-stopped
     container_name: linkstack
     network_mode: bridge
-    x-casaos:
-      ports:
-        - container: "80"
-          description:
-            en_US: LinkStack Web UI port
-      volumes:
-        - container: /htdocs
-          description:
-            en_US: LinkStack website data and configuration
-
 x-casaos:
   id: com.casa7014.linkstack
   main: linkstack
-  architectures: amd64
+  architectures: [amd64, arm, arm64]
   port_map: "8081"
   index: /
   scheme: http
@@ -49,6 +35,7 @@ x-casaos:
   developer: LinkStackOrg
   category: Others
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/icon.png
+  #  thumbnail: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/thumbnail.png
   screenshot_link:
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/screenshot-1.png
     - https://cdn.jsdelivr.net/gh/yassinyl/casa7014@refs/heads/main/Apps/linkstack/screenshot-2.png
@@ -65,7 +52,7 @@ x-casaos:
     de_DE: Die ultimative Lösung zur Linkverwaltung.
     es_ES: La solución definitiva para gestionar enlaces.
     fr_FR: La solution ultime de gestion des liens.
-  version: "4.8.6"
+  version: "1.0.0"
   website: https://linkstack.org/
   repo: https://github.com/LinkStackOrg/linkstack-docker
   docs: https://docs.linkstack.org/

@@ -35,7 +35,7 @@ services:
 x-casaos:
   id: com.casa7014.linkstack
   main: linkstack
-  architectures: [amd64, arm, arm64]
+  architectures: [amd64]
   port_map: "8081"
   index: /
   scheme: http

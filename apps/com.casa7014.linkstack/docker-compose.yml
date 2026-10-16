@@ -32,4 +32,4 @@ x-casaos:
     es_ES: LinkStack
     fr_FR: LinkStack
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.linkstack/assets/icon.png
-  version: "1.0.0"
+  version: "4.8.6"

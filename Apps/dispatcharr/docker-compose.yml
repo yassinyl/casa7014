@@ -52,14 +52,4 @@ x-casaos:
     fr_FR: Gestion des flux IPTV et DVR.
   version: "0.33.0"
   update_at: "2026-10-23"
-  release_notes:
-    en_US: |-
--    Dispatcharr v0.33.0 — Highlights
-- Added HLS output support alongside MPEG-TS and fMP4.
-- Improved EPG, catch-up, DVR, and VOD metadata.
-- Enhanced proxy timeouts and stream stability.
-- Fixed channel playback, FFmpeg, and provider connection issues.
-- Improved API security, permissions, and login protection.
-- Updated dependencies with security fixes.
-- Release https://github.com/Dispatcharr/Dispatcharr/releases/tag/v0.33.0⁠
   repo: https://github.com/Dispatcharr/Dispatcharr

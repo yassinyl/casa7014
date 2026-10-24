@@ -2,7 +2,7 @@ name: linkstack
 services:
   linkstack:
     hostname: linkstack
-    image: linkstackorg/linkstack:latest@sha256:5d24b9dcb3908fcde6ed18c49c9176ba8d8bc4d2c2a439bc1dd4066f328488d2
+    image: linkstackorg/linkstack:latest@sha256:b1a16980ad4964aac81e484e1b5c870d37a4d040892607d963b443c2be1f8df1
     environment:
       TZ: $TZ
       SERVER_ADMIN: admin@example.com

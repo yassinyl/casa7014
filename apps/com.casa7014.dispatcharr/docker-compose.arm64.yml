@@ -1,7 +1,7 @@
 name: dispatcharr
 services:
   dispatcharr:
-    image: ghcr.io/dispatcharr/dispatcharr:0.32.0@sha256:dce6a6617b23b221eac59e69544995e2a2c52906da05e41cf367145bf3c4e167
+    image: ghcr.io/dispatcharr/dispatcharr:0.33.0@sha256:686beb4cc5fc2b45be49e581e17c5588baf6f5e0eb5ec5900567406d569b33f2
     container_name: dispatcharr
     restart: unless-stopped
     ports:
@@ -30,4 +30,4 @@ x-casaos:
     es_ES: Dispatcharr
     fr_FR: Dispatcharr
   icon: https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages/apps/com.casa7014.dispatcharr/assets/icon.png
-  version: "0.32.0"
+  version: "0.33.0"

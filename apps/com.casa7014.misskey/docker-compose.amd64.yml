@@ -2,7 +2,7 @@ name: misskey
 
 services:
   config:
-    image: alpine:3.22@sha256:3e9b4b680bfc9fb5269227cffbd6d42be39fbf7c0b908123913864aa4447e764
+    image: alpine:3.22@sha256:dc92f017beea8e7f43263073d717f7bc011228c95d5312e440deb4d035bb4eec
     container_name: misskey-config
     restart: "no"
     environment:
@@ -35,7 +35,7 @@ services:
         fi
 
   db:
-    image: postgres:16-alpine@sha256:1a66d744c1b459e13b05a8fca341da84cb63383e99ce262210efee5a319d4551
+    image: postgres:16-alpine@sha256:cbf42f0edc946c0bc1b8eeed62403734e1f25dc67a3491455d07a92fdb558b28
     container_name: misskey-db
     restart: unless-stopped
     environment:
@@ -53,7 +53,7 @@ services:
       retries: 5
 
   redis:
-    image: redis:7-alpine@sha256:ca0acbb137c1dc3339c8b147a58fd6f42775d4599327b50e7b116c23de501af2
+    image: redis:7-alpine@sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579
     container_name: misskey-redis
     restart: unless-stopped
     volumes:

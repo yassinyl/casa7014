@@ -29,7 +29,8 @@
     {
       "id": "com.casa7014.dispatcharr",
       "title": "Dispatcharr",
-      "tagline": "إدارة بث IPTV والتسجيل."
+      "tagline": "إدارة بث IPTV والتسجيل.",
+      "update_at": "2026-10-23"
     },
     {
       "id": "com.casa7014.fing-agent",

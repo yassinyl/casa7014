@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-10-16T23:50:27Z",
+  "updated_at": "2026-10-24T18:32:59Z",
   "app_count": 19,
   "base_url": "https://cdn.jsdelivr.net/gh/yassinyl/casa7014@gh-pages",
   "apps": [
@@ -69,7 +69,7 @@
       "thumbnail": "/apps/com.casa7014.aria2-pro/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.aria2-pro/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.aria2-pro/meta.json",
-      "content_hash": "17d0be8b",
+      "content_hash": "11a0b06d",
       "version": "1.0.0"
     },
     {
@@ -111,7 +111,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.bootimus/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.bootimus/meta.json",
-      "content_hash": "e970d29e",
+      "content_hash": "632896f2",
       "version": "0.1.76"
     },
     {
@@ -132,8 +132,9 @@
       "thumbnail": "/apps/com.casa7014.dispatcharr/assets/thumbnail.webp",
       "compose_url": "/apps/com.casa7014.dispatcharr/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.dispatcharr/meta.json",
-      "content_hash": "7ea3f5de",
-      "version": "0.32.0"
+      "content_hash": "4eb8cd77",
+      "version": "0.33.0",
+      "update_at": "2026-10-23"
     },
     {
       "id": "com.casa7014.fing-agent",
@@ -238,7 +239,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.linkstack/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.linkstack/meta.json",
-      "content_hash": "51d32087",
+      "content_hash": "21def2b8",
       "version": "4.8.6"
     },
     {
@@ -259,7 +260,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.misskey/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.misskey/meta.json",
-      "content_hash": "8426d2bd",
+      "content_hash": "84d065c8",
       "version": "2025.10.0"
     },
     {
@@ -415,7 +416,7 @@
       "thumbnail": "",
       "compose_url": "/apps/com.casa7014.snikket/docker-compose.yml",
       "meta_url": "/apps/com.casa7014.snikket/meta.json",
-      "content_hash": "2b3b3675",
+      "content_hash": "b732485a",
       "update_at": "2026-06-11"
     }
   ]

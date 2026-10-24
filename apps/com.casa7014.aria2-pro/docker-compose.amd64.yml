@@ -2,7 +2,7 @@ name: aria2-pro
 services:
   ariang:
     container_name: aria2-ariang
-    image: p3terx/ariang:latest@sha256:6becf9f38dedcc78a7808eb2d4fb8693252edebdd89a5c7bc15b10e07198b7fd
+    image: p3terx/ariang:latest@sha256:e5c70f86ef7343533d5f7da3aa2fc3acca7a1955b340b5b6531409bb6a9803ec
     restart: unless-stopped
     ports:
       - target: 6880

@@ -29,7 +29,8 @@
     {
       "id": "com.casa7014.dispatcharr",
       "title": "Dispatcharr",
-      "tagline": "Gestion des flux IPTV et DVR."
+      "tagline": "Gestion des flux IPTV et DVR.",
+      "update_at": "2026-10-23"
     },
     {
       "id": "com.casa7014.fing-agent",

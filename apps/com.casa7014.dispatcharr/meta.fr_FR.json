@@ -2,5 +2,6 @@
   "id": "com.casa7014.dispatcharr",
   "title": "Dispatcharr",
   "description": "Plateforme de gestion IPTV pour chaînes, flux, EPG et DVR.",
-  "tagline": "Gestion des flux IPTV et DVR."
+  "tagline": "Gestion des flux IPTV et DVR.",
+  "update_at": "2026-10-23"
 }

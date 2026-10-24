@@ -2,7 +2,7 @@ name: snikket
 
 services:
   snikket-proxy:
-    image: snikket/snikket-web-proxy:stable@sha256:fa2de62a7371b80c78eb6010d5f59595a1b33ab07962f3e63a341989d7293541
+    image: snikket/snikket-web-proxy:stable@sha256:b2587dbac10ed3133eeb5dbf32d5056063af90e91f9746df678c4f96d197831b
     container_name: snikket-proxy
     restart: unless-stopped
     environment:
